@@ -27,7 +27,7 @@ void	ft_sleep(unsigned long time)
 	start = current_time();
 
 
-	usleep(time * 0.95);
+	usleep(time * 0.80);
 	while (current_time() < start + time)
 	{
 		usleep(10);
@@ -53,16 +53,16 @@ typedef enum e_state
 
 typedef struct	s_philo_ctx
 {
-
 	unsigned int		id;
-	volatile t_state				state;	
-	long 				meals;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
-	unsigned long		last_eat_time;
 	pthread_mutex_t		*console;
-	pthread_mutex_t		state_mtx;
 	t_args				args;
+	volatile t_state
+						state;	
+	volatile unsigned long
+						last_eat_time;
+	volatile long 		meals;
 	volatile int		dead;
 }	t_philo_ctx;
 
@@ -123,8 +123,6 @@ t_philo_ctx	*init_philos_ctx(t_args args, pthread_mutex_t	*table, pthread_mutex_
 		philos_ctx[i].meals = 0;
 		philos_ctx[i].dead = 0;
 
-		pthread_mutex_init(&(philos_ctx[i].state_mtx), 0);
-
 		if (i == args.number_of_philos - 1)
 		{
 			philos_ctx[i].left_fork = table + args.number_of_philos - 1;
@@ -146,16 +144,11 @@ void	*philo_routine(void *data)
 	t_philo_ctx	*ctx;
 
 	ctx = data;
-
 	if (ctx->id % 2)
 		ft_sleep(1);
-
 	while (ctx->meals < ctx->args.number_of_meals
 			|| (ctx->args.number_of_meals < 0))
 	{
-		if (ctx->dead)
-			return (0);
-
 		if (ctx->dead)
 			return (0);
 		pthread_mutex_lock(ctx->left_fork);
@@ -165,46 +158,25 @@ void	*philo_routine(void *data)
 		pthread_mutex_lock(ctx->right_fork);
 		if (ctx->dead)
 			return (0);
-		
-		pthread_mutex_lock(&(ctx->state_mtx));
 		ctx->state = manger; 
 		ctx->last_eat_time = current_time();
-		pthread_mutex_unlock(&(ctx->state_mtx));
-
+		ctx->meals += 1;
 		msg(ctx, "has taken a fork");
 		msg(ctx, "is eating");
 		ft_sleep(ctx->args.time_to_eat);
-		
 		if (ctx->dead)
 			return (0);
 		pthread_mutex_unlock(ctx->right_fork);
 		pthread_mutex_unlock(ctx->left_fork);
-
-
-
-		pthread_mutex_lock(&(ctx->state_mtx));
-		if (ctx->dead)
-			return (0);
 		ctx->state = dormir;
-		pthread_mutex_unlock(&(ctx->state_mtx));
 		msg(ctx, "is sleeping");
 		ft_sleep(ctx->args.time_to_sleep);
 		if (ctx->dead)
 			return (0);
-		pthread_mutex_lock(&(ctx->state_mtx));
-		if (ctx->dead)
-			return (0);
 		ctx->state = penser;	
-		pthread_mutex_unlock(&(ctx->state_mtx));
 		msg(ctx, "is thinking");
 	}
-
-
-
-	pthread_mutex_lock(&(ctx->state_mtx));
 	ctx->state = plus_faim;
-	pthread_mutex_unlock(&(ctx->state_mtx));
-	
 	return (0);
 }
 
@@ -308,20 +280,13 @@ int main(int ac, char **av)
 	watcher_args.args = args;
 	watcher_args.philos_ctx = philos_ctx;
 	watcher_args.philos = philos;
+
 	pthread_create(&watcher, 0, &watch_philos, &watcher_args);
-
-
 	pthread_join(watcher, 0);
 
-	long	i;
-	i = 0;
-	while (i < args.number_of_philos)
-	{
-	//	pthread_join(philos[i], 0);
-		i += 1;
-	}
-
-
+	free(philos);
+	free(philos_ctx);
+	free(table);
 
 	return (0);
 }
