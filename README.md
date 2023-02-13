@@ -4,7 +4,7 @@
 
 **Notes sur le multi-threading :**
 
-- Un programme va quitter tous ses thread en quittant
+- Un programme va quitter tous ses threads non détachés en quittant
 - Lire et écrire un entier CPU est une opération atomique
 - Les opérations atomiques n'ont pas besoin d'être protégées 
 - Les opérations non-atomiques doivent êtres protégées
