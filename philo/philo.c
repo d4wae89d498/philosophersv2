@@ -95,7 +95,7 @@ void	*watch_philos(void *data)
 						&& ++sexit)
 				msg(watcher_args->philos_ctx + i, "died");
 		if (y == watcher_args->args.number_of_philos)
-			return (0);
+			break ;
 	}
 	i = 0;
 	while (i < watcher_args->args.number_of_philos)

@@ -54,8 +54,8 @@ static int		start(t_args args, pthread_mutex_t *console,
 		pthread_create(watcher, 0, &watch_philos, watcher_args);
 		pthread_join(*watcher, 0);
 	}
-	while (args.number_of_philos)
-		pthread_join(philos[(args.number_of_philos)--], 0);
+//	while (args.number_of_philos)
+//		pthread_join(philos[(args.number_of_philos)--], 0);
 	return (r);
 }
 
