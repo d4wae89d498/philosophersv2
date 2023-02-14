@@ -51,7 +51,9 @@ void	routine(t_args args, pid_t id, sem_t *forks, volatile int	*dead)
 		}
 		msg(id, "is thinking");
 		sem_wait(forks);
+		msg(id, "has taken a fork");
 		sem_wait(forks);
+		msg(id, "has taken a fork");
 		msg(id, "is eating");
 		last_meal = current_time();	
 		ft_sleep(args.time_to_eat);
