@@ -60,8 +60,7 @@ void	routine(t_args args, pid_t id, sem_t *forks, volatile int	*dead)
 		sem_post(forks);
 		sem_post(forks);
 		msg(id, "is sleeping");
-
-		if (current_time() - (unsigned long)last_meal + args.time_to_sleep > (unsigned long)args.time_to_die * 1000)
+		if (current_time() - (unsigned long)last_meal + (unsigned long)args.time_to_sleep * 1000 > (unsigned long)args.time_to_die * 1000)
 		{
 			*dead = 1;
 			msg(id, "died");
