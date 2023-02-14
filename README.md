@@ -1,6 +1,6 @@
 # Philosophers 
 
-![Le Dîner des philosophes](https://fr.wikipedia.org/wiki/D%C3%AEner_des_philosophes).
+[Le Dîner des philosophes](https://fr.wikipedia.org/wiki/D%C3%AEner_des_philosophes).
 
 **Notes sur le multi-threading :**
 
