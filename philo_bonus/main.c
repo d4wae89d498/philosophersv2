@@ -40,6 +40,8 @@ void	routine(t_args args, pid_t id, sem_t *forks, volatile int	*dead)
 	unsigned long	last_meal;
 	long			meals;
 
+	if (id % 2)
+		ft_sleep(7);
 	last_meal = 0;
 	meals = 0;
 	while (!*dead)
@@ -56,8 +58,8 @@ void	routine(t_args args, pid_t id, sem_t *forks, volatile int	*dead)
 		msg(id, "has taken a fork");
 		msg(id, "is eating");
 		meals += 1;
-		if (meals >= args.number_of_meals && args.number_of_meals > 0 && ++*dead)
-			exit(0);
+		if (meals >= args.number_of_meals && args.number_of_meals > 0 && (++*dead))
+			return ;
 		last_meal = current_time();	
 		ft_sleep(args.time_to_eat);
 		sem_post(forks);
@@ -70,10 +72,9 @@ void	routine(t_args args, pid_t id, sem_t *forks, volatile int	*dead)
 		}
 		ft_sleep(args.time_to_sleep);
 	}
-	exit(0);
 }
 
-
+#include <signal.h>
 
 int	start(t_args args)
 {
@@ -83,21 +84,28 @@ int	start(t_args args)
 	volatile int	dead;
 
 	dead = 0;
-	forks = sem_open("forks", O_CREAT, 0666, args.number_of_philos);
+	sem_unlink("forks");
+	forks = sem_open("forks", O_CREAT, 0644, args.number_of_philos);
+	if (forks == SEM_FAILED)
+		return (!!printf("Error: sem_open.\n"));
 	i = 0;
 	while (i < args.number_of_philos)
 	{
 		pid = fork();
-		if (pid) 
+		if (!pid) 
 		{
 			routine(args, i + 1, forks, &dead);
+			sem_post(forks);
+			sem_post(forks);
 			exit(0);
 		}
-		waitpid(pid, NULL, 0);
+
 		i += 1;
 	}
+	while (waitpid(-1, 0, 0) > -1)
+		;
 	sem_close(forks);
-	sem_unlink("forks");
+	sem_unlink("forks");	
 	return (0);
 }
 
