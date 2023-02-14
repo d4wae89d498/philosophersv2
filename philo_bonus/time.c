@@ -19,9 +19,7 @@ void	ft_sleep(unsigned long time)
 	start = current_time();
 
 
-	usleep(time * 0.80);
+	usleep(time * 0.95);
 	while (current_time() < start + time)
-	{
-		usleep(10);
-	}
+		usleep(42);
 }
