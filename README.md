@@ -10,7 +10,7 @@
 - Les opérations non-atomiques doivent êtres protégées
 - ``volatile`` protège les entiers CPU des optimisations non thread-safe
 
-**Le diner des philosophes modélisé en Réseau de Petri (wikipedia / CC BY-SA 3.0) :**
+**Le diner des philosophes modélisé en Réseau de Petri (Rp22 wikipedia / CC BY-SA 3.0) :**
 
 ![Threading](https://upload.wikimedia.org/wikipedia/commons/7/78/4-philosophers.gif?20080713171847 "Schema")
 
