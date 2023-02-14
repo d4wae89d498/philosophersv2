@@ -33,14 +33,14 @@ void	*philo_routine(void *data)
 			|| (ctx->args.number_of_meals < 0))
 	{
 		if (ctx->dead)
-			return ((void*)1);
+			break ;
 		if (try_eat(ctx))
-			return ((void*)1);
+			break ;
 		ctx->state = dormir;
 		msg(ctx, "is sleeping");
 		ft_sleep(ctx->args.time_to_sleep);
 		if (ctx->dead)
-			return ((void*)1);
+			break ;
 		ctx->state = penser;	
 		msg(ctx, "is thinking");
 	}

@@ -42,7 +42,7 @@ void	routine(t_args args, pid_t id, sem_t *forks, volatile int	*dead)
 
 	last_meal = 0;
 	meals = 0;
-	while (!*dead && (meals < args.number_of_meals || (args.number_of_meals < 0)))
+	while (!*dead)
 	{          
 		if (current_time() - (unsigned long)last_meal > (unsigned long)args.time_to_die * 1000)
 		{
@@ -55,6 +55,9 @@ void	routine(t_args args, pid_t id, sem_t *forks, volatile int	*dead)
 		sem_wait(forks);
 		msg(id, "has taken a fork");
 		msg(id, "is eating");
+		meals += 1;
+		if (meals >= args.number_of_meals && args.number_of_meals > 0 && ++*dead)
+			exit(0);
 		last_meal = current_time();	
 		ft_sleep(args.time_to_eat);
 		sem_post(forks);
@@ -87,7 +90,7 @@ int	start(t_args args)
 		pid = fork();
 		if (pid) 
 		{
-			routine(args, i, forks, &dead);
+			routine(args, i + 1, forks, &dead);
 			exit(0);
 		}
 		waitpid(pid, NULL, 0);
@@ -118,6 +121,8 @@ int main(int ac, char **av)
 	if (args.number_of_philos < 0 || args.time_to_die < 0
 			|| args.time_to_eat < 0 || args.time_to_sleep < 0)
 		return (!!printf("Error: invalid arguments.\n"));
+	if (args.number_of_meals == 0)
+		return (0);
 	log_args(args);
 	return (start(args));
 }

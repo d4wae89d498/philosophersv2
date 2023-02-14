@@ -99,6 +99,10 @@ void	*watch_philos(void *data)
 	}
 	i = 0;
 	while (i < watcher_args->args.number_of_philos)
+	{	
+		pthread_mutex_unlock(watcher_args->philos_ctx[i].left_fork);
+		pthread_mutex_unlock(watcher_args->philos_ctx[i].right_fork);
 		watcher_args->philos_ctx[i++].dead = 1;
+	}
 	return (0);
 }

@@ -29,6 +29,13 @@ void	log_args(t_args args)
 }
 */
 
+static int		try_destroy(pthread_mutex_t *mtx)
+{
+	if (pthread_mutex_destroy(mtx))
+		return (!!printf("Error: pthread_mutex_destroy.\n"));
+	return (0);
+}
+
 static int		start(t_args args, pthread_mutex_t *console, 
 		pthread_t *watcher, t_watcher_args *watcher_args)
 {
@@ -37,15 +44,14 @@ static int		start(t_args args, pthread_mutex_t *console,
 	pthread_t		philos[MAX_THREADS];
 	int				r;
 
+	if (args.number_of_meals == 0)
+		return (try_destroy(console));
 	r = 0;
 	if (init_table(table, args.number_of_philos))
-		return (!!printf("Error: pthread_mutex_init"));
+		return (!!printf("Error: pthread_mutex_init.\n"));
 	init_philos_ctx(args, console, table, philos_ctx);	
-#if LOG
-	printf("\n");
-#endif
 	if (init_philos(args.number_of_philos, philos_ctx, philos))
-		r = !!printf("Error: pthread_create");
+		r = !!printf("Error: pthread_create.\n");
 	else
 	{
 		watcher_args->args = args;
@@ -54,9 +60,13 @@ static int		start(t_args args, pthread_mutex_t *console,
 		pthread_create(watcher, 0, &watch_philos, watcher_args);
 		pthread_join(*watcher, 0);
 	}
-//	while (args.number_of_philos)
-//		pthread_join(philos[(args.number_of_philos)--], 0);
-	return (r);
+	long i = 0;
+	while (i < (args.number_of_philos))
+	{
+		pthread_join(philos[i], 0);
+		i += 1;
+	}
+	return (!!(r + try_destroy(console)));
 }
 
 int main(int ac, char **av)
@@ -83,6 +93,6 @@ int main(int ac, char **av)
 			|| args.time_to_eat < 0 || args.time_to_sleep < 0)
 			return (!!printf("Error: invalid arguments.\n"));
 	if (pthread_mutex_init(&console, 0))
-		return (!!printf("Error: pthread_mutex_init"));
+		return (!!printf("Error: pthread_mutex_init.\n"));
 	return (start(args, &console, &watcher, &watcher_args));
 }
