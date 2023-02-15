@@ -115,6 +115,7 @@ void	*watch_philos(void *data)
 			}
 		if (y == watcher_args->args.number_of_philos)
 			break ;
+		ft_sleep(1);
 	}
 	i = 0;
 	while (i < watcher_args->args.number_of_philos)

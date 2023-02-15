@@ -17,12 +17,19 @@
 
 **TODO**
 
+
+4 410 200 200 10
+- normal : 4-2
+
+4 410 200 200 15
+- bonus : 4-4
+
 for normal :
 - [x] finish when last eat is done (ok for bonus?)
 - [x] sometimes program dont exit after death
 
 for bonus : 
-- [ ] finish on first death
+- [x] finish on first death
 - [x] 1 thread that watch each philosophers
 - [x] 1 semaphore per philo for dead check
 - [x] maybe 1 semaphore for console 

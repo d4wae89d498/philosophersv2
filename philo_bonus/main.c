@@ -6,13 +6,12 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:14:18 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/15 16:07:02 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/15 16:12:30 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-#include "string.h"
 
 extern int errno;
 
@@ -60,8 +59,8 @@ void	routine(t_args args, pid_t id, sem_t *forks, volatile unsigned long	*last_m
 {
 	long			meals;
 
-//	if (id % 2)
-//		ft_sleep(7);
+	if (id % 2)
+		ft_sleep(1);
 	meals = 0;
 	while (1)
 	{          
@@ -120,10 +119,11 @@ void	*watch(void *data)
 
 		if (cond)
 		{
-			sem_post(watcher_args->console);
+		//	sem_post(watcher_args->console);
 			ft_sleep(1);
 			msg(watcher_args->dead_console, watcher_args->id, "died");
 			sem_post(watcher_args->dead);
+			break ;
 		}
 	}
 
