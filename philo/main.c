@@ -44,6 +44,9 @@ static int		start(t_args args, pthread_mutex_t *console,
 	static pthread_t		philos[MAX_THREADS];
 	int						r;
 	static pthread_mutex_t	dead_console;
+	static volatile int		gdead;
+
+	gdead = 0;
 	if (pthread_mutex_init(&dead_console, 0))
 		return (!!printf("Error: pthread_mutex_init.\n"));
 
@@ -52,7 +55,7 @@ static int		start(t_args args, pthread_mutex_t *console,
 	r = 0;
 	if (init_table(table, args.number_of_philos))
 		return (!!printf("Error: pthread_mutex_init.\n"));
-	init_philos_ctx(args, console, table, philos_ctx, &dead_console);	
+	init_philos_ctx(args, console, table, philos_ctx, &dead_console, &gdead);	
 	if (init_philos(args.number_of_philos, philos_ctx, philos))
 		r = !!printf("Error: pthread_create.\n");
 	else

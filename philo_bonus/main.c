@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:14:18 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/15 13:27:07 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/15 16:07:02 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ void	msg(sem_t *console, int id, char *msg)
 {
 	sem_wait(console);
 
-	printf("%lu philo %i %s\n", (unsigned long)(current_time() / 1000), id, msg);
-fflush(stdout); 
-
+	philo_msg((unsigned long)(current_time() / 1000), id, msg);
 
 	sem_post(console);
 }
@@ -78,10 +76,16 @@ void	routine(t_args args, pid_t id, sem_t *forks, volatile unsigned long	*last_m
 
 
 		*last_meal = current_time();
+		ft_sleep(args.time_to_eat);
 		meals += 1;
 		if (meals >= args.number_of_meals && args.number_of_meals > 0)
+		{
+			*last_meal = LONG_MAX;
+		sem_post(forks);
+		sem_post(forks);
 			return ;
-		ft_sleep(args.time_to_eat);
+		}
+
 		sem_post(forks);
 		sem_post(forks);
 
@@ -111,29 +115,29 @@ void	*watch(void *data)
 	while (1)
 	{
 		ft_sleep(1);
-		int cond = ((current_time() - (unsigned long)*(watcher_args->last_meal))
-					> ((unsigned long)watcher_args->args.time_to_die * 1000));
+		int cond = ((long)(current_time() - *(watcher_args->last_meal))
+					> ((long)watcher_args->args.time_to_die * 1000));
+
 		if (cond)
 		{
-
 			sem_post(watcher_args->console);
-			ft_sleep(4);
-			sem_post(watcher_args->dead);
+			ft_sleep(1);
 			msg(watcher_args->dead_console, watcher_args->id, "died");
-
-
-			break ;
+			sem_post(watcher_args->dead);
 		}
 	}
+
 	return (0);
 }
 
 void	*waite(void *d)
 {
+	sem_t	*dead;
 
-	(void) d;
+	dead = d;
 	while (waitpid(-1, 0, 0) > -1)
 		;
+	sem_post(d);
 	return (0);
 }
 
@@ -143,28 +147,19 @@ int	start(t_args args)
 	pid_t							pid;
 	long							i;
 
-	static sem_t					*dead;
+	static sem_t					*dead[MAX_PROCESS];
 
 	pid_t							childs[MAX_PROCESS];
 
 	sem_t 							*console;
 	sem_t							*dead_console;
 
-	dead = 0;
 	sem_unlink("forks");
 
 	forks = sem_open("forks", O_CREAT, 0644, args.number_of_philos);
 	if (forks == SEM_FAILED)
 		return (!!printf("Error: sem_open.\n"));
-	
-	sem_unlink("dead");
-	dead = sem_open("dead", O_CREAT, 0644, 0);
-	if (forks == SEM_FAILED)
-	{
-		sem_close(forks);
-		sem_unlink("forks");	
-		return (!!printf("Error: sem_open.\n"));
-	}
+
 
 	
 	sem_unlink("console");
@@ -176,6 +171,13 @@ int	start(t_args args)
 	i = -1;
 	while (++i < args.number_of_philos)
 	{
+		char 	s[255];
+
+		s[0] = 'd';
+		s[1] = 'c';
+		ultoa(s + 2, i);
+		sem_unlink(s);
+		dead[i] = sem_open(s, O_CREAT, 0644, 0);
 		pid = fork();
 		if (!pid) 
 		{
@@ -186,30 +188,40 @@ int	start(t_args args)
 
 
 			last_meal = current_time();
-
-			watcher_args.dead = dead;
+			watcher_args.dead = dead[i];
 			watcher_args.last_meal = &last_meal;
 			watcher_args.id = i + 1;
 			watcher_args.args = args;
 			watcher_args.console = console;
 			watcher_args.dead_console = console;
-
 			pthread_create(&watcher, 0, &watch, &watcher_args); 
 			routine(args, i + 1, forks, &last_meal, console);
+			sem_post(dead[i]);
 			pthread_join(watcher, 0);
-		
 			exit(0);
 		}
 		childs[i] = pid;
 	}
 
 	pthread_t	t;
-	pthread_create(&t, 0, &waite, 0);
+	pthread_create(&t, 0, &waite, dead);
 
-		sem_wait(dead);
+
 		i = 0;
 		while (i < args.number_of_philos)
+		{
+			sem_wait(dead[i]);
 			kill(childs[i++], SIGKILL);
+			sem_close(dead[i]);
+			char 	s[255];
+
+			s[0] = 'd';
+			s[1] = 'c';
+			ultoa(s + 2, i);
+			sem_unlink(s);
+		}
+
+
 	
 	pthread_join(t, 0);
 
@@ -217,8 +229,6 @@ int	start(t_args args)
 	sem_unlink("dead_console");	
 	sem_close(console);
 	sem_unlink("console");	
-	sem_close(dead);
-	sem_unlink("dead");	
 	sem_close(forks);
 	sem_unlink("forks");	
 

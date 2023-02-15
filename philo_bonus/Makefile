@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -Werror -Wextra -g
-SRCS=main.c time.c
+SRCS=main.c time.c utils.c
 OBJS=$(SRCS:.c=.o)
 DEPS=Makefile philo.h
 NAME=philo_bonus

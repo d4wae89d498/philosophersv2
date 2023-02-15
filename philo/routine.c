@@ -36,6 +36,9 @@ void	*philo_routine(void *data)
 			break ;
 		if (try_eat(ctx))
 			break ;
+		if (ctx->meals >= ctx->args.number_of_meals &&  (ctx->args.number_of_meals > 0))
+			break ;
+
 		ctx->state = dormir;
 		msg(ctx, "is sleeping");
 		ft_sleep(ctx->args.time_to_sleep);

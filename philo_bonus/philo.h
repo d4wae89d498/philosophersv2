@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:11:56 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/15 09:34:54 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/15 16:03:43 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,6 @@ typedef enum e_state
 }	t_state;
 unsigned long	current_time(void);
 void			ft_sleep(unsigned long time);
+void			philo_msg(unsigned long time, unsigned int id, char *msg);
+void			ultoa(char *o, unsigned long n);
 #endif

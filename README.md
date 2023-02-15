@@ -17,7 +17,12 @@
 
 **TODO**
 
+for normal :
+- [x] finish when last eat is done (ok for bonus?)
+- [x] sometimes program dont exit after death
+
 for bonus : 
-1 thread that watch each philosophers
-1 semaphore for global dead check
-maybe 1 semaphore for console 
+- [ ] finish on first death
+- [x] 1 thread that watch each philosophers
+- [x] 1 semaphore per philo for dead check
+- [x] maybe 1 semaphore for console 

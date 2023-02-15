@@ -42,6 +42,7 @@ typedef struct	s_philo_ctx
 		last_eat_time;
 	volatile long 		meals;
 	volatile int		dead;
+	volatile int		*gdead;
 }	t_philo_ctx;
 typedef struct s_watcher_args
 {
@@ -55,7 +56,7 @@ void	*philo_routine(void *data);
 void	msg(t_philo_ctx *ctx, char *msg);
 int		init_table(pthread_mutex_t *table, long number_of_philos);
 void	init_philos_ctx(t_args args, pthread_mutex_t *console,
-			pthread_mutex_t	*table, t_philo_ctx *philos_ctx, pthread_mutex_t *dead_console);
+			pthread_mutex_t	*table, t_philo_ctx *philos_ctx, pthread_mutex_t *dead_console, volatile int *gdead);
 int		init_philos(long number_of_philos, t_philo_ctx *philos_ctx,
 			pthread_t *philos);
 void	*watch_philos(void *data);
