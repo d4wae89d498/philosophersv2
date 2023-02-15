@@ -34,6 +34,7 @@ typedef struct	s_philo_ctx
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
 	pthread_mutex_t		*console;
+	pthread_mutex_t		*dead_console;
 	t_args				args;
 	volatile t_state
 		state;	
@@ -54,7 +55,7 @@ void	*philo_routine(void *data);
 void	msg(t_philo_ctx *ctx, char *msg);
 int		init_table(pthread_mutex_t *table, long number_of_philos);
 void	init_philos_ctx(t_args args, pthread_mutex_t *console,
-			pthread_mutex_t	*table, t_philo_ctx *philos_ctx);
+			pthread_mutex_t	*table, t_philo_ctx *philos_ctx, pthread_mutex_t *dead_console);
 int		init_philos(long number_of_philos, t_philo_ctx *philos_ctx,
 			pthread_t *philos);
 void	*watch_philos(void *data);

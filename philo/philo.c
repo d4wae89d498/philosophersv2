@@ -8,6 +8,14 @@ void	msg(t_philo_ctx *ctx, char *msg)
 	pthread_mutex_unlock(ctx->console);
 }
 
+void	dead_msg(t_philo_ctx *ctx, char *msg)
+{
+	pthread_mutex_lock(ctx->dead_console);
+	printf("%lu philo %u %s\n", (unsigned long)(current_time() * 0.001),
+			ctx->id, msg);
+	pthread_mutex_unlock(ctx->dead_console);
+}
+
 int	init_table(pthread_mutex_t *table, long number_of_philos)
 {
 	long				i;
@@ -26,7 +34,7 @@ int	init_table(pthread_mutex_t *table, long number_of_philos)
 	return (0);
 }
 
-void	init_philos_ctx(t_args args, pthread_mutex_t *console, pthread_mutex_t	*table, t_philo_ctx *philos_ctx)
+void	init_philos_ctx(t_args args, pthread_mutex_t *console, pthread_mutex_t	*table, t_philo_ctx *philos_ctx, pthread_mutex_t *dead_console)
 {
 	long		i;
 
@@ -37,6 +45,7 @@ void	init_philos_ctx(t_args args, pthread_mutex_t *console, pthread_mutex_t	*tab
 		philos_ctx[i].state = penser;
 		philos_ctx[i].last_eat_time = 0;
 		philos_ctx[i].console = console;
+		philos_ctx[i].dead_console = dead_console;
 		philos_ctx[i].args = args;
 		philos_ctx[i].meals = 0;
 		philos_ctx[i].dead = 0;
@@ -93,7 +102,12 @@ void	*watch_philos(void *data)
 					> (unsigned long)(watcher_args->args.time_to_die) * 1000 
 						&& watcher_args->philos_ctx[i].state != manger
 						&& ++sexit)
-				msg(watcher_args->philos_ctx + i, "died");
+			{
+				pthread_mutex_lock(watcher_args->philos_ctx[i].console);
+				
+				dead_msg(watcher_args->philos_ctx + i, "died");
+
+			}
 		if (y == watcher_args->args.number_of_philos)
 			break ;
 	}

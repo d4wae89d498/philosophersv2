@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:10:39 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/14 23:44:25 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/15 13:32:23 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void	ft_sleep(unsigned long time)
 	start = current_time();
 //	usleep(time * 0.95);
 	while (current_time() < start + time)
-		usleep(500);
+		usleep(100);
 }

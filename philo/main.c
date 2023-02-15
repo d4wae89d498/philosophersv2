@@ -31,8 +31,8 @@ void	log_args(t_args args)
 
 static int		try_destroy(pthread_mutex_t *mtx)
 {
-	if (pthread_mutex_destroy(mtx))
-		return (!!printf("Error: pthread_mutex_destroy.\n"));
+	pthread_mutex_destroy(mtx);//)
+		//return (!!printf("Error: pthread_mutex_destroy.\n"));
 	return (0);
 }
 
@@ -43,13 +43,16 @@ static int		start(t_args args, pthread_mutex_t *console,
 	static pthread_mutex_t	table[MAX_THREADS];
 	static pthread_t		philos[MAX_THREADS];
 	int						r;
+	static pthread_mutex_t	dead_console;
+	if (pthread_mutex_init(&dead_console, 0))
+		return (!!printf("Error: pthread_mutex_init.\n"));
 
 	if (args.number_of_meals == 0)
 		return (try_destroy(console));
 	r = 0;
 	if (init_table(table, args.number_of_philos))
 		return (!!printf("Error: pthread_mutex_init.\n"));
-	init_philos_ctx(args, console, table, philos_ctx);	
+	init_philos_ctx(args, console, table, philos_ctx, &dead_console);	
 	if (init_philos(args.number_of_philos, philos_ctx, philos))
 		r = !!printf("Error: pthread_create.\n");
 	else
@@ -69,6 +72,7 @@ int main(int ac, char **av)
 {
 	static t_args			args;
 	static pthread_mutex_t	console;
+
 	static pthread_t		watcher;
 	static t_watcher_args	watcher_args;
 
@@ -90,5 +94,6 @@ int main(int ac, char **av)
 			return (!!printf("Error: invalid arguments.\n"));
 	if (pthread_mutex_init(&console, 0))
 		return (!!printf("Error: pthread_mutex_init.\n"));
+
 	return (start(args, &console, &watcher, &watcher_args));
 }
