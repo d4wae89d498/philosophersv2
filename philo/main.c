@@ -39,10 +39,10 @@ static int		try_destroy(pthread_mutex_t *mtx)
 static int		start(t_args args, pthread_mutex_t *console, 
 		pthread_t *watcher, t_watcher_args *watcher_args)
 {
-	t_philo_ctx		philos_ctx[MAX_THREADS];
-	pthread_mutex_t	table[MAX_THREADS];
-	pthread_t		philos[MAX_THREADS];
-	int				r;
+	static t_philo_ctx		philos_ctx[MAX_THREADS];
+	static pthread_mutex_t	table[MAX_THREADS];
+	static pthread_t		philos[MAX_THREADS];
+	int						r;
 
 	if (args.number_of_meals == 0)
 		return (try_destroy(console));
@@ -67,10 +67,10 @@ static int		start(t_args args, pthread_mutex_t *console,
 
 int main(int ac, char **av)
 {
-	t_args			args;
-	pthread_mutex_t	console;
-	pthread_t		watcher;
-	t_watcher_args	watcher_args;
+	static t_args			args;
+	static pthread_mutex_t	console;
+	static pthread_t		watcher;
+	static t_watcher_args	watcher_args;
 
 	if (ac != 5 && ac != 6)
 		return (!!printf("Error: invalid arguments.\n"));

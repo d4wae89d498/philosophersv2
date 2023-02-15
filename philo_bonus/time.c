@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   time.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/14 21:10:39 by mfaussur          #+#    #+#             */
+/*   Updated: 2023/02/14 23:44:25 by mfaussur         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-unsigned long	current_time()
+unsigned long	current_time(void)
 {
-	struct timeval 	time;
-	static unsigned long	start;
+	struct timeval							time;
+	static volatile unsigned long			start;
 
 	gettimeofday(&time, 0);
 	if (start == 0)
@@ -17,9 +29,7 @@ void	ft_sleep(unsigned long time)
 
 	time *= 1000;
 	start = current_time();
-
-
-	usleep(time * 0.95);
+//	usleep(time * 0.95);
 	while (current_time() < start + time)
-		usleep(42);
+		usleep(500);
 }

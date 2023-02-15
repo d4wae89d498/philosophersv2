@@ -15,4 +15,9 @@
 ![Threading](https://upload.wikimedia.org/wikipedia/commons/7/78/4-philosophers.gif?20080713171847 "Schema")
 
 
+**TODO**
 
+for bonus : 
+1 thread that watch each philosophers
+1 semaphore for global dead check
+maybe 1 semaphore for console 
