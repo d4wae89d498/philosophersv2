@@ -6,13 +6,13 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:18:05 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/16 06:45:56 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/16 06:49:49 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int		dmtx(pthread_mutex_t *mtx)
+static int	dmtx(pthread_mutex_t *mtx)
 {
 	pthread_mutex_destroy(mtx);
 	return (0);
@@ -35,10 +35,10 @@ static int	manage_mutexes(int destroy, t_mutexes **ptr)
 	}
 	else
 		return (!!(dmtx(&(m.console)) + dmtx(&(m.console))
-			+ dmtx(&(m.dead_console))));
+				+ dmtx(&(m.dead_console))));
 }
 
-static int		start_watcher(t_args args, pthread_t *philos,
+static int	start_watcher(t_args args, pthread_t *philos,
 		t_philo_ctx *philos_ctx)
 {
 	static pthread_t		watcher;
@@ -53,7 +53,7 @@ static int		start_watcher(t_args args, pthread_t *philos,
 	return (0);
 }
 
-static int		start(t_args args)
+static int	start(t_args args)
 {
 	static t_philo_ctx		philos_ctx[MAX_THREADS];
 	static pthread_mutex_t	table[MAX_THREADS];
@@ -61,13 +61,11 @@ static int		start(t_args args)
 	int						r;
 	t_mutexes				*m;
 
-
-
 	if (manage_mutexes(0, &m))
 		return (!!ft_puts("Error: pthread_mutex_init.\n"));
 	if (init_table(table, args.number_of_philos))
-		return (!!ft_puts("Error: pthread_mutex_init.\n") 
-				+ manage_mutexes(1, 0));
+		return (!!ft_puts("Error: pthread_mutex_init.\n")
+			+ manage_mutexes(1, 0));
 	init_philos_ctx(args, table, philos_ctx, m);
 	r = 0;
 	if (init_philos(args.number_of_philos, philos_ctx, philos))
@@ -82,7 +80,6 @@ static int		start(t_args args)
 int	main(int ac, char **av)
 {
 	static t_args			args;
-
 
 	if (ac != 5 && ac != 6)
 		return (!!ft_puts("Error: invalid arguments.\n"));
