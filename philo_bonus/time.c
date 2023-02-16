@@ -6,20 +6,17 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:10:39 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/15 17:01:22 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/15 18:24:19 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-unsigned long	current_time(void)
+unsigned long	current_time(unsigned long start)
 {
 	struct timeval							time;
-	static volatile unsigned long			start;
 
 	gettimeofday(&time, 0);
-	if (start == 0)
-		start = ((time.tv_sec * 1000000 + time.tv_usec));
 	return ((time.tv_sec * 1000000 + time.tv_usec) - start);
 }
 
@@ -28,7 +25,7 @@ void	ft_sleep(unsigned long time)
 	unsigned long	start;
 
 	time *= 1000;
-	start = current_time();
-	while (current_time() < start + time)
+	start = current_time(0);
+	while (current_time(0) < start + time)
 		usleep(100);
 }
