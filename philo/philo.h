@@ -75,6 +75,7 @@ void			ultoa(char *o, unsigned long n);
 long			ft_atol(char *s);
 int				ft_strlen(const char *s);
 void			*philo_routine(void *data);
+void			dead_msg(t_philo_ctx *ctx, char *msg);
 void			msg(t_philo_ctx *ctx, char *msg);
 int				init_table(pthread_mutex_t *table, long number_of_philos);
 void			init_philos_ctx(t_args args, pthread_mutex_t *table,

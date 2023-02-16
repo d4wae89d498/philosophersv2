@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -Werror -Wextra -g # -fsanitize=thread #address
-SRCS=main.c philo.c routine.c time.c utils.c
+SRCS=main.c philo.c routine.c time.c utils.c msg.c
 OBJS=$(SRCS:.c=.o)
 DEPS=Makefile philo.h
 NAME=philo
@@ -20,6 +20,9 @@ clean:
 
 fclean: clean
 	rm -rf $(NAME)
+
+norm:
+	python3 -m norminette
 
 re: fclean all
 
