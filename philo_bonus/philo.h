@@ -20,6 +20,7 @@
 # include <signal.h>
 # include <sys/time.h>
 # include <pthread.h>
+# include <limits.h>
 # ifndef LOG
 #  define LOG 0
 # endif
@@ -42,6 +43,16 @@ typedef enum e_state
 	dormir,
 	plus_faim,
 }	t_state;
+typedef struct s_sems
+{
+	sen_t	*console;
+	sem_t	*dead_console;
+	sem_t	*forks;
+	sem_t	*dead[MAX_PROCESS];
+}	t_sems;
+long			ft_atol(char *s);
+int				ft_strlen(const char *s);
+int				ft_puts(const char *s);
 unsigned long	current_time(unsigned long start);
 void			ft_sleep(unsigned long time);
 void			philo_msg(unsigned long time, unsigned int id, char *msg);

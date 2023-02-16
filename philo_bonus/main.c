@@ -12,38 +12,6 @@
 
 #include "philo.h"
 
-
-extern int errno;
-
-static long	ft_atol(char *s)
-{
-	long	n;
-
-	n = 0;
-	while (*s >= '0' && *s <= '9')
-	{
-		n *= 10;
-		n += *s++ - '0';
-	}
-	if (*s)
-		return (-1);
-	return (n);
-}
-
-/*
-   void	log_args(t_args args)
-   {
-   (void) args;
-#if LOG
-printf("time_to_philos: %li\n", args.number_of_philos);
-printf("time_to_die: %li\n", args.time_to_die);
-printf("time_to_eat: %li\n", args.time_to_eat);
-printf("time_to_sleep: %li\n", args.time_to_sleep);
-printf("number_of_meals: %li\n", args.number_of_meals);
-#endif
-}
-*/
-
 void	msg(sem_t *console, unsigned long start_time, int id, char *msg)
 {
 	sem_wait(console);
@@ -53,8 +21,6 @@ void	msg(sem_t *console, unsigned long start_time, int id, char *msg)
 	sem_post(console);
 }
 
-
-#include <limits.h>
 void	routine(t_args args, pid_t id, sem_t *forks, volatile unsigned long	*last_meal, sem_t *console, unsigned long start_time, sem_t *last_meal_sem)
 {
 	long			meals;
@@ -152,51 +118,47 @@ void	*waite(void *d)
 
 int	start(t_args args)
 {
-	static sem_t					*forks;
-	pid_t							pid;
-	long							i;
-
-	static sem_t					*dead[MAX_PROCESS];
-
-	pid_t							childs[MAX_PROCESS];
-
-	sem_t 							*console;
-	sem_t							*dead_console;
-	unsigned long					start_time;
+	t_sems			sems;
+	pid_t			pid;
+	long			i;
+	unsigned long	start_time;
 	
 
 	sem_unlink("forks");
 
-	forks = sem_open("forks", O_CREAT, 0644, args.number_of_philos);
-	if (forks == SEM_FAILED)
-		return (!!printf("Error: sem_open.\n"));
+	sems.forks = sem_open("forks", O_CREAT, 0644, args.number_of_philos);
+	if (sems.forks == SEM_FAILED)
+		return (!!ft_puts("Error: sem_open.\n"));
 
 
 	
 	sem_unlink("console");
-	console = sem_open("console", O_CREAT, 0644, 1);
+	sems.console = sem_open("console", O_CREAT, 0644, 1);
 
 	sem_unlink("dead_console");
-	dead_console = sem_open("dead_console", O_CREAT, 0644, 1);
+	sems.dead_console = sem_open("dead_console", O_CREAT, 0644, 1);
 
 	start_time = current_time(0);
 
 	i = -1;
 	while (++i < args.number_of_philos)
 	{
-		char 	s[255];
+		char 	dead_sem_label[255];
 
-		s[0] = 'd';
-		s[1] = 'c';
-		ultoa(s + 2, i);
-		sem_unlink(s);
-		dead[i] = sem_open(s, O_CREAT, 0644, 0);
+		dead_sem_label[0] = 'd';
+		dead_sem_label[1] = 'c';
+		ultoa(dead_sem_label + 2, i);
+		sem_unlink(dead_sem_label);
+		sems.dead[i] = sem_open(dead_sem_label, O_CREAT, 0644, 0);
 		pid = fork();
 		if (!pid) 
 		{
 			pthread_t						watcher;
 			sem_t							*last_meal_sem;
-		
+			static volatile unsigned long	last_meal;	
+			t_watcher_args					watcher_args;
+
+
 			s[0] = 'd';
 			s[1] = 'd';
 			ultoa(s + 2, i);
@@ -206,8 +168,7 @@ int	start(t_args args)
 
 
 
-			static volatile unsigned long	last_meal;	
-			t_watcher_args					watcher_args;
+
 
 
 			last_meal = start_time;
@@ -224,6 +185,13 @@ int	start(t_args args)
 			routine(args, i + 1, forks, &last_meal, console, start_time, last_meal_sem);
 			sem_post(dead[i]);
 			pthread_join(watcher, 0);
+			
+			sem_close(last_meal_sem);
+			sem_unlink("dead_console");	
+	
+			sem_close(dead_console);
+			sem_unlink("dead_console");
+
 			exit(0);
 		}
 		childs[i] = pid;
@@ -268,10 +236,9 @@ int	start(t_args args)
 int	main(int ac, char **av)
 {
 	static t_args	args;
-	int				r;
 
 	if (ac != 5 && ac != 6)
-		return (!!printf("Error: invalid arguments.\n"));
+		return (!!ft_puts("Error: invalid arguments.\n"));
 	args.number_of_philos = ft_atol(av[1]);
 	args.time_to_die = ft_atol(av[2]);
 	args.time_to_eat = ft_atol(av[3]);
@@ -281,14 +248,12 @@ int	main(int ac, char **av)
 	{
 		args.number_of_meals = ft_atol(av[5]);
 		if (args.number_of_meals < 0)
-			return (!!printf("Error: invalid arguments.\n"));
+			return (!!ft_puts("Error: invalid arguments.\n"));
+		else if (args.number_of_meals == 0)
+			return (0);
 	}
 	if (args.number_of_philos < 0 || args.time_to_die < 0
 			|| args.time_to_eat < 0 || args.time_to_sleep < 0)
-		return (!!printf("Error: invalid arguments.\n"));
-	if (args.number_of_meals == 0)
-		return (0);
-	r = (start(args));
-
-	return (r);
+		return (!!ft_puts("Error: invalid arguments.\n"));
+	return (start(args));
 }

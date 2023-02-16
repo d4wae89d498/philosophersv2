@@ -12,6 +12,21 @@
 
 #include "philo.h"
 
+long	ft_atol(char *s)
+{
+	long	n;
+
+	n = 0;
+	while (*s >= '0' && *s <= '9')
+	{
+		n *= 10;
+		n += *s++ - '0';
+	}
+	if (*s)
+		return (-1);
+	return (n);
+}
+
 void	ultoa(char *o, unsigned long n)
 {
 	unsigned char	pow;
@@ -35,13 +50,22 @@ void	ultoa(char *o, unsigned long n)
 	}
 }
 
-static unsigned int	ft_strlen(const char *s)
+int	ft_strlen(const char *s)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
 	while (*s++)
 		i += 1;
+	return (i);
+}
+
+int	ft_puts(const char *s)
+{
+	int	i;
+
+	i = ft_strlen(s);
+	write(1, s, i);
 	return (i);
 }
 
@@ -50,13 +74,11 @@ void	philo_msg(unsigned long time, unsigned int id, char *msg)
 	char	s[32];
 
 	ultoa(s, time);
-	write(1, s, ft_strlen(s));
-	write(1, " philo ", 7);
-
+	ft_puts(s);
+	ft_puts(" philo ");
 	ultoa(s, id);
-	write(1, s, ft_strlen(s));
-	write(1, " ", 1);
-
-	write(1, msg, ft_strlen(msg));
-	write(1, "\n", 1);
+	ft_puts(s);
+	ft_puts(" ");
+	ft_puts(msg);
+	ft_puts("\n");
 }

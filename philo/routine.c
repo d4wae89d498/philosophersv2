@@ -42,6 +42,27 @@ static int	a_plus_faim(t_philo_ctx *ctx)
 		&& (ctx->args.number_of_meals > 0));
 }
 
+static int	routine_sleep(t_philo_ctx *ctx)
+{
+	int	cond;
+
+	pthread_mutex_lock(&(ctx->state_mtx));
+	ctx->state = dormir;
+	pthread_mutex_unlock(&(ctx->state_mtx));
+	msg(ctx, "is sleeping");
+	ft_sleep(ctx->args.time_to_sleep);
+	pthread_mutex_lock(&(ctx->state_mtx));
+	cond = ctx->dead;
+	pthread_mutex_unlock(&(ctx->state_mtx));
+	if (cond)
+		return (1);
+	pthread_mutex_lock(&(ctx->state_mtx));
+	ctx->state = penser;
+	pthread_mutex_unlock(&(ctx->state_mtx));
+	msg(ctx, "is thinking");
+	return (0);
+}
+
 static int	routine_tick(t_philo_ctx *ctx)
 {
 	int				cond;
@@ -58,17 +79,7 @@ static int	routine_tick(t_philo_ctx *ctx)
 	pthread_mutex_unlock(&(ctx->state_mtx));
 	if (cond)
 		return (1);
-	ctx->state = dormir;
-	msg(ctx, "is sleeping");
-	ft_sleep(ctx->args.time_to_sleep);
-	pthread_mutex_lock(&(ctx->state_mtx));
-	cond = ctx->dead;
-	pthread_mutex_unlock(&(ctx->state_mtx));
-	if (cond)
-		return (1);
-	ctx->state = penser;
-	msg(ctx, "is thinking");
-	return (0);
+	return (routine_sleep(ctx));
 }
 
 void	*philo_routine(void *data)

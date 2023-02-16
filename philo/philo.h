@@ -28,11 +28,12 @@
 
 typedef struct s_args
 {
-	long	number_of_philos;
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_to_sleep;
-	long	number_of_meals;
+	long			number_of_philos;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			number_of_meals;
+	unsigned long	start;
 }	t_args;
 typedef enum e_state
 {
@@ -70,6 +71,8 @@ typedef struct s_watcher_args
 	t_philo_ctx	*philos_ctx;
 	t_args		args;
 }	t_watcher_args;
+int				destroy_philos_ctx(t_philo_ctx *philos_ctx,
+					long number_of_philos);
 int				ft_puts(char *str);
 void			ultoa(char *o, unsigned long n);
 long			ft_atol(char *s);
@@ -78,7 +81,7 @@ void			*philo_routine(void *data);
 void			dead_msg(t_philo_ctx *ctx, char *msg);
 void			msg(t_philo_ctx *ctx, char *msg);
 int				init_table(pthread_mutex_t *table, long number_of_philos);
-void			init_philos_ctx(t_args args, pthread_mutex_t *table,
+int				init_philos_ctx(t_args args, pthread_mutex_t *table,
 					t_philo_ctx *philos_ctx, t_mutexes *m);
 int				init_philos(long number_of_philos, t_philo_ctx *philos_ctx,
 					pthread_t *philos);

@@ -58,23 +58,24 @@ static int	start(t_args args)
 	static t_philo_ctx		philos_ctx[MAX_THREADS];
 	static pthread_mutex_t	table[MAX_THREADS];
 	static pthread_t		philos[MAX_THREADS];
-	int						r;
 	t_mutexes				*m;
 
+	args.start = current_time(0);
 	if (manage_mutexes(0, &m))
 		return (!!ft_puts("Error: pthread_mutex_init.\n"));
-	if (init_table(table, args.number_of_philos))
-		return (!!ft_puts("Error: pthread_mutex_init.\n")
-			+ manage_mutexes(1, 0));
-	init_philos_ctx(args, table, philos_ctx, m);
-	r = 0;
+	if (init_table(table, args.number_of_philos)
+		|| init_philos_ctx(args, table, philos_ctx, m))
+		return (manage_mutexes(1, 0));
 	if (init_philos(args.number_of_philos, philos_ctx, philos))
-		r = !!ft_puts("Error: pthread_create.\n");
-	else
-		r = start_watcher(args, philos, philos_ctx);
+		return (!!(manage_mutexes(1, 0)
+				+ destroy_philos_ctx(philos_ctx, args.number_of_philos) + 1));
+	if (start_watcher(args, philos, philos_ctx))
+		return (!!(manage_mutexes(1, 0)
+				+ destroy_philos_ctx(philos_ctx, args.number_of_philos) + 1));
 	while ((args.number_of_philos)--)
 		pthread_join(philos[args.number_of_philos], 0);
-	return (!!(r + manage_mutexes(1, 0)));
+	return (!!(manage_mutexes(1, 0)
+			+ destroy_philos_ctx(philos_ctx, args.number_of_philos) + 1));
 }
 
 int	main(int ac, char **av)
