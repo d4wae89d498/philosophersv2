@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:11:56 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/15 18:21:53 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/16 22:56:40 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ typedef enum e_state
 }	t_state;
 typedef struct s_sems
 {
-	sen_t	*console;
+	sem_t	*console;
 	sem_t	*dead_console;
 	sem_t	*forks;
-	sem_t	*dead[MAX_PROCESS];
+	sem_t	*dead;
 }	t_sems;
 long			ft_atol(char *s);
 int				ft_strlen(const char *s);

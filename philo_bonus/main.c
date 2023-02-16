@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:14:18 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/15 18:48:33 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/16 23:01:14 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	msg(sem_t *console, unsigned long start_time, int id, char *msg)
 {
-	sem_wait(console);
-
+	if (console)
+		sem_wait(console);
 	philo_msg((unsigned long)(current_time(start_time) / 1000), id, msg);
-
-	sem_post(console);
+	if (console)
+		sem_post(console);
 }
 
 void	routine(t_args args, pid_t id, sem_t *forks, volatile unsigned long	*last_meal, sem_t *console, unsigned long start_time, sem_t *last_meal_sem)
@@ -94,10 +94,22 @@ void	*watch(void *data)
 		sem_post(watcher_args->last_meal_sem);
 		if (cond)
 		{
-		//	sem_post(watcher_args->console);
+			/*
 			ft_sleep(1);
 			msg(watcher_args->dead_console, watcher_args->start_time, watcher_args->id, "died");
 			sem_post(watcher_args->dead);
+			*/
+
+			
+			sem_wait(watcher_args->console);
+			
+		//	sem_post(watcher_args->dead);
+			msg(0, watcher_args->start_time, watcher_args->id, "died");
+
+			sem_post(watcher_args->dead);
+			//ft_sleep(1);
+			//sem_post(watcher_args->console);
+			
 			break ;
 		}
 	}
@@ -122,7 +134,7 @@ int	start(t_args args)
 	pid_t			pid;
 	long			i;
 	unsigned long	start_time;
-	
+	pid_t			childs[MAX_PROCESS];	
 
 	sem_unlink("forks");
 
@@ -140,6 +152,10 @@ int	start(t_args args)
 
 	start_time = current_time(0);
 
+	const char *dead_sem_label = "dead";
+	sem_unlink(dead_sem_label);
+	sems.dead = sem_open(dead_sem_label, O_CREAT, 0644, 0);
+
 	i = -1;
 	while (++i < args.number_of_philos)
 	{
@@ -149,7 +165,7 @@ int	start(t_args args)
 		dead_sem_label[1] = 'c';
 		ultoa(dead_sem_label + 2, i);
 		sem_unlink(dead_sem_label);
-		sems.dead[i] = sem_open(dead_sem_label, O_CREAT, 0644, 0);
+
 		pid = fork();
 		if (!pid) 
 		{
@@ -157,14 +173,15 @@ int	start(t_args args)
 			sem_t							*last_meal_sem;
 			static volatile unsigned long	last_meal;	
 			t_watcher_args					watcher_args;
+			char							last_meal_sem_label[255];
+
+			last_meal_sem_label[0] = 'd';
+			last_meal_sem_label[1] = 'd';
+			ultoa(last_meal_sem_label + 2, i);
+			sem_unlink(last_meal_sem_label);
 
 
-			s[0] = 'd';
-			s[1] = 'd';
-			ultoa(s + 2, i);
-			sem_unlink(s);
-
-			last_meal_sem = sem_open(s, O_CREAT, 0644, 1);
+			last_meal_sem = sem_open(last_meal_sem_label, O_CREAT, 0644, 1);
 
 
 
@@ -175,22 +192,19 @@ int	start(t_args args)
 
 			watcher_args.last_meal_sem = last_meal_sem;
 			watcher_args.start_time = start_time;
-			watcher_args.dead = dead[i];
+			watcher_args.dead = sems.dead;
 			watcher_args.last_meal = &last_meal;
 			watcher_args.id = i + 1;
 			watcher_args.args = args;
-			watcher_args.console = console;
-			watcher_args.dead_console = console;
+			watcher_args.console = sems.console;
+			watcher_args.dead_console = sems.dead_console;
 			pthread_create(&watcher, 0, &watch, &watcher_args); 
-			routine(args, i + 1, forks, &last_meal, console, start_time, last_meal_sem);
-			sem_post(dead[i]);
+			routine(args, i + 1, sems.forks, &last_meal, sems.console, start_time, last_meal_sem);
+			sem_post(sems.dead);
 			pthread_join(watcher, 0);
-			
+		
 			sem_close(last_meal_sem);
-			sem_unlink("dead_console");	
-	
-			sem_close(dead_console);
-			sem_unlink("dead_console");
+			sem_unlink(last_meal_sem_label);
 
 			exit(0);
 		}
@@ -198,32 +212,31 @@ int	start(t_args args)
 	}
 
 	pthread_t	t;
-	pthread_create(&t, 0, &waite, dead);
+	pthread_create(&t, 0, &waite, sems.dead);
 
 
+		sem_wait(sems.dead);
 		i = 0;
 		while (i < args.number_of_philos)
 		{
-			sem_wait(dead[i]);
-			kill(childs[i++], SIGKILL);
-			sem_close(dead[i]);
+			kill(childs[i], SIGKILL);
 			char 	s[255];
-
 			s[0] = 'd';
-			s[1] = 'c';
+			s[1] = 'd';
 			ultoa(s + 2, i);
 			sem_unlink(s);
+			i += 1;
 		}
 
 
 	
 	pthread_join(t, 0);
 
-	sem_close(dead_console);
+	sem_close(sems.dead_console);
 	sem_unlink("dead_console");	
-	sem_close(console);
+	sem_close(sems.console);
 	sem_unlink("console");	
-	sem_close(forks);
+	sem_close(sems.forks);
 	sem_unlink("forks");	
 
 	exit(0);
