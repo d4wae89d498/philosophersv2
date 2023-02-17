@@ -68,17 +68,3 @@ int	ft_puts(const char *s)
 	write(1, s, i);
 	return (i);
 }
-
-void	philo_msg(unsigned long time, unsigned int id, char *msg)
-{
-	char	s[32];
-
-	ultoa(s, time);
-	ft_puts(s);
-	ft_puts(" philo ");
-	ultoa(s, id);
-	ft_puts(s);
-	ft_puts(" ");
-	ft_puts(msg);
-	ft_puts("\n");
-}

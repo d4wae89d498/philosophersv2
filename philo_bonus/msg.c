@@ -1,39 +1,24 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   msg.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 15:54:16 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/15 16:00:25 by mfaussur         ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "philo.h"
-
-unsigned int	ft_strlen(const char *s)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (*s++)
-		i += 1;
-	return (i);
-}
 
 void	philo_msg(unsigned long time, unsigned int id, char *msg)
 {
 	char	s[32];
 
 	ultoa(s, time);
-	write(1, s, ft_strlen(s));
-	write(1, "\tphilo ", 6);
-
+	ft_puts(s);
+	ft_puts(" philo ");
 	ultoa(s, id);
-	write(1, s, ft_strlen(s));
-	write(1, "\t", 1);
+	ft_puts(s);
+	ft_puts(" ");
+	ft_puts(msg);
+	ft_puts("\n");
+}
 
-	write(1, msg, ft_strlen(msg));
-	write(1, "\n", 1);
+void	msg(sem_t *console, unsigned long start_time, int id, char *msg)
+{
+	if (console)
+		sem_wait(console);
+	philo_msg((unsigned long)(current_time(start_time) / 1000), id, msg);
+	if (console)
+		sem_post(console);
 }

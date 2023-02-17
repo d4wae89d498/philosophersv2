@@ -28,6 +28,13 @@
 #  define MAX_PROCESS 84000
 # endif
 
+typedef struct s_sems
+{
+	sem_t	*console;
+	sem_t	*forks;
+	sem_t	*dead;
+	sem_t	*last_meal;
+}	t_sems;
 typedef struct s_args
 {
 	long	number_of_philos;
@@ -35,6 +42,7 @@ typedef struct s_args
 	long	time_to_eat;
 	long	time_to_sleep;
 	long	number_of_meals;
+	t_sems	sems;
 }	t_args;
 typedef enum e_state
 {
@@ -43,18 +51,28 @@ typedef enum e_state
 	dormir,
 	plus_faim,
 }	t_state;
-typedef struct s_sems
+typedef struct s_watcher_args
 {
-	sem_t	*console;
-	sem_t	*dead_console;
-	sem_t	*forks;
-	sem_t	*dead;
-}	t_sems;
+	unsigned long			*last_meal;
+	sem_t					*last_meal_sem;
+	unsigned long			start_time;
+	sem_t					*dead;
+	unsigned int			id;
+	t_args					args;
+	sem_t					*console;
+}	t_watcher_args;
 long			ft_atol(char *s);
 int				ft_strlen(const char *s);
 int				ft_puts(const char *s);
+void			ultoa(char *o, unsigned long n);
 unsigned long	current_time(unsigned long start);
 void			ft_sleep(unsigned long time);
 void			philo_msg(unsigned long time, unsigned int id, char *msg);
-void			ultoa(char *o, unsigned long n);
+void			msg(sem_t *console, unsigned long start_time, int id,
+					char *msg);
+void			routine(t_args args, pid_t id, unsigned long *last_meal,
+					unsigned long start_time);
+int				init_sems(t_sems *sems, long number_of_philos);
+void			*watch(void *data);
+int				destroy_sems(t_sems *sems);
 #endif
