@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:14:18 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/16 23:01:14 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/19 13:38:24 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	*wait_childs(void *d)
 	dead = d;
 	while (waitpid(-1, 0, 0) > -1)
 		;
-	sem_post(d);
+	sem_post(dead);
 	return (0);
 }
 
@@ -124,8 +124,9 @@ int	main(int ac, char **av)
 		else if (args.number_of_meals == 0)
 			return (0);
 	}
-	if (args.number_of_philos < 0 || args.time_to_die < 0
-		|| args.time_to_eat < 0 || args.time_to_sleep < 0)
+	if (args.number_of_philos < 2 || args.time_to_die < 0
+		|| args.time_to_eat < 0 || args.time_to_sleep < 0
+		|| args.number_of_philos > MAX_PROCESS)
 		return (!!ft_puts("Error: invalid arguments.\n"));
 	return (start(args));
 }

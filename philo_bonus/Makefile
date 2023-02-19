@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Werror -Wextra -g #-fsanitize=address#-fsanitize=thread#address
+CFLAGS=-Wall -Werror -Wextra -g#-fsanitize=thread#address
 SRCS=main.c time.c utils.c routine.c init.c watch.c msg.c
 OBJS=$(SRCS:.c=.o)
 DEPS=Makefile philo.h
@@ -13,7 +13,7 @@ all: 		$(NAME)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME):	$(OBJS) 
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -lpthread -o $(NAME)
 
 clean:
 	rm -rf $(OBJS)
@@ -21,9 +21,6 @@ clean:
 fclean: clean
 	rm -rf $(NAME)
 
-norm:
-	python3 -m norminette
-
 re: fclean all
 
-.PHONY: all clean fclean re philo
+.PHONY: all clean fclean re philo_bonus

@@ -13,16 +13,13 @@ all: 		$(NAME)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME):	$(OBJS) 
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -lpthread -o $(NAME)
 
 clean:
 	rm -rf $(OBJS)
 
 fclean: clean
 	rm -rf $(NAME)
-
-norm:
-	python3 -m norminette
 
 re: fclean all
 

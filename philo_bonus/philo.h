@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:11:56 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/16 22:56:40 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/19 11:23:26 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <limits.h>
+# include <sys/wait.h>
+# include <fcntl.h>
 # ifndef LOG
 #  define LOG 0
 # endif

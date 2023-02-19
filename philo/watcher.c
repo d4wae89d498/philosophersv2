@@ -1,17 +1,13 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   watcher.c                                        .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   Authors: marvin                                +:+   +:    +:    +:+     */
-/*   <marvin@42lyon.fr>                            #+#   #+    #+    #+#      */
-/*                                                #+#   ##    ##    #+#       */
-/*                                               ###    #+./ #+    ###.fr     */
-/*                                                        /   UNIV -          */
-/*                                               | |  _  / ___ _ _   / |      */
-/*   Created: 2023/02/16 08:48:51 by marvin      | |_| || / _ \ ' \  | |      */
-/*   Updated: 2023/02/16 18:16:21 by marvin      |____\_, \___/_||_| |_|      */
-/*                                                    /__/            .fr     */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   watcher.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/19 11:42:51 by mafaussu          #+#    #+#             */
+/*   Updated: 2023/02/19 12:59:58 by mafaussu         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
@@ -66,15 +62,14 @@ void	*watch_philos(void *data)
 	while (!sexit)
 		if (watcher_tick(watcher_args, &sexit))
 			break ;
+	pthread_mutex_lock(watcher_args->philos_ctx[0].console);
 	i = 0;
 	while (i < watcher_args->args.number_of_philos)
 	{	
-		pthread_mutex_unlock(watcher_args->philos_ctx[i].left_fork);
-		pthread_mutex_unlock(watcher_args->philos_ctx[i].right_fork);
 		pthread_mutex_lock(&(watcher_args->philos_ctx[i].state_mtx));
 		watcher_args->philos_ctx[i].dead = 1;
-		pthread_mutex_unlock(&(watcher_args->philos_ctx[i].state_mtx));
 		i += 1;
 	}
+	pthread_mutex_unlock(watcher_args->philos_ctx[0].console);
 	return (0);
 }

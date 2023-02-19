@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:18:05 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/16 06:49:49 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/19 13:38:02 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	start(t_args args)
 		return (!!(manage_mutexes(1, 0)
 				+ destroy_philos_ctx(philos_ctx, args.number_of_philos) + 1));
 	while ((args.number_of_philos)--)
-		pthread_join(philos[args.number_of_philos], 0);
+		pthread_detach(philos[args.number_of_philos]);
 	return (!!(manage_mutexes(1, 0)
 			+ destroy_philos_ctx(philos_ctx, args.number_of_philos) + 1));
 }
@@ -97,8 +97,9 @@ int	main(int ac, char **av)
 		else if (args.number_of_meals == 0)
 			return (0);
 	}
-	if (args.number_of_philos < 0 || args.time_to_die < 0
-		|| args.time_to_eat < 0 || args.time_to_sleep < 0)
+	if (args.number_of_philos < 2 || args.time_to_die < 0
+		|| args.time_to_eat < 0 || args.time_to_sleep < 0
+		|| args.number_of_philos > MAX_THREADS)
 		return (!!ft_puts("Error: invalid arguments.\n"));
 	return (start(args));
 }
