@@ -14,29 +14,11 @@
 
 static int	dmtx(pthread_mutex_t *mtx)
 {
-	pthread_mutex_destroy(mtx);
-	return (0);
+	(void) mtx;
+	//pthread_mutex_destroy(mtx);
+	return (1);
 }
 
-static int	manage_mutexes(int destroy, t_mutexes **ptr)
-{
-	static t_mutexes	m;
-
-	if (!destroy)
-	{
-		*ptr = &m;
-		if (pthread_mutex_init(&(m.console), 0))
-			return (1);
-		if (pthread_mutex_init(&(m.dead_console), 0))
-			return (!!(dmtx(&(m.console) + 1)));
-		if (pthread_mutex_init(&(m.gdead_mtx), 0))
-			return (!!(dmtx(&(m.console)) + dmtx(&(m.dead_console) + 1)));
-		return (0);
-	}
-	else
-		return (!!(dmtx(&(m.console)) + dmtx(&(m.console))
-				+ dmtx(&(m.dead_console))));
-}
 
 static int	start_watcher(t_args args, pthread_t *philos,
 		t_philo_ctx *philos_ctx)
@@ -58,24 +40,24 @@ static int	start(t_args args)
 	static t_philo_ctx		philos_ctx[MAX_THREADS];
 	static pthread_mutex_t	table[MAX_THREADS];
 	static pthread_t		philos[MAX_THREADS];
-	t_mutexes				*m;
+	pthread_mutex_t			console;
 
 	args.start = current_time(0);
-	if (manage_mutexes(0, &m))
+	if (pthread_mutex_init(&console, 0))
 		return (!!ft_puts("Error: pthread_mutex_init.\n"));
 	if (init_table(table, args.number_of_philos)
-		|| init_philos_ctx(args, table, philos_ctx, m))
-		return (manage_mutexes(1, 0));
+		|| init_philos_ctx(args, table, philos_ctx, &console))
+		return (!!dmtx(&console));
 	if (init_philos(args.number_of_philos, philos_ctx, philos))
-		return (!!(manage_mutexes(1, 0)
+		return (!!(dmtx(&console)
 				+ destroy_philos_ctx(philos_ctx, args.number_of_philos) + 1));
 	if (start_watcher(args, philos, philos_ctx))
-		return (!!(manage_mutexes(1, 0)
+		return (!!(dmtx(&console)
 				+ destroy_philos_ctx(philos_ctx, args.number_of_philos) + 1));
 	while ((args.number_of_philos)--)
 		pthread_detach(philos[args.number_of_philos]);
-	return (!!(manage_mutexes(1, 0)
-			+ destroy_philos_ctx(philos_ctx, args.number_of_philos) + 1));
+	return (!!(dmtx(&console))
+			+ destroy_philos_ctx(philos_ctx, args.number_of_philos) + 1);
 }
 
 int	main(int ac, char **av)
@@ -97,9 +79,10 @@ int	main(int ac, char **av)
 		else if (args.number_of_meals == 0)
 			return (0);
 	}
-	if (args.number_of_philos < 2 || args.time_to_die < 0
+	if (args.number_of_philos < 1 || args.time_to_die < 0
 		|| args.time_to_eat < 0 || args.time_to_sleep < 0
 		|| args.number_of_philos > MAX_THREADS)
 		return (!!ft_puts("Error: invalid arguments.\n"));
+	
 	return (start(args));
 }

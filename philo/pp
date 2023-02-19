@@ -1,0 +1,591 @@
+0 philo 2 has taken a fork
+0 philo 2 has taken a fork
+0 philo 2 is eating
+0 philo 4 has taken a fork
+0 philo 4 has taken a fork
+0 philo 4 is eating
+0 philo 6 has taken a fork
+0 philo 6 has taken a fork
+0 philo 6 is eating
+0 philo 8 has taken a fork
+0 philo 8 has taken a fork
+0 philo 8 is eating
+0 philo 10 has taken a fork
+0 philo 10 has taken a fork
+0 philo 10 is eating
+0 philo 12 has taken a fork
+0 philo 12 has taken a fork
+0 philo 12 is eating
+1 philo 14 has taken a fork
+1 philo 14 has taken a fork
+1 philo 14 is eating
+1 philo 16 has taken a fork
+1 philo 16 has taken a fork
+1 philo 16 is eating
+1 philo 18 has taken a fork
+1 philo 18 has taken a fork
+1 philo 18 is eating
+1 philo 20 has taken a fork
+1 philo 20 has taken a fork
+1 philo 20 is eating
+1 philo 1 has taken a fork
+1 philo 22 has taken a fork
+1 philo 22 has taken a fork
+1 philo 22 is eating
+1 philo 24 has taken a fork
+1 philo 24 has taken a fork
+1 philo 24 is eating
+1 philo 26 has taken a fork
+1 philo 26 has taken a fork
+1 philo 26 is eating
+1 philo 28 has taken a fork
+1 philo 28 has taken a fork
+1 philo 28 is eating
+1 philo 30 has taken a fork
+1 philo 30 has taken a fork
+1 philo 30 is eating
+2 philo 32 has taken a fork
+2 philo 32 has taken a fork
+2 philo 32 is eating
+2 philo 34 has taken a fork
+2 philo 34 has taken a fork
+2 philo 34 is eating
+2 philo 36 has taken a fork
+2 philo 36 has taken a fork
+2 philo 36 is eating
+2 philo 38 has taken a fork
+2 philo 38 has taken a fork
+2 philo 38 is eating
+2 philo 40 has taken a fork
+2 philo 40 has taken a fork
+2 philo 40 is eating
+2 philo 42 has taken a fork
+2 philo 42 has taken a fork
+2 philo 42 is eating
+2 philo 44 has taken a fork
+2 philo 44 has taken a fork
+2 philo 44 is eating
+2 philo 46 has taken a fork
+2 philo 46 has taken a fork
+2 philo 46 is eating
+2 philo 48 has taken a fork
+2 philo 48 has taken a fork
+2 philo 48 is eating
+2 philo 50 has taken a fork
+2 philo 50 has taken a fork
+2 philo 50 is eating
+3 philo 52 has taken a fork
+3 philo 52 has taken a fork
+3 philo 52 is eating
+3 philo 54 has taken a fork
+3 philo 54 has taken a fork
+3 philo 54 is eating
+3 philo 56 has taken a fork
+3 philo 56 has taken a fork
+3 philo 56 is eating
+3 philo 58 has taken a fork
+3 philo 58 has taken a fork
+3 philo 58 is eating
+3 philo 60 has taken a fork
+3 philo 60 has taken a fork
+3 philo 60 is eating
+3 philo 62 has taken a fork
+3 philo 62 has taken a fork
+3 philo 62 is eating
+3 philo 64 has taken a fork
+3 philo 64 has taken a fork
+3 philo 64 is eating
+3 philo 66 has taken a fork
+3 philo 66 has taken a fork
+3 philo 66 is eating
+3 philo 68 has taken a fork
+3 philo 68 has taken a fork
+3 philo 68 is eating
+3 philo 70 has taken a fork
+3 philo 70 has taken a fork
+3 philo 70 is eating
+3 philo 72 has taken a fork
+3 philo 72 has taken a fork
+3 philo 72 is eating
+3 philo 74 has taken a fork
+3 philo 74 has taken a fork
+3 philo 74 is eating
+3 philo 76 has taken a fork
+3 philo 76 has taken a fork
+3 philo 76 is eating
+3 philo 78 has taken a fork
+3 philo 78 has taken a fork
+3 philo 78 is eating
+3 philo 80 has taken a fork
+3 philo 80 has taken a fork
+3 philo 80 is eating
+3 philo 82 has taken a fork
+3 philo 82 has taken a fork
+3 philo 82 is eating
+3 philo 84 has taken a fork
+3 philo 84 has taken a fork
+3 philo 84 is eating
+3 philo 86 has taken a fork
+3 philo 86 has taken a fork
+3 philo 86 is eating
+3 philo 88 has taken a fork
+3 philo 88 has taken a fork
+3 philo 88 is eating
+3 philo 90 has taken a fork
+3 philo 90 has taken a fork
+3 philo 90 is eating
+3 philo 92 has taken a fork
+3 philo 92 has taken a fork
+3 philo 92 is eating
+3 philo 94 has taken a fork
+3 philo 94 has taken a fork
+3 philo 94 is eating
+3 philo 96 has taken a fork
+3 philo 96 has taken a fork
+3 philo 96 is eating
+3 philo 98 has taken a fork
+3 philo 98 has taken a fork
+3 philo 98 is eating
+3 philo 100 has taken a fork
+200 philo 6 is sleeping
+200 philo 7 has taken a fork
+200 philo 7 has taken a fork
+200 philo 7 is eating
+200 philo 8 is sleeping
+201 philo 16 is sleeping
+201 philo 17 has taken a fork
+202 philo 50 is sleeping
+202 philo 46 is sleeping
+202 philo 47 has taken a fork
+202 philo 42 is sleeping
+202 philo 12 is sleeping
+202 philo 13 has taken a fork
+203 philo 40 is sleeping
+203 philo 14 is sleeping
+203 philo 13 has taken a fork
+203 philo 13 is eating
+203 philo 38 is sleeping
+203 philo 22 is sleeping
+203 philo 28 is sleeping
+203 philo 24 is sleeping
+203 philo 29 has taken a fork
+203 philo 26 is sleeping
+203 philo 30 is sleeping
+203 philo 29 has taken a fork
+203 philo 20 is sleeping
+203 philo 29 is eating
+203 philo 32 is sleeping
+203 philo 19 has taken a fork
+203 philo 19 has taken a fork
+203 philo 18 is sleeping
+203 philo 34 is sleeping
+203 philo 35 has taken a fork
+203 philo 19 is eating
+203 philo 51 has taken a fork
+203 philo 37 has taken a fork
+203 philo 41 has taken a fork
+203 philo 36 is sleeping
+203 philo 37 has taken a fork
+203 philo 41 has taken a fork
+203 philo 37 is eating
+203 philo 41 is eating
+203 philo 35 has taken a fork
+203 philo 35 is eating
+203 philo 44 is sleeping
+203 philo 48 is sleeping
+203 philo 52 is sleeping
+203 philo 54 is sleeping
+203 philo 56 is sleeping
+203 philo 58 is sleeping
+203 philo 60 is sleeping
+203 philo 62 is sleeping
+203 philo 64 is sleeping
+203 philo 66 is sleeping
+203 philo 68 is sleeping
+203 philo 70 is sleeping
+203 philo 72 is sleeping
+203 philo 74 is sleeping
+203 philo 76 is sleeping
+203 philo 78 is sleeping
+203 philo 80 is sleeping
+203 philo 82 is sleeping
+203 philo 84 is sleeping
+203 philo 86 is sleeping
+203 philo 63 has taken a fork
+203 philo 63 has taken a fork
+203 philo 63 is eating
+203 philo 71 has taken a fork
+203 philo 71 has taken a fork
+203 philo 71 is eating
+203 philo 75 has taken a fork
+203 philo 75 has taken a fork
+203 philo 75 is eating
+203 philo 81 has taken a fork
+203 philo 81 has taken a fork
+203 philo 81 is eating
+203 philo 85 has taken a fork
+203 philo 85 has taken a fork
+203 philo 85 is eating
+203 philo 77 has taken a fork
+203 philo 77 has taken a fork
+203 philo 77 is eating
+203 philo 88 is sleeping
+203 philo 89 has taken a fork
+203 philo 57 has taken a fork
+203 philo 57 has taken a fork
+203 philo 57 is eating
+203 philo 39 has taken a fork
+203 philo 61 has taken a fork
+203 philo 61 has taken a fork
+203 philo 61 is eating
+203 philo 39 has taken a fork
+203 philo 39 is eating
+203 philo 65 has taken a fork
+203 philo 65 has taken a fork
+203 philo 65 is eating
+203 philo 69 has taken a fork
+203 philo 69 has taken a fork
+203 philo 69 is eating
+203 philo 2 is sleeping
+203 philo 73 has taken a fork
+203 philo 73 has taken a fork
+203 philo 73 is eating
+203 philo 79 has taken a fork
+203 philo 79 has taken a fork
+203 philo 79 is eating
+203 philo 87 has taken a fork
+203 philo 87 has taken a fork
+203 philo 87 is eating
+203 philo 27 has taken a fork
+203 philo 27 has taken a fork
+203 philo 27 is eating
+203 philo 21 has taken a fork
+203 philo 21 has taken a fork
+203 philo 21 is eating
+203 philo 51 has taken a fork
+203 philo 51 is eating
+203 philo 17 has taken a fork
+203 philo 17 is eating
+203 philo 1 has taken a fork
+203 philo 1 is eating
+203 philo 3 has taken a fork
+203 philo 92 is sleeping
+203 philo 89 has taken a fork
+203 philo 89 is eating
+203 philo 55 has taken a fork
+203 philo 55 has taken a fork
+203 philo 55 is eating
+203 philo 90 is sleeping
+203 philo 93 has taken a fork
+203 philo 91 has taken a fork
+203 philo 91 has taken a fork
+203 philo 91 is eating
+203 philo 94 is sleeping
+203 philo 33 has taken a fork
+203 philo 33 has taken a fork
+203 philo 33 is eating
+203 philo 95 has taken a fork
+203 philo 45 has taken a fork
+203 philo 5 has taken a fork
+203 philo 45 has taken a fork
+203 philo 93 has taken a fork
+203 philo 93 is eating
+203 philo 5 has taken a fork
+203 philo 45 is eating
+203 philo 5 is eating
+203 philo 49 has taken a fork
+203 philo 49 has taken a fork
+203 philo 49 is eating
+203 philo 3 has taken a fork
+203 philo 3 is eating
+203 philo 53 has taken a fork
+203 philo 53 has taken a fork
+203 philo 53 is eating
+203 philo 4 is sleeping
+203 philo 83 has taken a fork
+203 philo 83 has taken a fork
+203 philo 83 is eating
+203 philo 67 has taken a fork
+203 philo 67 has taken a fork
+203 philo 23 has taken a fork
+203 philo 67 is eating
+203 philo 23 has taken a fork
+203 philo 15 has taken a fork
+203 philo 23 is eating
+203 philo 31 has taken a fork
+203 philo 15 has taken a fork
+203 philo 59 has taken a fork
+203 philo 59 has taken a fork
+203 philo 59 is eating
+203 philo 31 has taken a fork
+203 philo 15 is eating
+203 philo 31 is eating
+203 philo 47 has taken a fork
+203 philo 47 is eating
+203 philo 25 has taken a fork
+203 philo 25 has taken a fork
+203 philo 25 is eating
+203 philo 98 is sleeping
+203 philo 99 has taken a fork
+203 philo 9 has taken a fork
+203 philo 9 has taken a fork
+203 philo 9 is eating
+203 philo 97 has taken a fork
+203 philo 97 has taken a fork
+203 philo 97 is eating
+203 philo 95 has taken a fork
+203 philo 95 is eating
+203 philo 96 is sleeping
+203 philo 10 is sleeping
+203 philo 43 has taken a fork
+203 philo 43 has taken a fork
+203 philo 43 is eating
+203 philo 11 has taken a fork
+203 philo 11 has taken a fork
+203 philo 11 is eating
+402 philo 46 is thinking
+403 philo 40 is thinking
+403 philo 13 is sleeping
+403 philo 38 is thinking
+403 philo 28 is thinking
+403 philo 26 is thinking
+403 philo 20 is thinking
+403 philo 29 is sleeping
+403 philo 19 is sleeping
+403 philo 41 is sleeping
+403 philo 37 is sleeping
+403 philo 35 is sleeping
+403 philo 56 is thinking
+403 philo 62 is thinking
+403 philo 64 is thinking
+403 philo 72 is thinking
+403 philo 74 is thinking
+403 philo 76 is thinking
+403 philo 84 is thinking
+403 philo 86 is thinking
+403 philo 63 is sleeping
+403 philo 71 is sleeping
+403 philo 75 is sleeping
+403 philo 81 is sleeping
+403 philo 85 is sleeping
+403 philo 77 is sleeping
+403 philo 57 is sleeping
+403 philo 61 is sleeping
+403 philo 39 is sleeping
+403 philo 65 is sleeping
+403 philo 69 is sleeping
+403 philo 73 is sleeping
+403 philo 79 is sleeping
+403 philo 87 is sleeping
+403 philo 27 is sleeping
+403 philo 21 is sleeping
+403 philo 51 is sleeping
+403 philo 89 is sleeping
+403 philo 55 is sleeping
+403 philo 94 is thinking
+403 philo 5 is sleeping
+403 philo 49 is sleeping
+403 philo 3 is sleeping
+403 philo 32 is thinking
+403 philo 22 is thinking
+403 philo 22 has taken a fork
+403 philo 24 is thinking
+403 philo 83 is sleeping
+403 philo 34 is thinking
+403 philo 48 is thinking
+403 philo 67 is sleeping
+403 philo 30 is thinking
+403 philo 30 has taken a fork
+403 philo 59 is sleeping
+403 philo 15 is sleeping
+403 philo 45 is sleeping
+403 philo 47 is sleeping
+403 philo 14 is thinking
+403 philo 14 has taken a fork
+403 philo 14 has taken a fork
+403 philo 14 is eating
+403 philo 18 is thinking
+403 philo 36 is thinking
+403 philo 36 has taken a fork
+403 philo 36 has taken a fork
+403 philo 36 is eating
+403 philo 31 is sleeping
+403 philo 32 has taken a fork
+403 philo 30 has taken a fork
+403 philo 30 is eating
+403 philo 97 is sleeping
+403 philo 25 is sleeping
+403 philo 100 has taken a fork
+403 philo 100 is eating
+403 philo 26 has taken a fork
+403 philo 26 has taken a fork
+403 philo 26 is eating
+403 philo 40 has taken a fork
+403 philo 40 has taken a fork
+403 philo 40 is eating
+403 philo 43 is sleeping
+403 philo 53 is sleeping
+403 philo 86 has taken a fork
+403 philo 86 has taken a fork
+403 philo 86 is eating
+403 philo 20 has taken a fork
+403 philo 20 has taken a fork
+403 philo 52 is thinking
+403 philo 52 has taken a fork
+403 philo 52 has taken a fork
+403 philo 52 is eating
+403 philo 11 is sleeping
+403 philo 76 has taken a fork
+403 philo 20 is eating
+403 philo 76 has taken a fork
+403 philo 76 is eating
+403 philo 28 has taken a fork
+403 philo 28 has taken a fork
+403 philo 64 has taken a fork
+403 philo 9 is sleeping
+403 philo 28 is eating
+403 philo 64 has taken a fork
+403 philo 64 is eating
+403 philo 33 is sleeping
+403 philo 98 is thinking
+403 philo 38 has taken a fork
+403 philo 98 has taken a fork
+403 philo 1 is sleeping
+403 philo 38 has taken a fork
+403 philo 34 has taken a fork
+403 philo 38 is eating
+403 philo 62 has taken a fork
+403 philo 62 has taken a fork
+403 philo 34 has taken a fork
+403 philo 62 is eating
+403 philo 34 is eating
+403 philo 42 is thinking
+403 philo 42 has taken a fork
+403 philo 23 is sleeping
+403 philo 42 has taken a fork
+403 philo 84 has taken a fork
+403 philo 84 has taken a fork
+403 philo 84 is eating
+403 philo 42 is eating
+403 philo 32 has taken a fork
+403 philo 24 has taken a fork
+403 philo 24 has taken a fork
+403 philo 72 has taken a fork
+403 philo 72 has taken a fork
+403 philo 72 is eating
+403 philo 32 is eating
+403 philo 24 is eating
+403 philo 4 is thinking
+403 philo 4 has taken a fork
+403 philo 4 has taken a fork
+403 philo 44 is thinking
+403 philo 22 has taken a fork
+403 philo 22 is eating
+403 philo 4 is eating
+403 philo 17 is sleeping
+403 philo 44 has taken a fork
+403 philo 44 has taken a fork
+403 philo 44 is eating
+403 philo 7 is sleeping
+403 philo 2 is thinking
+403 philo 18 has taken a fork
+403 philo 18 has taken a fork
+403 philo 90 is thinking
+403 philo 18 is eating
+403 philo 56 has taken a fork
+403 philo 56 has taken a fork
+403 philo 56 is eating
+403 philo 80 is thinking
+403 philo 80 has taken a fork
+403 philo 80 has taken a fork
+403 philo 90 has taken a fork
+403 philo 2 has taken a fork
+403 philo 48 has taken a fork
+403 philo 48 has taken a fork
+403 philo 48 is eating
+403 philo 80 is eating
+403 philo 2 has taken a fork
+403 philo 2 is eating
+403 philo 10 is thinking
+403 philo 10 has taken a fork
+403 philo 10 has taken a fork
+403 philo 10 is eating
+403 philo 16 is thinking
+403 philo 60 is thinking
+403 philo 16 has taken a fork
+403 philo 74 has taken a fork
+403 philo 16 has taken a fork
+403 philo 16 is eating
+403 philo 60 has taken a fork
+403 philo 74 has taken a fork
+403 philo 60 has taken a fork
+403 philo 74 is eating
+403 philo 60 is eating
+403 philo 82 is thinking
+403 philo 82 has taken a fork
+403 philo 82 has taken a fork
+403 philo 82 is eating
+403 philo 93 is sleeping
+403 philo 94 has taken a fork
+403 philo 88 is thinking
+403 philo 88 has taken a fork
+403 philo 88 has taken a fork
+403 philo 88 is eating
+403 philo 50 is thinking
+403 philo 50 has taken a fork
+403 philo 50 has taken a fork
+403 philo 50 is eating
+403 philo 6 is thinking
+403 philo 6 has taken a fork
+403 philo 6 has taken a fork
+403 philo 6 is eating
+403 philo 58 is thinking
+403 philo 58 has taken a fork
+403 philo 58 has taken a fork
+403 philo 58 is eating
+403 philo 12 is thinking
+403 philo 12 has taken a fork
+403 philo 12 has taken a fork
+403 philo 91 is sleeping
+403 philo 70 is thinking
+403 philo 12 is eating
+403 philo 70 has taken a fork
+403 philo 70 has taken a fork
+403 philo 70 is eating
+403 philo 66 is thinking
+403 philo 66 has taken a fork
+403 philo 66 has taken a fork
+403 philo 66 is eating
+403 philo 54 is thinking
+403 philo 8 is thinking
+403 philo 54 has taken a fork
+403 philo 8 has taken a fork
+403 philo 54 has taken a fork
+403 philo 54 is eating
+403 philo 8 has taken a fork
+403 philo 8 is eating
+403 philo 90 has taken a fork
+403 philo 90 is eating
+403 philo 68 is thinking
+403 philo 68 has taken a fork
+403 philo 68 has taken a fork
+403 philo 68 is eating
+403 philo 95 is sleeping
+403 philo 94 has taken a fork
+403 philo 94 is eating
+403 philo 78 is thinking
+403 philo 78 has taken a fork
+403 philo 78 has taken a fork
+403 philo 78 is eating
+403 philo 46 has taken a fork
+403 philo 46 has taken a fork
+403 philo 46 is eating
+403 philo 96 is thinking
+403 philo 96 has taken a fork
+403 philo 96 has taken a fork
+403 philo 96 is eating
+403 philo 92 is thinking
+403 philo 92 has taken a fork
+403 philo 92 has taken a fork
+403 philo 92 is eating
+422 philo 99 died

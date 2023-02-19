@@ -46,20 +46,21 @@ static void	set_fork(t_philo_ctx *ctx, pthread_mutex_t *table, t_args args,
 }
 
 int	init_philos_ctx(t_args args, pthread_mutex_t *table,
-		t_philo_ctx *philos_ctx, t_mutexes *m)
+		t_philo_ctx *philos_ctx, pthread_mutex_t *console)
 {
 	long					i;
-	static volatile int		gdead;
 
-	gdead = 0;
 	i = -1;
 	while (++i < args.number_of_philos)
 	{
-		philos_ctx[i] = (t_philo_ctx){.id = i + 1, .state = penser,
-			.gdead_mtx = &(m->gdead_mtx), .start = args.start,
-			.last_eat_time = 0, .console = &(m->console),
-			.dead_console = &(m->dead_console), .args = args,
-			.meals = 0, .dead = 0, .gdead = &gdead
+		philos_ctx[i] = (t_philo_ctx){
+			.id = i + 1,
+			.state = penser,
+			.start = args.start,
+			.last_eat_time = 0,
+			.console = console,
+			.args = args,
+			.meals = 0
 		};
 		if (pthread_mutex_init(&(philos_ctx[i].state_mtx), 0))
 			return (!!ft_puts("Error: pthread_mutex_init.\n"));
@@ -77,11 +78,7 @@ int	init_philos(long number_of_philos, t_philo_ctx *philos_ctx,
 	while (i < number_of_philos)
 	{
 		if (pthread_create(philos + i, 0, &philo_routine, philos_ctx + i))
-		{
-			while (i--)
-				philos_ctx[i].dead = 1;
 			return (!!ft_puts("Error: pthread_create.\n"));
-		}
 		i += 1;
 	}
 	return (0);

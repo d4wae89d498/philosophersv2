@@ -6,42 +6,67 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:41:32 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/16 06:46:31 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/19 19:36:48 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_puts(char *str)
+// todo : err in stderr
+int	ft_dputs(int fd, char *str)
 {
 	int	len;
 
 	len = ft_strlen(str);
-	write(1, str, len);
+	write(fd, str, len);
 	return (len);
 }
 
-void	ultoa(char *o, unsigned long n)
+int	ft_puts(char *str)
+{
+	return ft_dputs(1, str);
+}
+
+int	ft_sputs(char *dst, const char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i += 1;
+	}
+	return (i);
+}
+
+int	ultoa(char *o, unsigned long n)
 {
 	unsigned char	pow;
 	unsigned long	bkp;
+	int				i;
 
+	i = 0;
 	pow = 0;
 	bkp = n;
 	o[0] = '0';
 	o[1] = 0;
 	while (bkp)
 	{
+		i += 1;
 		bkp /= 10;
 		pow += 1;
 	}
 	if (pow)
 		o[pow] = 0;
+	else
+		i = 1;
 	while (pow)
 	{
 		o[--pow] = n % 10 + '0';
 		n /= 10;
 	}
+	return (i);
 }
 
 long	ft_atol(char *s)
@@ -71,16 +96,35 @@ int	ft_strlen(const char *s)
 	return (i);
 }
 
-void	philo_msg(unsigned long time, unsigned int id, char *msg)
-{
-	char	s[32];
+#define MC 5 * 42
+#include <string.h>
 
-	ultoa(s, time);
-	ft_puts(s);
-	ft_puts(" philo ");
-	ultoa(s, id);
-	ft_puts(s);
-	ft_puts(" ");
-	write(1, msg, ft_strlen(msg));
-	ft_puts("\n");
+void	philo_msg(long  number_of_philos, unsigned long time, unsigned int id, char *msg)
+{
+	static char		*buffer;//[420000 + 800];
+	static int		i;
+
+
+	if (!buffer)
+	{
+		buffer = malloc(MAX_THREADS * MC + 800);
+		if (!buffer)
+		{
+			printf("Alloc error\n");
+			exit(0);
+		}
+	}
+	(void) number_of_philos;
+	i += ultoa(buffer + i, time);
+	i += ft_sputs(buffer + i, " philo ");
+	i += ultoa(buffer + i, id);
+	i += ft_sputs(buffer + i, " ");
+	i += ft_sputs(buffer + i, msg);
+	i += ft_sputs(buffer + i, "\n");
+	if (!strcmp(msg, "died") || i > number_of_philos * MC)
+	{
+		write(1, buffer, i);
+		i = 0;
+		return ;
+	}
 }

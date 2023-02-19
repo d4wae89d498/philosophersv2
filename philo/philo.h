@@ -42,27 +42,18 @@ typedef enum e_state
 	dormir,
 	plus_faim,
 }	t_state;
-typedef struct s_mutexes
-{
-	pthread_mutex_t	console;
-	pthread_mutex_t	dead_console;
-	pthread_mutex_t	gdead_mtx;
-}	t_mutexes;
+
 typedef struct s_philo_ctx
 {
 	unsigned int			id;
 	pthread_mutex_t			*left_fork;
 	pthread_mutex_t			*right_fork;
 	pthread_mutex_t			*console;
-	pthread_mutex_t			*dead_console;
 	t_args					args;
 	volatile t_state		state;	
 	volatile unsigned long	last_eat_time;
 	volatile long			meals;
-	volatile int			dead;
-	volatile int			*gdead;
 	pthread_mutex_t			state_mtx;
-	pthread_mutex_t			*gdead_mtx;
 	unsigned long			start;
 }	t_philo_ctx;
 typedef struct s_watcher_args
@@ -74,20 +65,19 @@ typedef struct s_watcher_args
 int				destroy_philos_ctx(t_philo_ctx *philos_ctx,
 					long number_of_philos);
 int				ft_puts(char *str);
-void			ultoa(char *o, unsigned long n);
+int				ultoa(char *o, unsigned long n);
 long			ft_atol(char *s);
 int				ft_strlen(const char *s);
 void			*philo_routine(void *data);
-void			dead_msg(t_philo_ctx *ctx, char *msg);
 void			msg(t_philo_ctx *ctx, char *msg);
 int				init_table(pthread_mutex_t *table, long number_of_philos);
 int				init_philos_ctx(t_args args, pthread_mutex_t *table,
-					t_philo_ctx *philos_ctx, t_mutexes *m);
+					t_philo_ctx *philos_ctx, pthread_mutex_t *console);
 int				init_philos(long number_of_philos, t_philo_ctx *philos_ctx,
 					pthread_t *philos);
 void			*watch_philos(void *data);
 unsigned long	current_time(unsigned long start);
 void			ft_sleep(unsigned long time);
-void			philo_msg(unsigned long time, unsigned int id, char *msg);
+void			philo_msg(long number_of_philos, unsigned long time, unsigned int id, char *msg);
 
 #endif
