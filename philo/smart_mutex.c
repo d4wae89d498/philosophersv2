@@ -36,7 +36,8 @@ int	mtx_destroy(t_mtx *mtx)
 {
 	if (mtx_is_locked(mtx))
 		mtx_unlock(mtx);
-	return (!!(pthread_mutex_destroy(&(mtx->value_mtx)) + pthread_mutex_destroy(&(mtx->lock_mtx))));
+	return (!!(pthread_mutex_destroy(&(mtx->value_mtx))
+			+ pthread_mutex_destroy(&(mtx->lock_mtx))));
 }
 
 int	mtx_is_locked(t_mtx *mtx)

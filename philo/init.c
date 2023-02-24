@@ -6,7 +6,7 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:16:48 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/02/24 19:53:17 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/24 20:30:25 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static void	set_fork(t_philo_ctx *ctx, t_mtx *table, t_args args,
 	}
 }
 
-int	init_philos_ctx(t_args args, t_mtx *table, t_philo_ctx *philos_ctx, pthread_mutex_t *console)
+int	init_philos_ctx(t_args args, t_mtx *table, t_philo_ctx *philos_ctx,
+		pthread_mutex_t *console)
 {
 	long					i;
 	static int				dead;

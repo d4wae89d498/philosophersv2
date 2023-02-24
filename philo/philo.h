@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 06:51:40 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/24 19:57:40 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/24 20:26:22 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_watcher_args
 }	t_watcher_args;
 int				destroy_philos_ctx(t_philo_ctx *philos_ctx,
 					long number_of_philos);
+int				ft_sputs(char *dst, const char *src);
 int				ft_eputs(char *str);
 int				ft_puts(char *str);
 int				ultoa(char *o, unsigned long n);

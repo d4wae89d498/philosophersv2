@@ -1,48 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 15:41:32 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/24 19:52:37 by mfaussur         ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "philo.h"
-
-int	ft_dputs(int fd, char *str)
-{
-	int	len;
-
-	len = ft_strlen(str);
-	write(fd, str, len);
-	return (len);
-}
-
-int	ft_eputs(char *str)
-{
-	return (ft_dputs(2, str));
-}
-
-int	ft_puts(char *str)
-{
-	return ft_dputs(1, str);
-}
-
-int	ft_sputs(char *dst, const char *src)
-{
-	int	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i += 1;
-	}
-	return (i);
-}
 
 int	ultoa(char *o, unsigned long n)
 {
@@ -88,39 +44,4 @@ long	ft_atol(char *s)
 	if (*s)
 		return (-1);
 	return (n);
-}
-
-int	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (*s++)
-		i += 1;
-	return (i);
-}
-
-void	philo_msg(long  number_of_philos, unsigned long time, unsigned int id, char *msg)
-{
-	static char				buffer[MAX_THREADS * MC + 800];
-	static int				i;
-
-	if (!msg)
-	{
-		write(1, buffer, i);
-		i = 0;
-		return ;
-	}
-	i += ultoa(buffer + i, time);
-	i += ft_sputs(buffer + i, " philo ");
-	i += ultoa(buffer + i, id);
-	i += ft_sputs(buffer + i, " ");
-	i += ft_sputs(buffer + i, msg);
-	i += ft_sputs(buffer + i, "\n");
-	if (i > number_of_philos * MC)
-	{
-		write(1, buffer, i);
-		i = 0;
-		return ;
-	}
 }

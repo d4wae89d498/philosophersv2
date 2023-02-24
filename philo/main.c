@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:18:05 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/24 19:55:03 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/24 20:24:17 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static int	dmtx(pthread_mutex_t *mtx)
 	pthread_mutex_destroy(mtx);
 	return (1);
 }
-
 
 static int	start_watcher(t_args args, pthread_t *philos,
 		t_philo_ctx *philos_ctx)
@@ -35,11 +34,12 @@ static int	start_watcher(t_args args, pthread_t *philos,
 	return (0);
 }
 
+// TODO :: what if ini_philo_ctx fail
 static int	start(t_args args)
 {
-	static	t_philo_ctx		philos_ctx[MAX_THREADS];
-	static	t_mtx			table[MAX_THREADS];
-	static	pthread_t		philos[MAX_THREADS];
+	static t_philo_ctx		philos_ctx[MAX_THREADS];
+	static t_mtx			table[MAX_THREADS];
+	static pthread_t		philos[MAX_THREADS];
 	pthread_mutex_t			console;
 
 	args.start = current_time(0);
@@ -57,7 +57,7 @@ static int	start(t_args args)
 	while ((args.number_of_philos)--)
 		pthread_join(philos[args.number_of_philos], 0);
 	return (!!(dmtx(&console))
-			+ destroy_philos_ctx(philos_ctx, args.number_of_philos) + 1);
+		+ destroy_philos_ctx(philos_ctx, args.number_of_philos) + 1);
 }
 
 int	main(int ac, char **av)
@@ -83,6 +83,5 @@ int	main(int ac, char **av)
 		|| args.time_to_eat < 0 || args.time_to_sleep < 0
 		|| args.number_of_philos > MAX_THREADS)
 		return (!!ft_eputs("Error: invalid arguments.\n"));
-	
 	return (start(args));
 }

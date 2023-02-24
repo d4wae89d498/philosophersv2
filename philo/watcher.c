@@ -6,7 +6,7 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:51 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/02/24 19:46:16 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/24 20:32:16 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,11 @@
 static int	watcher_tick_tick(t_watcher_args *watcher_args, int i, int *y)
 {
 	unsigned long	last_eat;
+	int				current_state;
 
 	pthread_mutex_lock(&(watcher_args->philos_ctx[i].state_mtx));
 	last_eat = (unsigned long)(watcher_args->philos_ctx[i].last_eat_time);
 	pthread_mutex_unlock(&(watcher_args->philos_ctx[i].state_mtx));
-
-
-	int	current_state;
-
 	pthread_mutex_lock(&(watcher_args->philos_ctx[i].state_mtx));
 	current_state = watcher_args->philos_ctx[i].state;
 	pthread_mutex_unlock(&(watcher_args->philos_ctx[i].state_mtx));
@@ -30,7 +27,7 @@ static int	watcher_tick_tick(t_watcher_args *watcher_args, int i, int *y)
 		*y += 1;
 	else if (current_time(watcher_args->philos_ctx[i].start)
 		- last_eat
-			> (unsigned long)(watcher_args->args.time_to_die) * 1000
+		> (unsigned long)(watcher_args->args.time_to_die) * 1000
 			&& current_state != EAT)
 	{
 		watcher_args->dead = 1;

@@ -6,13 +6,11 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:17:37 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/02/24 19:41:49 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/24 20:31:23 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-#include <string.h>
 
 char	*get_msg(t_state state)
 {
@@ -27,7 +25,7 @@ char	*get_msg(t_state state)
 	else if (state == DIE)
 		return ("died");
 	return ("");
-};
+}
 
 int	msg(t_philo_ctx *ctx, t_state state)
 {
@@ -44,8 +42,35 @@ int	msg(t_philo_ctx *ctx, t_state state)
 		pthread_mutex_unlock(ctx->console);
 		return (1);
 	}
-	philo_msg(ctx->args.number_of_philos, (unsigned long)(current_time(ctx->start) * 0.001),
-			ctx->id, get_msg(state));
+	philo_msg(ctx->args.number_of_philos,
+		(unsigned long)(current_time(ctx->start) * 0.001),
+		ctx->id, get_msg(state));
 	pthread_mutex_unlock(ctx->console);
 	return (0);
+}
+
+void	philo_msg(long number_of_philos, unsigned long time, unsigned int id,
+			char *msg)
+{
+	static char				buffer[MAX_THREADS * MC + 800];
+	static int				i;
+
+	if (!msg)
+	{
+		write(1, buffer, i);
+		i = 0;
+		return ;
+	}
+	i += ultoa(buffer + i, time);
+	i += ft_sputs(buffer + i, " philo ");
+	i += ultoa(buffer + i, id);
+	i += ft_sputs(buffer + i, " ");
+	i += ft_sputs(buffer + i, msg);
+	i += ft_sputs(buffer + i, "\n");
+	if (i > number_of_philos * MC)
+	{
+		write(1, buffer, i);
+		i = 0;
+		return ;
+	}
 }
