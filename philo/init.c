@@ -12,25 +12,25 @@
 
 #include "philo.h"
 
-int	init_table(pthread_mutex_t *table, long number_of_philos)
+int	init_table(t_mtx *table, long number_of_philos)
 {
 	long	i;
 
 	i = 0;
 	while (i < number_of_philos)
 	{
-		if (pthread_mutex_init(table + i, 0))
+		if (mtx_init(table + i))
 		{
 			while (i--)
-				pthread_mutex_destroy(table + i);
-			return (!!ft_puts("Error: pthread_mutex_init.\n"));
+				mtx_destroy(table + i);
+			return (!!ft_puts("Error: mtx_init.\n"));
 		}
 		i += 1;
 	}
 	return (0);
 }
 
-static void	set_fork(t_philo_ctx *ctx, pthread_mutex_t *table, t_args args,
+static void	set_fork(t_philo_ctx *ctx, t_mtx *table, t_args args,
 		long i)
 {
 	if (i == args.number_of_philos - 1)
@@ -45,15 +45,17 @@ static void	set_fork(t_philo_ctx *ctx, pthread_mutex_t *table, t_args args,
 	}
 }
 
-int	init_philos_ctx(t_args args, pthread_mutex_t *table,
-		t_philo_ctx *philos_ctx, pthread_mutex_t *console)
+int	init_philos_ctx(t_args args, t_mtx *table, t_philo_ctx *philos_ctx, pthread_mutex_t *console)
 {
 	long					i;
+	static int				dead;
 
+	dead = 0;
 	i = -1;
 	while (++i < args.number_of_philos)
 	{
 		philos_ctx[i] = (t_philo_ctx){
+			.dead = &dead,
 			.id = i + 1,
 			.state = penser,
 			.start = args.start,

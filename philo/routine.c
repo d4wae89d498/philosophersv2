@@ -14,23 +14,26 @@
 
 static int	routine_tick(t_philo_ctx *ctx)
 {
-	pthread_mutex_lock(ctx->left_fork);
+	mtx_lock(ctx->left_fork);
+	if (msg(ctx, "has taken a fork"))
+		return (1);
+	mtx_lock(ctx->right_fork);
 	msg(ctx, "has taken a fork");
-	pthread_mutex_lock(ctx->right_fork);
 	pthread_mutex_lock(&(ctx->state_mtx));
 	ctx->last_eat_time = current_time(ctx->start);
 	pthread_mutex_unlock(&(ctx->state_mtx));
 	ctx->meals += 1;
-	msg(ctx, "has taken a fork");
 	msg(ctx, "is eating");
-	ft_sleep(ctx->args.time_to_eat);
-	pthread_mutex_unlock(ctx->right_fork);
-	pthread_mutex_unlock(ctx->left_fork);
+	if (sleep_while_check_dead(ctx, ctx->args.time_to_eat))
+		return (1);
+	mtx_unlock(ctx->right_fork);
+	mtx_unlock(ctx->left_fork);
 	if (ctx->meals >= ctx->args.number_of_meals
 		&& (ctx->args.number_of_meals > 0))
 		return (1);
 	msg(ctx, "is sleeping");
-	ft_sleep(ctx->args.time_to_sleep);
+	if (sleep_while_check_dead(ctx, ctx->args.time_to_sleep))
+		return (1);
 	msg(ctx, "is thinking");
 	return (0);
 }

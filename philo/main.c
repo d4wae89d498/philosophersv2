@@ -15,7 +15,7 @@
 static int	dmtx(pthread_mutex_t *mtx)
 {
 	(void) mtx;
-	//pthread_mutex_destroy(mtx);
+	pthread_mutex_destroy(mtx);
 	return (1);
 }
 
@@ -27,19 +27,19 @@ static int	start_watcher(t_args args, pthread_t *philos,
 	static t_watcher_args	watcher_args;
 
 	watcher_args = (t_watcher_args){.args = args, .philos = philos,
-		.philos_ctx = philos_ctx};
+		.philos_ctx = philos_ctx, .dead = 0};
 	if (pthread_create(&watcher, 0, &watch_philos, &watcher_args))
 		return (!!ft_puts("Error: pthread_create.\n"));
-	else if (pthread_join(watcher, 0))
+	if (pthread_join(watcher, 0))
 		return (!!ft_puts("Error: pthread_join.\n"));
 	return (0);
 }
 
 static int	start(t_args args)
 {
-	static t_philo_ctx		philos_ctx[MAX_THREADS];
-	static pthread_mutex_t	table[MAX_THREADS];
-	static pthread_t		philos[MAX_THREADS];
+	static	t_philo_ctx		philos_ctx[MAX_THREADS];
+	static	t_mtx			table[MAX_THREADS];
+	static	pthread_t		philos[MAX_THREADS];
 	pthread_mutex_t			console;
 
 	args.start = current_time(0);
@@ -55,7 +55,7 @@ static int	start(t_args args)
 		return (!!(dmtx(&console)
 				+ destroy_philos_ctx(philos_ctx, args.number_of_philos) + 1));
 	while ((args.number_of_philos)--)
-		pthread_detach(philos[args.number_of_philos]);
+		pthread_join(philos[args.number_of_philos], 0);
 	return (!!(dmtx(&console))
 			+ destroy_philos_ctx(philos_ctx, args.number_of_philos) + 1);
 }

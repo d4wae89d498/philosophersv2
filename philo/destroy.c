@@ -19,7 +19,7 @@ int	destroy_philos_ctx(t_philo_ctx *philos_ctx, long number_of_philos)
 	i = 0;
 	while (i < number_of_philos)
 	{
-		pthread_mutex_destroy(philos_ctx[i].right_fork);
+		mtx_destroy(philos_ctx[i].right_fork);
 		pthread_mutex_destroy(&(philos_ctx[i].state_mtx));
 		i += 1;
 	}

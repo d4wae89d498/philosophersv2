@@ -101,27 +101,22 @@ int	ft_strlen(const char *s)
 
 void	philo_msg(long  number_of_philos, unsigned long time, unsigned int id, char *msg)
 {
-	static char		*buffer;//[420000 + 800];
-	static int		i;
+	static char				buffer[MAX_THREADS * MC + 800];
+	static int				i;
 
-
-	if (!buffer)
+	if (!msg)
 	{
-		buffer = malloc(MAX_THREADS * MC + 800);
-		if (!buffer)
-		{
-			printf("Alloc error\n");
-			exit(0);
-		}
+		write(1, buffer, i);
+		i = 0;
+		return ;
 	}
-	(void) number_of_philos;
 	i += ultoa(buffer + i, time);
 	i += ft_sputs(buffer + i, " philo ");
 	i += ultoa(buffer + i, id);
 	i += ft_sputs(buffer + i, " ");
 	i += ft_sputs(buffer + i, msg);
 	i += ft_sputs(buffer + i, "\n");
-	if (!strcmp(msg, "died") || i > number_of_philos * MC)
+	if (i > number_of_philos * MC)
 	{
 		write(1, buffer, i);
 		i = 0;
