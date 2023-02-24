@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:18:05 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/19 13:38:02 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:55:03 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static int	start_watcher(t_args args, pthread_t *philos,
 	watcher_args = (t_watcher_args){.args = args, .philos = philos,
 		.philos_ctx = philos_ctx, .dead = 0};
 	if (pthread_create(&watcher, 0, &watch_philos, &watcher_args))
-		return (!!ft_puts("Error: pthread_create.\n"));
+		return (!!ft_eputs("Error: pthread_create.\n"));
 	if (pthread_join(watcher, 0))
-		return (!!ft_puts("Error: pthread_join.\n"));
+		return (!!ft_eputs("Error: pthread_join.\n"));
 	return (0);
 }
 
@@ -44,7 +44,7 @@ static int	start(t_args args)
 
 	args.start = current_time(0);
 	if (pthread_mutex_init(&console, 0))
-		return (!!ft_puts("Error: pthread_mutex_init.\n"));
+		return (!!ft_eputs("Error: pthread_mutex_init.\n"));
 	if (init_table(table, args.number_of_philos)
 		|| init_philos_ctx(args, table, philos_ctx, &console))
 		return (!!dmtx(&console));
@@ -65,7 +65,7 @@ int	main(int ac, char **av)
 	static t_args			args;
 
 	if (ac != 5 && ac != 6)
-		return (!!ft_puts("Error: invalid arguments.\n"));
+		return (!!ft_eputs("Error: invalid arguments.\n"));
 	args.number_of_philos = ft_atol(av[1]);
 	args.time_to_die = ft_atol(av[2]);
 	args.time_to_eat = ft_atol(av[3]);
@@ -75,14 +75,14 @@ int	main(int ac, char **av)
 	{
 		args.number_of_meals = ft_atol(av[5]);
 		if (args.number_of_meals < 0)
-			return (!!ft_puts("Error: invalid arguments.\n"));
+			return (!!ft_eputs("Error: invalid arguments.\n"));
 		else if (args.number_of_meals == 0)
 			return (0);
 	}
 	if (args.number_of_philos < 1 || args.time_to_die < 0
 		|| args.time_to_eat < 0 || args.time_to_sleep < 0
 		|| args.number_of_philos > MAX_THREADS)
-		return (!!ft_puts("Error: invalid arguments.\n"));
+		return (!!ft_eputs("Error: invalid arguments.\n"));
 	
 	return (start(args));
 }

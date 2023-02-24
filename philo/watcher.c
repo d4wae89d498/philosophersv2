@@ -6,7 +6,7 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:51 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/02/19 19:35:01 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:46:16 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,20 @@ static int	watcher_tick_tick(t_watcher_args *watcher_args, int i, int *y)
 	pthread_mutex_unlock(&(watcher_args->philos_ctx[i].state_mtx));
 
 
-	int	plusfaim;
+	int	current_state;
 
 	pthread_mutex_lock(&(watcher_args->philos_ctx[i].state_mtx));
-	plusfaim = watcher_args->philos_ctx[i].state;
+	current_state = watcher_args->philos_ctx[i].state;
 	pthread_mutex_unlock(&(watcher_args->philos_ctx[i].state_mtx));
-	if (plusfaim == plus_faim)
+	if (current_state == END)
 		*y += 1;
 	else if (current_time(watcher_args->philos_ctx[i].start)
 		- last_eat
 			> (unsigned long)(watcher_args->args.time_to_die) * 1000
-			&& watcher_args->philos_ctx[i].state != manger)
+			&& current_state != EAT)
 	{
 		watcher_args->dead = 1;
-		msg(watcher_args->philos_ctx + i,  "died");
+		msg(watcher_args->philos_ctx + i, DIE);
 		if (mtx_is_locked(watcher_args->philos_ctx[i].left_fork))
 			mtx_unlock(watcher_args->philos_ctx[i].left_fork);
 		if (mtx_is_locked(watcher_args->philos_ctx[i].right_fork))
@@ -50,7 +50,7 @@ int	watcher_tick(t_watcher_args *watcher_args)
 
 	y = 0;
 	i = -1;
-	usleep(4444);
+	usleep(WATCHER_SLEEP);
 	while (++i < watcher_args->args.number_of_philos)
 		if (watcher_tick_tick(watcher_args, i, &y))
 			return (1);

@@ -6,13 +6,12 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:41:32 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/19 19:36:48 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:52:37 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// todo : err in stderr
 int	ft_dputs(int fd, char *str)
 {
 	int	len;
@@ -20,6 +19,11 @@ int	ft_dputs(int fd, char *str)
 	len = ft_strlen(str);
 	write(fd, str, len);
 	return (len);
+}
+
+int	ft_eputs(char *str)
+{
+	return (ft_dputs(2, str));
 }
 
 int	ft_puts(char *str)
@@ -95,9 +99,6 @@ int	ft_strlen(const char *s)
 		i += 1;
 	return (i);
 }
-
-#define MC 5 * 42
-#include <string.h>
 
 void	philo_msg(long  number_of_philos, unsigned long time, unsigned int id, char *msg)
 {

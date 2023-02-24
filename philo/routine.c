@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 05:58:08 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/19 19:34:13 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:39:23 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 static int	routine_tick(t_philo_ctx *ctx)
 {
 	mtx_lock(ctx->left_fork);
-	if (msg(ctx, "has taken a fork"))
+	if (msg(ctx, TAKE))
 		return (1);
 	mtx_lock(ctx->right_fork);
-	msg(ctx, "has taken a fork");
+	msg(ctx, TAKE);
 	pthread_mutex_lock(&(ctx->state_mtx));
 	ctx->last_eat_time = current_time(ctx->start);
 	pthread_mutex_unlock(&(ctx->state_mtx));
 	ctx->meals += 1;
-	msg(ctx, "is eating");
+	msg(ctx, EAT);
 	if (sleep_while_check_dead(ctx, ctx->args.time_to_eat))
 		return (1);
 	mtx_unlock(ctx->right_fork);
@@ -31,10 +31,10 @@ static int	routine_tick(t_philo_ctx *ctx)
 	if (ctx->meals >= ctx->args.number_of_meals
 		&& (ctx->args.number_of_meals > 0))
 		return (1);
-	msg(ctx, "is sleeping");
+	msg(ctx, SLEEP);
 	if (sleep_while_check_dead(ctx, ctx->args.time_to_sleep))
 		return (1);
-	msg(ctx, "is thinking");
+	msg(ctx, THINK);
 	return (0);
 }
 
@@ -50,7 +50,7 @@ void	*philo_routine(void *data)
 		if (routine_tick(ctx))
 			break ;
 	pthread_mutex_lock(&(ctx->state_mtx));
-	ctx->state = plus_faim;
+	ctx->state = END;
 	pthread_mutex_unlock(&(ctx->state_mtx));
 	return (0);
 }

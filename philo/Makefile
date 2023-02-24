@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Werror -Wextra -g -fsanitize=thread
+CFLAGS=-Wall -Werror -Wextra -g # -fsanitize=thread
 SRCS=destroy.c main.c watcher.c routine.c time.c utils.c msg.c init.c smart_mutex.c
 OBJS=$(SRCS:.c=.o)
 DEPS=Makefile philo.h
