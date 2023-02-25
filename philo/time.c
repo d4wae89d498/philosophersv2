@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 06:04:30 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/19 19:23:24 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/02/25 12:06:10 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,22 @@ unsigned long	current_time(unsigned long start)
 	return ((time.tv_sec * 1000000 + time.tv_usec) - start);
 }
 
-void	ft_sleep(unsigned long time)
+void	ft_usleep(unsigned long time)
 {
 	unsigned long	start;
 
-	time *= 1000;
 	start = current_time(0);
 	usleep(time * 97 / 100);
 	while (current_time(0) < start + time)
 		;
+}
+
+void	ft_sleep(unsigned long time)
+{
+	if (time * 1000 < MIN_SLEEP_DELAY)
+		ft_usleep(MIN_SLEEP_DELAY);
+	else
+		ft_usleep(time * 1000);
 }
 
 int	sleep_while_check_dead(t_philo_ctx *ctx, unsigned long time)

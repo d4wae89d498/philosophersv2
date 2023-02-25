@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 06:51:40 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/24 20:26:22 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/25 12:07:32 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@
 #  define WATCHER_SLEEP 4444
 # endif
 # ifndef START_DELAY
-#  define START_DELAY 10000
+#  define START_DELAY 1000
+# endif
+# ifndef MIN_SLEEP_DELAY
+#  define MIN_SLEEP_DELAY 1000
 # endif
 # include "smart_mutex.h"
 
@@ -90,9 +93,9 @@ int				init_philos(long number_of_philos, t_philo_ctx *philos_ctx,
 					pthread_t *philos);
 void			*watch_philos(void *data);
 unsigned long	current_time(unsigned long start);
+void			ft_usleep(unsigned long time);
 void			ft_sleep(unsigned long time);
 void			philo_msg(long number_of_philos, unsigned long time,
 					unsigned int id, char *msg);
 int				sleep_while_check_dead(t_philo_ctx *ctx, unsigned long time);
-
 #endif

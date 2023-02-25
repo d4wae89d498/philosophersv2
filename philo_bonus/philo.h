@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:11:56 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/19 11:23:26 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/02/25 12:17:50 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,5 @@ void			routine(t_args args, pid_t id, unsigned long *last_meal,
 int				init_sems(t_sems *sems, long number_of_philos);
 void			*watch(void *data);
 int				destroy_sems(t_sems *sems);
+int				handle_one(t_args args);
 #endif

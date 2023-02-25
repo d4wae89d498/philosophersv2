@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 05:58:08 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/24 19:39:23 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/25 12:06:28 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ static int	routine_tick(t_philo_ctx *ctx)
 	if (msg(ctx, TAKE))
 		return (1);
 	mtx_lock(ctx->right_fork);
-	msg(ctx, TAKE);
+	if (msg(ctx, TAKE))
+		return (1);
 	pthread_mutex_lock(&(ctx->state_mtx));
 	ctx->last_eat_time = current_time(ctx->start);
 	pthread_mutex_unlock(&(ctx->state_mtx));
 	ctx->meals += 1;
 	msg(ctx, EAT);
-	if (sleep_while_check_dead(ctx, ctx->args.time_to_eat))
-		return (1);
+	ft_sleep(ctx->args.time_to_eat);
 	mtx_unlock(ctx->right_fork);
 	mtx_unlock(ctx->left_fork);
 	if (ctx->meals >= ctx->args.number_of_meals

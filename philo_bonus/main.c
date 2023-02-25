@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:14:18 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/19 13:38:24 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/02/25 12:15:20 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	start(t_args args)
 	unsigned long	start_time;
 	pid_t			childs[MAX_PROCESS];	
 
+	if (args.number_of_philos == 1)
+		return (handle_one(args));
 	if (init_sems(&sems, args.number_of_philos))
 		return (0);
 	start_time = current_time(0);
@@ -116,6 +118,10 @@ int	main(int ac, char **av)
 	args.time_to_eat = ft_atol(av[3]);
 	args.time_to_sleep = ft_atol(av[4]);
 	args.number_of_meals = -1;
+	if (args.number_of_philos < 1 || args.time_to_die < 0
+		|| args.time_to_eat < 0 || args.time_to_sleep < 0
+		|| args.number_of_philos > MAX_PROCESS)
+		return (!!ft_puts("Error: invalid arguments.\n"));
 	if (ac == 6)
 	{
 		args.number_of_meals = ft_atol(av[5]);
@@ -124,9 +130,5 @@ int	main(int ac, char **av)
 		else if (args.number_of_meals == 0)
 			return (0);
 	}
-	if (args.number_of_philos < 2 || args.time_to_die < 0
-		|| args.time_to_eat < 0 || args.time_to_sleep < 0
-		|| args.number_of_philos > MAX_PROCESS)
-		return (!!ft_puts("Error: invalid arguments.\n"));
 	return (start(args));
 }

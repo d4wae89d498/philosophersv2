@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   smart_mutex.h                                      :+:      :+:    :+:   */
+/*   handle_one.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/25 12:34:00 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/25 12:34:01 by mfaussur         ###   ########lyon.fr   */
+/*   Created: 2023/02/25 12:33:48 by mfaussur          #+#    #+#             */
+/*   Updated: 2023/02/25 12:33:49 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SMART_MUTEX_H
-# define SMART_MUTEX_H
-# include <pthread.h>
+#include "philo.h"
 
-typedef struct s_mtx
+int	handle_one(t_args args)
 {
-	pthread_mutex_t		value_mtx;
-	pthread_mutex_t		lock_mtx;
-	int					locked;
-}	t_mtx;
-
-int	mtx_init(t_mtx *mtx);
-int	mtx_destroy(t_mtx *mtx);
-int	mtx_lock(t_mtx *mtx);
-int	mtx_unlock(t_mtx *mtx);
-int	mtx_is_locked(t_mtx *mtx);
-#endif
+	printf("%d philo 1 has taken a fork\n", 0);
+	ft_sleep(args.time_to_die);
+	printf("%lu philo 1 died\n", args.time_to_die);
+	return (0);
+}

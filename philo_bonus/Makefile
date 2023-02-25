@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -Werror -Wextra -g#-fsanitize=thread#address
-SRCS=main.c time.c utils.c routine.c init.c watch.c msg.c
+SRCS=main.c time.c utils.c routine.c init.c watch.c msg.c handle_one.c
 OBJS=$(SRCS:.c=.o)
 DEPS=Makefile philo.h
 NAME=philo_bonus

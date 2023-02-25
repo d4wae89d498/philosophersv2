@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:18:05 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/24 20:24:17 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/02/25 11:13:25 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ int	main(int ac, char **av)
 	args.time_to_eat = ft_atol(av[3]);
 	args.time_to_sleep = ft_atol(av[4]);
 	args.number_of_meals = -1;
+	if (args.number_of_philos < 1 || args.time_to_die < 0
+		|| args.time_to_eat < 0 || args.time_to_sleep < 0
+		|| args.number_of_philos > MAX_THREADS)
+		return (!!ft_eputs("Error: invalid arguments.\n"));
 	if (ac == 6)
 	{
 		args.number_of_meals = ft_atol(av[5]);
@@ -79,9 +83,5 @@ int	main(int ac, char **av)
 		else if (args.number_of_meals == 0)
 			return (0);
 	}
-	if (args.number_of_philos < 1 || args.time_to_die < 0
-		|| args.time_to_eat < 0 || args.time_to_sleep < 0
-		|| args.number_of_philos > MAX_THREADS)
-		return (!!ft_eputs("Error: invalid arguments.\n"));
 	return (start(args));
 }
