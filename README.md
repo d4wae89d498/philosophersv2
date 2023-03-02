@@ -17,21 +17,19 @@
 
 **TODO**
 
-
-4 410 200 200 10
-40 2
-- normal : 4-2
-
-4 410 200 200 15
-60 4
-- bonus : 4-4
-
 for normal :
 - [x] finish when last eat is done (ok for bonus?)
 - [x] sometimes program dont exit after death
+- [ ] clean code
+- [x] think before anything
+- [x] dont stop thread after eat 
+- [ ] fix double unlock fsanitize warning on linux
 
 for bonus : 
 - [x] finish on first death
 - [x] 1 thread that watch each philosophers
 - [x] 1 semaphore per philo for dead check
 - [x] maybe 1 semaphore for console 
+- [ ] clean code
+- [ ] think before anything
+- [ ] dont stop thread after eat 

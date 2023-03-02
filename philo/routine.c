@@ -28,9 +28,6 @@ static int	routine_tick(t_philo_ctx *ctx)
 	ft_sleep(ctx->args.time_to_eat);
 	mtx_unlock(ctx->right_fork);
 	mtx_unlock(ctx->left_fork);
-	if (ctx->meals >= ctx->args.number_of_meals
-		&& (ctx->args.number_of_meals > 0))
-		return (1);
 	msg(ctx, SLEEP);
 	if (sleep_while_check_dead(ctx, ctx->args.time_to_sleep))
 		return (1);
@@ -43,6 +40,7 @@ void	*philo_routine(void *data)
 	t_philo_ctx		*ctx;
 
 	ctx = data;
+	msg(ctx, THINK);
 	if (ctx->id % 2)
 		usleep(10000);
 	while (ctx->meals < ctx->args.number_of_meals
