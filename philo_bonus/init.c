@@ -44,12 +44,12 @@ int	init_sems(t_sems *sems, long number_of_philos)
 	destroy_sems(sems);
 	sems->forks = sem_open("forks", O_CREAT, 0644, number_of_philos);
 	if (sems->forks == SEM_FAILED)
-		return (!!(ft_puts("Error: sem_open.\n") + destroy_sems(sems)));
+		return (ft_puts("Error: sem_open.\n") + destroy_sems(sems));
 	sems->console = sem_open("console", O_CREAT, 0644, 1);
 	if (sems->console == SEM_FAILED)
-		return (!!(ft_puts("Error: sem_open.\n") + destroy_sems(sems)));
+		return (ft_puts("Error: sem_open.\n") + destroy_sems(sems));
 	sems->dead = sem_open("dead", O_CREAT, 0644, 0);
 	if (sems->console == SEM_FAILED)
-		return (!!(ft_puts("Error: sem_open.\n") + destroy_sems(sems)));
+		return (ft_puts("Error: sem_open.\n") + destroy_sems(sems));
 	return (0);
 }

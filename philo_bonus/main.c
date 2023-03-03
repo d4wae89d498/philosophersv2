@@ -23,37 +23,8 @@ static void	*wait_childs(void *d)
 	return (0);
 }
 
-void	start_routine(t_args args, t_sems sems, unsigned long start_time,
-			long i)
-{
-	pthread_t						watcher;
-	static unsigned long			last_meal;	
-	t_watcher_args					watcher_args;
-	char							last_meal_sem_label[255];
 
-	last_meal_sem_label[0] = 'd';
-	last_meal_sem_label[1] = 'd';
-	ultoa(last_meal_sem_label + 2, i);
-	sem_unlink(last_meal_sem_label);
-	sems.last_meal = sem_open(last_meal_sem_label, O_CREAT, 0644, 1);
-	if (sems.last_meal == SEM_FAILED)
-		exit(sem_post(sems.dead));
-	args.sems = sems;
-	last_meal = start_time;
-	watcher_args = (t_watcher_args){
-		.last_meal_sem = sems.last_meal, .start_time = start_time,
-		.dead = sems.dead, .last_meal = &last_meal, .id = i + 1, .args = args,
-		.console = sems.console
-	};
-	pthread_create(&watcher, 0, &watch, &watcher_args);
-	routine(args, i + 1, &last_meal, start_time);
-	sem_post(sems.dead);
-	pthread_join(watcher, 0);
-	sem_close(sems.last_meal);
-	sem_unlink(last_meal_sem_label);
-}
-
-int	wait_til_end(t_args args, t_sems sems, pid_t childs[MAX_PROCESS])
+static int	wait_til_end(t_args args, t_sems sems, pid_t childs[MAX_PROCESS])
 {
 	char		s[255];
 	pthread_t	t;
@@ -74,13 +45,13 @@ int	wait_til_end(t_args args, t_sems sems, pid_t childs[MAX_PROCESS])
 	}
 	r = 0;
 	if (pthread_join(t, 0))
-		r += !!ft_puts("Error: pthread_join.\n");
+		r += ft_eputs("Error: pthread_join.\n");
 	if (destroy_sems(&sems))
-		r += !!ft_puts("Error: destroy_sems\n");
-	return (!!r);
+		r += ft_eputs("Error: destroy_sems\n");
+	return (r);
 }
 
-int	start(t_args args)
+static int	start(t_args args)
 {
 	t_sems			sems;
 	pid_t			pid;
@@ -107,28 +78,37 @@ int	start(t_args args)
 	return (wait_til_end(args, sems, childs));
 }
 
-int	main(int ac, char **av)
+static int	parse(t_args *args, int ac, char **av)
 {
-	static t_args	args;
-
 	if (ac != 5 && ac != 6)
-		return (!!ft_puts("Error: invalid arguments.\n"));
-	args.number_of_philos = ft_atol(av[1]);
-	args.time_to_die = ft_atol(av[2]);
-	args.time_to_eat = ft_atol(av[3]);
-	args.time_to_sleep = ft_atol(av[4]);
-	args.number_of_meals = -1;
-	if (args.number_of_philos < 1 || args.time_to_die < 0
-		|| args.time_to_eat < 0 || args.time_to_sleep < 0
-		|| args.number_of_philos > MAX_PROCESS)
-		return (!!ft_puts("Error: invalid arguments.\n"));
+		return (ft_eputs("Error: invalid arguments.\n"));
+	args->number_of_philos = ft_atol(av[1]);
+	args->time_to_die = ft_atol(av[2]);
+	args->time_to_eat = ft_atol(av[3]);
+	args->time_to_sleep = ft_atol(av[4]);
+	args->number_of_meals = -1;
+	if (args->number_of_philos < 1 || args->time_to_die < 0
+		|| args->time_to_eat < 0 || args->time_to_sleep < 0
+		|| args->number_of_philos > MAX_PROCESS)
+		return (ft_eputs("Error: invalid arguments.\n"));
 	if (ac == 6)
 	{
-		args.number_of_meals = ft_atol(av[5]);
-		if (args.number_of_meals < 0)
-			return (!!ft_puts("Error: invalid arguments.\n"));
-		else if (args.number_of_meals == 0)
-			return (0);
+		args->number_of_meals = ft_atol(av[5]);
+		if (args->number_of_meals < 0)
+			return (ft_eputs("Error: invalid arguments.\n"));
+		else if (args->number_of_meals == 0)
+			return (1);
 	}
-	return (start(args));
+	return (0);
+}
+
+int	main(int ac, char **av)
+{
+	t_args args;
+	int exit_code;
+
+	exit_code = parse(&args, ac, av);
+	if (exit_code)
+		return (!!exit_code);
+	return (!!start(args));
 }

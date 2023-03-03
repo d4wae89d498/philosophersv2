@@ -56,7 +56,7 @@ static int	parse(t_args *args, int ac, char **av)
 		if (args->number_of_meals < 0)
 			return (ft_eputs("Error: invalid arguments.\n"));
 		else if (args->number_of_meals == 0)
-			return (0);
+			return (1);
 	}
 	return (0);
 }

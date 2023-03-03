@@ -34,7 +34,7 @@ static void	drop_forks(t_args args, pid_t id, unsigned long start_time,
 	ft_sleep(args.time_to_sleep);
 }
 
-void	routine(t_args args, pid_t id, unsigned long *last_meal,
+static void	routine(t_args args, pid_t id, unsigned long *last_meal,
 			unsigned long start_time)
 {
 	long			meals;
@@ -62,4 +62,34 @@ void	routine(t_args args, pid_t id, unsigned long *last_meal,
 		}
 		drop_forks(args, id, start_time, args.sems);
 	}
+}
+
+void	start_routine(t_args args, t_sems sems, unsigned long start_time,
+			long i)
+{
+	pthread_t						watcher;
+	static unsigned long			last_meal;	
+	t_watcher_args					watcher_args;
+	char							last_meal_sem_label[255];
+
+	last_meal_sem_label[0] = 'd';
+	last_meal_sem_label[1] = 'd';
+	ultoa(last_meal_sem_label + 2, i);
+	sem_unlink(last_meal_sem_label);
+	sems.last_meal = sem_open(last_meal_sem_label, O_CREAT, 0644, 1);
+	if (sems.last_meal == SEM_FAILED)
+		exit(sem_post(sems.dead));
+	args.sems = sems;
+	last_meal = start_time;
+	watcher_args = (t_watcher_args){
+		.last_meal_sem = sems.last_meal, .start_time = start_time,
+		.dead = sems.dead, .last_meal = &last_meal, .id = i + 1, .args = args,
+		.console = sems.console
+	};
+	pthread_create(&watcher, 0, &watch, &watcher_args);
+	routine(args, i + 1, &last_meal, start_time);
+	sem_post(sems.dead);
+	pthread_join(watcher, 0);
+	sem_close(sems.last_meal);
+	sem_unlink(last_meal_sem_label);
 }

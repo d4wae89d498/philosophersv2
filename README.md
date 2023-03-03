@@ -30,6 +30,6 @@ for bonus :
 - [x] 1 thread that watch each philosophers
 - [x] 1 semaphore per philo for dead check
 - [x] maybe 1 semaphore for console 
-- [ ] clean code
-- [ ] think before anything
+- [x] clean code
+- [x] think before anything
 - [ ] dont stop thread after eat 

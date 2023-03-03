@@ -66,16 +66,17 @@ typedef struct s_watcher_args
 long			ft_atol(char *s);
 int				ft_strlen(const char *s);
 int				ft_puts(const char *s);
+int				ft_eputs(const char *s);
 void			ultoa(char *o, unsigned long n);
 unsigned long	current_time(unsigned long start);
 void			ft_sleep(unsigned long time);
 void			philo_msg(unsigned long time, unsigned int id, char *msg);
 void			msg(sem_t *console, unsigned long start_time, int id,
 					char *msg);
-void			routine(t_args args, pid_t id, unsigned long *last_meal,
-					unsigned long start_time);
 int				init_sems(t_sems *sems, long number_of_philos);
 void			*watch(void *data);
 int				destroy_sems(t_sems *sems);
 int				handle_one(t_args args);
+void			start_routine(t_args args, t_sems sems, unsigned long start_time,
+					long i);
 #endif

@@ -60,6 +60,15 @@ int	ft_strlen(const char *s)
 	return (i);
 }
 
+int	ft_eputs(const char *s)
+{
+	int	i;
+
+	i = ft_strlen(s);
+	write(2, s, i);
+	return (i);
+}
+
 int	ft_puts(const char *s)
 {
 	int	i;
