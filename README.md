@@ -20,7 +20,7 @@
 for normal :
 - [x] finish when last eat is done (ok for bonus?)
 - [x] sometimes program dont exit after death
-- [ ] clean code
+- [x] clean code
 - [x] think before anything
 - [x] dont stop thread after eat 
 - [ ] fix double unlock fsanitize warning on linux

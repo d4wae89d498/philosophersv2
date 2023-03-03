@@ -27,20 +27,24 @@ static int	watcher_tick_tick(t_watcher_args *watcher_args, int i, int *y)
 		*y += 1;
 	else if (current_time(watcher_args->philos_ctx[i].start)
 		- last_eat
-		> (unsigned long)(watcher_args->args.time_to_die) * 1000
-			&& current_state != EAT)
+		> (unsigned long)(watcher_args->args.time_to_die) * 1000)
 	{
 		watcher_args->dead = 1;
 		msg(watcher_args->philos_ctx + i, DIE);
-		if (mtx_is_locked(watcher_args->philos_ctx[i].left_fork))
-			mtx_unlock(watcher_args->philos_ctx[i].left_fork);
-		if (mtx_is_locked(watcher_args->philos_ctx[i].right_fork))
-			mtx_unlock(watcher_args->philos_ctx[i].right_fork);
+		
+		pthread_mutex_lock(&(watcher_args->philos_ctx[i].state_mtx));
+		current_state = watcher_args->philos_ctx[i].state;
+		pthread_mutex_unlock(&(watcher_args->philos_ctx[i].state_mtx));
+
+		if (get_state(&(watcher_args->philos_ctx[i])) == WAIT_LEFT)
+			pthread_mutex_unlock(watcher_args->philos_ctx[i].left_fork);
+		if (get_state(&(watcher_args->philos_ctx[i])) == WAIT_RIGHT)
+			pthread_mutex_unlock(watcher_args->philos_ctx[i].right_fork);
 	}
 	return (0);
 }
 
-int	watcher_tick(t_watcher_args *watcher_args)
+static int	watcher_tick(t_watcher_args *watcher_args)
 {
 	int	y;
 	int	i;
@@ -59,7 +63,7 @@ int	watcher_tick(t_watcher_args *watcher_args)
 	return (0);
 }
 
-void	*watch_philos(void *data)
+static void	*watch_philos(void *data)
 {
 	t_watcher_args	*watcher_args;
 
@@ -67,5 +71,20 @@ void	*watch_philos(void *data)
 	while (1)
 		if (watcher_tick(watcher_args))
 			break ;
+	return (0);
+}
+
+ int	start_watcher(t_args args, pthread_t *philos,
+		t_philo_ctx *philos_ctx)
+{
+	static pthread_t		watcher;
+	static t_watcher_args	watcher_args;
+
+	watcher_args = (t_watcher_args){.args = args, .philos = philos,
+		.philos_ctx = philos_ctx, .dead = 0};
+	if (pthread_create(&watcher, 0, &watch_philos, &watcher_args))
+		return (!!ft_eputs("Error: pthread_create.\n"));
+	if (pthread_join(watcher, 0))
+		return (!!ft_eputs("Error: pthread_join.\n"));
 	return (0);
 }

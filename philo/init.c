@@ -12,17 +12,17 @@
 
 #include "philo.h"
 
-int	init_table(t_mtx *table, long number_of_philos)
+int	init_table(pthread_mutex_t *table, long number_of_philos)
 {
 	long	i;
 
 	i = 0;
 	while (i < number_of_philos)
 	{
-		if (mtx_init(table + i))
+		if (pthread_mutex_init(table + i, 0))
 		{
 			while (i--)
-				mtx_destroy(table + i);
+				pthread_mutex_destroy(table + i);
 			return (!!ft_eputs("Error: mtx_init.\n"));
 		}
 		i += 1;
@@ -30,7 +30,7 @@ int	init_table(t_mtx *table, long number_of_philos)
 	return (0);
 }
 
-static void	set_fork(t_philo_ctx *ctx, t_mtx *table, t_args args,
+static void	set_fork(t_philo_ctx *ctx, pthread_mutex_t *table, t_args args,
 		long i)
 {
 	if (i == args.number_of_philos - 1)
@@ -45,7 +45,7 @@ static void	set_fork(t_philo_ctx *ctx, t_mtx *table, t_args args,
 	}
 }
 
-int	init_philos_ctx(t_args args, t_mtx *table, t_philo_ctx *philos_ctx,
+int	init_philos_ctx(t_args args, pthread_mutex_t *table, t_philo_ctx *philos_ctx,
 		pthread_mutex_t *console)
 {
 	long					i;

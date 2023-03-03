@@ -34,17 +34,22 @@
 # ifndef MIN_SLEEP_DELAY
 #  define MIN_SLEEP_DELAY 1000
 # endif
-# include "smart_mutex.h"
 
 typedef enum e_state
 {
 	TAKE,
 	EAT,
-	SLEEP,
 	THINK,
+	SLEEP,
+
+	WAIT_LEFT,
+	WAIT_RIGHT,
+	NO_WAIT,
 	DIE,
 	END
+
 }	t_state;
+
 typedef struct s_args
 {
 	long			number_of_philos;
@@ -59,8 +64,8 @@ typedef struct s_philo_ctx
 	pthread_mutex_t			*dead_mtx;
 	int						*dead;
 	unsigned int			id;
-	t_mtx					*left_fork;
-	t_mtx					*right_fork;
+	pthread_mutex_t			*left_fork;
+	pthread_mutex_t			*right_fork;
 	pthread_mutex_t			*console;
 	t_args					args;
 	volatile t_state		state;	
@@ -76,6 +81,11 @@ typedef struct s_watcher_args
 	t_args		args;
 	int			dead;
 }	t_watcher_args;
+int				destroy_mutex(pthread_mutex_t *mtx);
+int			start_watcher(t_args args, pthread_t *philos,
+					t_philo_ctx *philos_ctx);
+void			toggle_state(t_philo_ctx *ctx, t_state state);
+t_state			get_state(t_philo_ctx *ctx);
 int				destroy_philos_ctx(t_philo_ctx *philos_ctx,
 					long number_of_philos);
 int				ft_sputs(char *dst, const char *src);
@@ -86,12 +96,11 @@ long			ft_atol(char *s);
 int				ft_strlen(const char *s);
 void			*philo_routine(void *data);
 int				msg(t_philo_ctx *ctx, t_state state);
-int				init_table(t_mtx *table, long number_of_philos);
-int				init_philos_ctx(t_args args, t_mtx *table,
+int				init_table(pthread_mutex_t *table, long number_of_philos);
+int				init_philos_ctx(t_args args, pthread_mutex_t *table,
 					t_philo_ctx *philos_ctx, pthread_mutex_t *console);
 int				init_philos(long number_of_philos, t_philo_ctx *philos_ctx,
 					pthread_t *philos);
-void			*watch_philos(void *data);
 unsigned long	current_time(unsigned long start);
 void			ft_usleep(unsigned long time);
 void			ft_sleep(unsigned long time);

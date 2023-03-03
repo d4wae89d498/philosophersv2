@@ -1,6 +1,0 @@
-{
-    thread_start
-    Memcheck:Data race
-    ...
-    fun:thread_start
-}
