@@ -12,29 +12,10 @@
 
 #include "philo.h"
 
-t_state	get_state(t_philo_ctx *ctx)
-{
-	t_state s;
-		
-	pthread_mutex_lock(&(ctx->state_mtx));
-	s = ctx->state;
-	pthread_mutex_unlock(&(ctx->state_mtx));
-	return (s);
-}
-
-void	toggle_state(t_philo_ctx *ctx, t_state state)
-{
-	pthread_mutex_lock(&(ctx->state_mtx));
-	ctx->state = state;
-	pthread_mutex_unlock(&(ctx->state_mtx));
-}
-
 static int	routine_tick(t_philo_ctx *ctx)
 {
 	msg(ctx, THINK);
-	toggle_state(ctx, WAIT_LEFT);
 	pthread_mutex_lock(ctx->left_fork);
-	toggle_state(ctx, WAIT_RIGHT);
 	if (msg(ctx, TAKE))
 	{
 		pthread_mutex_unlock(ctx->left_fork);
@@ -47,7 +28,6 @@ static int	routine_tick(t_philo_ctx *ctx)
 		pthread_mutex_unlock(ctx->right_fork);
 		return (1);
 	}
-	toggle_state(ctx, NO_WAIT);
 	pthread_mutex_lock(&(ctx->state_mtx));
 	ctx->last_eat_time = current_time(ctx->start);
 	pthread_mutex_unlock(&(ctx->state_mtx));

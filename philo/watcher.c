@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-static int	watcher_tick_tick(t_watcher_args *watcher_args, int i, int *y)
+static int	watcher_tick_philo(t_watcher_args *watcher_args, int i, int *y)
 {
 	unsigned long	last_eat;
 	int				current_state;
@@ -31,9 +31,6 @@ static int	watcher_tick_tick(t_watcher_args *watcher_args, int i, int *y)
 	{
 		watcher_args->dead = 1;
 		msg(watcher_args->philos_ctx + i, DIE);
-		
-//    pthread_mutex_unlock(watcher_args->philos_ctx[i].left_fork);
-//   pthread_mutex_unlock(watcher_args->philos_ctx[i].right_fork);
 	}
 	return (0);
 }
@@ -47,7 +44,7 @@ static int	watcher_tick(t_watcher_args *watcher_args)
 	i = -1;
 	usleep(WATCHER_SLEEP);
 	while (++i < watcher_args->args.number_of_philos)
-		if (watcher_tick_tick(watcher_args, i, &y))
+		if (watcher_tick_philo(watcher_args, i, &y))
 			return (1);
 	if (y == watcher_args->args.number_of_philos)
 	{

@@ -12,17 +12,6 @@
 
 #include "philo.h"
 
-static void	*wait_childs(void *d)
-{
-	sem_t	*dead;
-
-	dead = d;
-	while (waitpid(-1, 0, 0) > -1)
-		;
-	sem_post(dead);
-	return (0);
-}
-
 typedef struct s_end_args
 {
 	long	number_of_philos;
@@ -30,6 +19,19 @@ typedef struct s_end_args
 	sem_t	*dead;
 	sem_t	*console;
 }	t_end_args;
+
+static void	*wait_childs(void *data)
+{
+	t_end_args	*watcher_args;
+	watcher_args = data;
+
+	while (waitpid(-1, 0, 0) > -1)
+		sem_post(watcher_args->remaining);
+	sem_post(watcher_args->dead);
+	return (0);
+}
+
+
 
 void	*wait_end(void *data)
 {
@@ -56,7 +58,7 @@ static int	wait_til_end(t_args args, t_sems sems, pid_t childs[MAX_PROCESS])
 
 	t_end_args	end_args = {.dead = sems.dead, .remaining = sems.remaining_eat, .number_of_philos=args.number_of_philos, .console=sems.console};
 
-	pthread_create(&t2, 0, &wait_childs, sems.dead);
+	pthread_create(&t2, 0, &wait_childs, &end_args);
 	pthread_create(&t, 0, &wait_end, &end_args);
 	
 	sem_wait(sems.dead);

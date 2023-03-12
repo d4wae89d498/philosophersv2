@@ -42,10 +42,10 @@ int	sleep_while_check_dead(t_philo_ctx *ctx, unsigned long time)
 {
 	int	r;
 
-	while (time >= 10000)
+	while (time >= SLEEP_CHECK_DELAY)
 	{
-		time -= 2000;
-		ft_sleep(2000);
+		time -= SLEEP_CHECK_TICK;
+		ft_sleep(SLEEP_CHECK_TICK);
 		pthread_mutex_lock(ctx->console);
 		r = *(ctx->dead);
 		pthread_mutex_unlock(ctx->console);

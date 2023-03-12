@@ -34,6 +34,12 @@
 # ifndef MIN_SLEEP_DELAY
 #  define MIN_SLEEP_DELAY 100000
 # endif
+# ifndef SLEEP_CHECK_DELAY
+#  define SLEEP_CHECK_DELAY 5000
+# endif
+# ifndef SLEEP_CHECK_TICK
+#  define SLEEP_CHECK_TICK 2000
+# endif
 
 typedef enum e_state
 {
@@ -41,13 +47,8 @@ typedef enum e_state
 	EAT,
 	THINK,
 	SLEEP,
-
-	WAIT_LEFT,
-	WAIT_RIGHT,
-	NO_WAIT,
 	DIE,
 	END
-
 }	t_state;
 
 typedef struct s_args
@@ -84,8 +85,6 @@ typedef struct s_watcher_args
 int				destroy_mutex(pthread_mutex_t *mtx);
 int			start_watcher(t_args args, pthread_t *philos,
 					t_philo_ctx *philos_ctx);
-void			toggle_state(t_philo_ctx *ctx, t_state state);
-t_state			get_state(t_philo_ctx *ctx);
 int				destroy_philos_ctx(t_philo_ctx *philos_ctx,
 					long number_of_philos);
 int				ft_sputs(char *dst, const char *src);
