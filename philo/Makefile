@@ -1,6 +1,6 @@
 #CC=/usr/local/Cellar/gcc/12.2.0/bin/gcc-12
-CC=clang
-CFLAGS=-Wall -Werror -Wextra -g #-fsanitize=thread
+CC=gcc
+CFLAGS=-Wall -Werror -Wextra -g -fsanitize=thread
 SRCS=destroy.c main.c watcher.c routine.c time.c puts.c msg.c init.c utils.c
 OBJS=$(SRCS:.c=.o)
 DEPS=Makefile philo.h
