@@ -6,3 +6,4 @@ philo_bonus/philo_bonus
 *.a
 *.swap
 .DS_Store
+.vscode
