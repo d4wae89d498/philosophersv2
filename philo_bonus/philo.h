@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:11:56 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/25 12:17:50 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/03/03 22:16:30 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_sems
 	sem_t	*forks;
 	sem_t	*dead;
 	sem_t	*last_meal;
+	sem_t	*remaining_eat;
 }	t_sems;
 typedef struct s_args
 {
@@ -74,7 +75,7 @@ void			philo_msg(unsigned long time, unsigned int id, char *msg);
 void			msg(sem_t *console, unsigned long start_time, int id,
 					char *msg);
 int				init_sems(t_sems *sems, long number_of_philos);
-void			*watch(void *data);
+void			*watch_famine(void *data);
 int				destroy_sems(t_sems *sems);
 int				handle_one(t_args args);
 void			start_routine(t_args args, t_sems sems, unsigned long start_time,

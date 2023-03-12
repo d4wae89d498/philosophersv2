@@ -23,15 +23,41 @@ static void	*wait_childs(void *d)
 	return (0);
 }
 
+typedef struct s_end_args
+{
+	long	number_of_philos;
+	sem_t	*remaining;
+	sem_t	*dead;
+}	t_end_args;
+
+void	*wait_end(void *data)
+{
+	t_end_args	*watcher_args;
+	long	i;
+	watcher_args = data;
+	i = 0;
+	while (i < watcher_args->number_of_philos)
+	{
+		sem_wait(watcher_args->remaining);
+		i += 1;
+	}
+	sem_post(watcher_args->dead);
+	return (0);
+}
 
 static int	wait_til_end(t_args args, t_sems sems, pid_t childs[MAX_PROCESS])
 {
 	char		s[255];
 	pthread_t	t;
+	pthread_t	t2;
 	int			r;
 	long		i;
 
-	pthread_create(&t, 0, &wait_childs, sems.dead);
+	t_end_args	end_args = {.dead = sems.dead, .remaining = sems.remaining_eat, .number_of_philos=args.number_of_philos};
+
+	pthread_create(&t2, 0, &wait_childs, sems.dead);
+	pthread_create(&t, 0, &wait_end, &end_args);
+	
 	sem_wait(sems.dead);
 	i = 0;
 	while (i < args.number_of_philos)
@@ -45,6 +71,8 @@ static int	wait_til_end(t_args args, t_sems sems, pid_t childs[MAX_PROCESS])
 	}
 	r = 0;
 	if (pthread_join(t, 0))
+		r += ft_eputs("Error: pthread_join.\n");
+	if (pthread_join(t2, 0))
 		r += ft_eputs("Error: pthread_join.\n");
 	if (destroy_sems(&sems))
 		r += ft_eputs("Error: destroy_sems\n");

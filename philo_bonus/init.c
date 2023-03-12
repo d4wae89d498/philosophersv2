@@ -6,7 +6,7 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:17:55 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/02/19 11:17:56 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:17:08 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,21 @@ int	destroy_sems(t_sems *sems)
 		r += sem_close(sems->console);
 		sems->console = 0;
 	}
+	if (sems->remaining_eat)
+	{
+		r += sem_close(sems->remaining_eat);
+		sems->remaining_eat = 0;
+	}
 	r += sem_unlink("dead");
 	r += sem_unlink("console");
 	r += sem_unlink("forks");
+	r += sem_unlink("remaining_eat");
 	return (r);
 }
 
 int	init_sems(t_sems *sems, long number_of_philos)
 {
-	*sems = (t_sems){0, 0, 0, 0};
+	*sems = (t_sems){0, 0, 0, 0, 0};
 	destroy_sems(sems);
 	sems->forks = sem_open("forks", O_CREAT, 0644, number_of_philos);
 	if (sems->forks == SEM_FAILED)
@@ -49,7 +55,10 @@ int	init_sems(t_sems *sems, long number_of_philos)
 	if (sems->console == SEM_FAILED)
 		return (ft_puts("Error: sem_open.\n") + destroy_sems(sems));
 	sems->dead = sem_open("dead", O_CREAT, 0644, 0);
-	if (sems->console == SEM_FAILED)
+	if (sems->dead == SEM_FAILED)
+		return (ft_puts("Error: sem_open.\n") + destroy_sems(sems));
+	sems->remaining_eat = sem_open("remaining_eat", O_CREAT, 0644, 0);
+	if (sems->remaining_eat == SEM_FAILED)
 		return (ft_puts("Error: sem_open.\n") + destroy_sems(sems));
 	return (0);
 }

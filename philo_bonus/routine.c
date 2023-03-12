@@ -6,13 +6,13 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:18:10 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/02/19 11:18:11 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:17:40 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	take_forks(t_args args, pid_t id, unsigned long start_time,
+static int	take_forks(t_args args, unsigned long start_time, pid_t id,
 		t_sems sems)
 {
 	(void) args;
@@ -25,7 +25,7 @@ static int	take_forks(t_args args, pid_t id, unsigned long start_time,
 	return (0);
 }
 
-static void	drop_forks(t_args args, pid_t id, unsigned long start_time,
+static void	drop_forks(t_args args, unsigned long start_time, pid_t id,
 		t_sems sems)
 {
 	sem_post(sems.forks);
@@ -38,14 +38,13 @@ static void	routine(t_args args, pid_t id, unsigned long *last_meal,
 			unsigned long start_time)
 {
 	long			meals;
+	int				posted;
 
-	if (id % 2)
-		ft_sleep(1);
+	posted = 0;
 	meals = 0;
 	while (1)
 	{
-		take_forks(args, id, start_time, args.sems);
-		msg(args.sems.console, start_time, id, "is eating");
+		take_forks(args, start_time, id, args.sems);
 		sem_wait(args.sems.last_meal);
 		*last_meal = current_time(start_time);
 		sem_post(args.sems.last_meal);
@@ -53,14 +52,13 @@ static void	routine(t_args args, pid_t id, unsigned long *last_meal,
 		meals += 1;
 		if (meals >= args.number_of_meals && args.number_of_meals > 0)
 		{
-			sem_wait(args.sems.last_meal);
-			*last_meal = LONG_MAX;
-			sem_post(args.sems.last_meal);
-			sem_post(args.sems.forks);
-			sem_post(args.sems.forks);
-			return ;
+			if (!posted)
+			{
+				sem_post(args.sems.remaining_eat);
+				posted = 1;
+			}
 		}
-		drop_forks(args, id, start_time, args.sems);
+		drop_forks(args, start_time, id, args.sems);
 	}
 }
 
@@ -86,8 +84,9 @@ void	start_routine(t_args args, t_sems sems, unsigned long start_time,
 		.dead = sems.dead, .last_meal = &last_meal, .id = i + 1, .args = args,
 		.console = sems.console
 	};
-	pthread_create(&watcher, 0, &watch, &watcher_args);
+	pthread_create(&watcher, 0, &watch_famine, &watcher_args);
 	routine(args, i + 1, &last_meal, start_time);
+	ft_sleep(args.time_to_eat + args.time_to_sleep + args.number_of_philos);
 	sem_post(sems.dead);
 	pthread_join(watcher, 0);
 	sem_close(sems.last_meal);
