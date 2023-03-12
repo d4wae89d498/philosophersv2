@@ -23,7 +23,7 @@ for normal :
 - [x] clean code
 - [x] think before anything
 - [x] dont stop thread after eat 
-- [ ] fix double unlock fsanitize warning on linux
+- [x] fix double unlock fsanitize warning on linux
 
 for bonus : 
 - [x] finish on first death
@@ -32,4 +32,4 @@ for bonus :
 - [x] maybe 1 semaphore for console 
 - [x] clean code
 - [x] think before anything
-- [ ] dont stop thread after eat 
+- [x] dont stop thread after eat 
