@@ -28,6 +28,7 @@ typedef struct s_end_args
 	long	number_of_philos;
 	sem_t	*remaining;
 	sem_t	*dead;
+	sem_t	*console;
 }	t_end_args;
 
 void	*wait_end(void *data)
@@ -53,7 +54,7 @@ static int	wait_til_end(t_args args, t_sems sems, pid_t childs[MAX_PROCESS])
 	int			r;
 	long		i;
 
-	t_end_args	end_args = {.dead = sems.dead, .remaining = sems.remaining_eat, .number_of_philos=args.number_of_philos};
+	t_end_args	end_args = {.dead = sems.dead, .remaining = sems.remaining_eat, .number_of_philos=args.number_of_philos, .console=sems.console};
 
 	pthread_create(&t2, 0, &wait_childs, sems.dead);
 	pthread_create(&t, 0, &wait_end, &end_args);

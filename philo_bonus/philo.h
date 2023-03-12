@@ -27,7 +27,7 @@
 #  define LOG 0
 # endif
 # ifndef MAX_PROCESS
-#  define MAX_PROCESS 84000
+#  define MAX_PROCESS 8400
 # endif
 
 typedef struct s_sems

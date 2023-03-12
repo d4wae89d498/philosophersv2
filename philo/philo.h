@@ -20,7 +20,7 @@
 # include <sys/time.h>
 # include <limits.h>
 # ifndef MAX_THREADS
-#  define MAX_THREADS 42000
+#  define MAX_THREADS 420
 # endif
 # ifndef MC
 #  define MC 210
@@ -32,7 +32,7 @@
 #  define START_DELAY 1000
 # endif
 # ifndef MIN_SLEEP_DELAY
-#  define MIN_SLEEP_DELAY 1000
+#  define MIN_SLEEP_DELAY 100000
 # endif
 
 typedef enum e_state

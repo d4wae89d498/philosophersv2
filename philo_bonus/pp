@@ -1,721 +1,148 @@
-0 philo 1 is thinking
-0 philo 2 is thinking
-0 philo 1 has taken a fork
-0 philo 2 has taken a fork
-0 philo 3 is thinking
-0 philo 1 has taken a fork
-0 philo 4 is thinking
-0 philo 2 has taken a fork
-1 philo 3 has taken a fork
-1 philo 5 is thinking
-1 philo 1 is eating
-1 philo 4 has taken a fork
-1 philo 6 is thinking
-1 philo 2 is eating
-1 philo 3 has taken a fork
-1 philo 7 is thinking
-1 philo 5 has taken a fork
-1 philo 8 is thinking
-1 philo 9 is thinking
-1 philo 4 has taken a fork
-2 philo 6 has taken a fork
-2 philo 10 is thinking
-2 philo 11 is thinking
-2 philo 3 is eating
-2 philo 7 has taken a fork
-2 philo 12 is thinking
-2 philo 5 has taken a fork
-2 philo 8 has taken a fork
-2 philo 13 is thinking
-2 philo 9 has taken a fork
-2 philo 4 is eating
-2 philo 14 is thinking
-2 philo 6 has taken a fork
-2 philo 10 has taken a fork
-2 philo 15 is thinking
-2 philo 11 has taken a fork
-3 philo 7 has taken a fork
-3 philo 12 has taken a fork
-3 philo 16 is thinking
-3 philo 5 is eating
-3 philo 8 has taken a fork
-3 philo 17 is thinking
-3 philo 13 has taken a fork
-3 philo 9 has taken a fork
-3 philo 18 is thinking
-3 philo 14 has taken a fork
-3 philo 19 is thinking
-3 philo 6 is eating
-3 philo 10 has taken a fork
-4 philo 20 is thinking
-4 philo 15 has taken a fork
-4 philo 21 is thinking
-4 philo 11 has taken a fork
-4 philo 22 is thinking
-4 philo 7 is eating
-4 philo 12 has taken a fork
-4 philo 23 is thinking
-4 philo 16 has taken a fork
-4 philo 24 is thinking
-4 philo 8 is eating
-4 philo 25 is thinking
-4 philo 17 has taken a fork
-4 philo 26 is thinking
-4 philo 13 has taken a fork
-4 philo 27 is thinking
-5 philo 9 is eating
-5 philo 18 has taken a fork
-5 philo 28 is thinking
-5 philo 14 has taken a fork
-5 philo 29 is thinking
-5 philo 19 has taken a fork
-5 philo 10 is eating
-5 philo 30 is thinking
-5 philo 20 has taken a fork
-5 philo 15 has taken a fork
-5 philo 31 is thinking
-5 philo 21 has taken a fork
-5 philo 32 is thinking
-5 philo 11 is eating
-5 philo 22 has taken a fork
-5 philo 33 is thinking
-5 philo 12 is eating
-5 philo 23 has taken a fork
-5 philo 16 has taken a fork
-5 philo 24 has taken a fork
-5 philo 34 is thinking
-6 philo 25 has taken a fork
-6 philo 17 has taken a fork
-6 philo 26 has taken a fork
-6 philo 13 is eating
-6 philo 27 has taken a fork
-6 philo 35 is thinking
-6 philo 18 has taken a fork
-6 philo 28 has taken a fork
-6 philo 14 is eating
-6 philo 29 has taken a fork
-6 philo 36 is thinking
-6 philo 19 has taken a fork
-6 philo 30 has taken a fork
-6 philo 37 is thinking
-6 philo 20 has taken a fork
-6 philo 15 is eating
-6 philo 31 has taken a fork
-6 philo 38 is thinking
-6 philo 21 has taken a fork
-6 philo 32 has taken a fork
-7 philo 39 is thinking
-7 philo 22 has taken a fork
-7 philo 33 has taken a fork
-7 philo 40 is thinking
-7 philo 23 has taken a fork
-7 philo 16 is eating
-7 philo 24 has taken a fork
-7 philo 34 has taken a fork
-7 philo 41 is thinking
-7 philo 25 has taken a fork
-7 philo 17 is eating
-7 philo 26 has taken a fork
-7 philo 42 is thinking
-7 philo 27 has taken a fork
-7 philo 35 has taken a fork
-7 philo 18 is eating
-8 philo 43 is thinking
-8 philo 28 has taken a fork
-8 philo 44 is thinking
-8 philo 29 has taken a fork
-8 philo 36 has taken a fork
-8 philo 19 is eating
-8 philo 30 has taken a fork
-8 philo 45 is thinking
-8 philo 37 has taken a fork
-8 philo 20 is eating
-8 philo 46 is thinking
-8 philo 31 has taken a fork
-8 philo 38 has taken a fork
-8 philo 21 is eating
-8 philo 32 has taken a fork
-8 philo 47 is thinking
-8 philo 39 has taken a fork
-9 philo 48 is thinking
-9 philo 22 is eating
-9 philo 49 is thinking
-9 philo 33 has taken a fork
-9 philo 50 is thinking
-9 philo 40 has taken a fork
-9 philo 23 is eating
-9 philo 51 is thinking
-10 philo 24 is eating
-10 philo 34 has taken a fork
-10 philo 52 is thinking
-10 philo 41 has taken a fork
-10 philo 25 is eating
-10 philo 26 is eating
-10 philo 53 is thinking
-10 philo 42 has taken a fork
-10 philo 27 is eating
-10 philo 54 is thinking
-10 philo 35 has taken a fork
-11 philo 43 has taken a fork
-11 philo 55 is thinking
-11 philo 28 is eating
-11 philo 44 has taken a fork
-11 philo 29 is eating
-11 philo 56 is thinking
-12 philo 36 has taken a fork
-12 philo 30 is eating
-12 philo 45 has taken a fork
-12 philo 37 has taken a fork
-12 philo 57 is thinking
-13 philo 46 has taken a fork
-13 philo 31 is eating
-13 philo 38 has taken a fork
-13 philo 32 is eating
-13 philo 47 has taken a fork
-13 philo 39 has taken a fork
-14 philo 58 is thinking
-14 philo 48 has taken a fork
-14 philo 59 is thinking
-14 philo 49 has taken a fork
-14 philo 33 is eating
-14 philo 50 has taken a fork
-15 philo 40 has taken a fork
-15 philo 60 is thinking
-15 philo 51 has taken a fork
-15 philo 61 is thinking
-15 philo 34 is eating
-15 philo 52 has taken a fork
-16 philo 41 has taken a fork
-16 philo 53 has taken a fork
-17 philo 42 has taken a fork
-17 philo 62 is thinking
-17 philo 54 has taken a fork
-17 philo 63 is thinking
-17 philo 35 is eating
-17 philo 43 has taken a fork
-17 philo 55 has taken a fork
-18 philo 64 is thinking
-18 philo 44 has taken a fork
-18 philo 56 has taken a fork
-18 philo 36 is eating
-18 philo 65 is thinking
-18 philo 45 has taken a fork
-18 philo 37 is eating
-19 philo 57 has taken a fork
-19 philo 46 has taken a fork
-19 philo 66 is thinking
-19 philo 38 is eating
-19 philo 47 has taken a fork
-19 philo 39 is eating
-19 philo 67 is thinking
-19 philo 58 has taken a fork
-19 philo 48 has taken a fork
-20 philo 59 has taken a fork
-20 philo 49 has taken a fork
-20 philo 68 is thinking
-20 philo 50 has taken a fork
-20 philo 40 is eating
-20 philo 60 has taken a fork
-20 philo 51 has taken a fork
-20 philo 69 is thinking
-20 philo 61 has taken a fork
-20 philo 52 has taken a fork
-20 philo 41 is eating
-21 philo 53 has taken a fork
-21 philo 70 is thinking
-21 philo 42 is eating
-21 philo 62 has taken a fork
-21 philo 54 has taken a fork
-21 philo 63 has taken a fork
-21 philo 71 is thinking
-21 philo 43 is eating
-21 philo 55 has taken a fork
-21 philo 72 is thinking
-21 philo 64 has taken a fork
-22 philo 44 is eating
-22 philo 73 is thinking
-22 philo 56 has taken a fork
-22 philo 74 is thinking
-22 philo 65 has taken a fork
-22 philo 45 is eating
-22 philo 57 has taken a fork
-22 philo 46 is eating
-22 philo 75 is thinking
-22 philo 66 has taken a fork
-22 philo 76 is thinking
-23 philo 47 is eating
-23 philo 67 has taken a fork
-23 philo 58 has taken a fork
-23 philo 77 is thinking
-23 philo 48 is eating
-23 philo 78 is thinking
-23 philo 59 has taken a fork
-23 philo 49 is eating
-23 philo 68 has taken a fork
-23 philo 50 is eating
-23 philo 60 has taken a fork
-23 philo 51 is eating
-23 philo 79 is thinking
-24 philo 80 is thinking
-24 philo 69 has taken a fork
-24 philo 61 has taken a fork
-24 philo 52 is eating
-24 philo 53 is eating
-24 philo 70 has taken a fork
-24 philo 81 is thinking
-24 philo 62 has taken a fork
-24 philo 82 is thinking
-24 philo 54 is eating
-24 philo 63 has taken a fork
-24 philo 71 has taken a fork
-25 philo 55 is eating
-25 philo 72 has taken a fork
-25 philo 83 is thinking
-25 philo 84 is thinking
-25 philo 64 has taken a fork
-25 philo 73 has taken a fork
-25 philo 56 is eating
-25 philo 74 has taken a fork
-25 philo 65 has taken a fork
-25 philo 57 is eating
-25 philo 85 is thinking
-26 philo 86 is thinking
-26 philo 75 has taken a fork
-26 philo 87 is thinking
-26 philo 66 has taken a fork
-26 philo 76 has taken a fork
-26 philo 67 has taken a fork
-26 philo 58 is eating
-26 philo 88 is thinking
-27 philo 77 has taken a fork
-27 philo 89 is thinking
-27 philo 78 has taken a fork
-27 philo 59 is eating
-27 philo 68 has taken a fork
-28 philo 60 is eating
-28 philo 79 has taken a fork
-28 philo 90 is thinking
-28 philo 80 has taken a fork
-28 philo 91 is thinking
-28 philo 69 has taken a fork
-28 philo 61 is eating
-28 philo 70 has taken a fork
-28 philo 62 is eating
-28 philo 92 is thinking
-29 philo 93 is thinking
-29 philo 63 is eating
-29 philo 94 is thinking
-29 philo 95 is thinking
-29 philo 96 is thinking
-29 philo 64 is eating
-29 philo 65 is eating
-29 philo 97 is thinking
-29 philo 66 is eating
-29 philo 67 is eating
-29 philo 98 is thinking
-30 philo 68 is eating
-30 philo 99 is thinking
-30 philo 69 is eating
-30 philo 100 is thinking
-30 philo 70 is eating
-30 philo 101 is thinking
-30 philo 102 is thinking
-31 philo 103 is thinking
-31 philo 104 is thinking
-31 philo 105 is thinking
-31 philo 106 is thinking
-31 philo 107 is thinking
-32 philo 108 is thinking
-32 philo 109 is thinking
-32 philo 110 is thinking
-32 philo 111 is thinking
-33 philo 112 is thinking
-33 philo 113 is thinking
-34 philo 114 is thinking
-34 philo 115 is thinking
-35 philo 116 is thinking
-35 philo 117 is thinking
-35 philo 118 is thinking
-35 philo 119 is thinking
-36 philo 120 is thinking
-36 philo 121 is thinking
-36 philo 122 is thinking
-37 philo 123 is thinking
-37 philo 124 is thinking
-37 philo 125 is thinking
-37 philo 126 is thinking
-37 philo 127 is thinking
-38 philo 128 is thinking
-38 philo 129 is thinking
-38 philo 130 is thinking
-38 philo 131 is thinking
-39 philo 132 is thinking
-39 philo 133 is thinking
-39 philo 134 is thinking
-39 philo 135 is thinking
-40 philo 136 is thinking
-40 philo 137 is thinking
-40 philo 138 is thinking
-40 philo 139 is thinking
-40 philo 140 is thinking
-41 philo 141 is thinking
-41 philo 142 is thinking
-41 philo 143 is thinking
-42 philo 144 is thinking
-42 philo 145 is thinking
-42 philo 146 is thinking
-42 philo 147 is thinking
-43 philo 148 is thinking
-43 philo 149 is thinking
-43 philo 150 is thinking
-201 philo 81 has taken a fork
-201 philo 82 has taken a fork
-201 philo 1 is sleeping
-201 philo 2 is sleeping
-201 philo 71 has taken a fork
-201 philo 72 has taken a fork
-201 philo 71 is eating
-201 philo 72 is eating
-202 philo 3 is sleeping
-202 philo 83 has taken a fork
-202 philo 84 has taken a fork
-202 philo 4 is sleeping
-202 philo 73 has taken a fork
-202 philo 74 has taken a fork
-202 philo 73 is eating
-202 philo 74 is eating
-203 philo 85 has taken a fork
-204 philo 86 has taken a fork
-204 philo 5 is sleeping
-204 philo 6 is sleeping
-204 philo 75 has taken a fork
-204 philo 87 has taken a fork
-204 philo 75 is eating
-205 philo 7 is sleeping
-205 philo 76 has taken a fork
-205 philo 88 has taken a fork
-205 philo 77 has taken a fork
-205 philo 89 has taken a fork
-205 philo 8 is sleeping
-205 philo 76 is eating
-205 philo 77 is eating
-205 philo 78 has taken a fork
-205 philo 79 has taken a fork
-205 philo 9 is sleeping
-205 philo 78 is eating
-205 philo 79 is eating
-205 philo 90 has taken a fork
-205 philo 80 has taken a fork
-206 philo 10 is sleeping
-206 philo 91 has taken a fork
-206 philo 11 is sleeping
-206 philo 92 has taken a fork
-206 philo 80 is eating
-206 philo 12 is sleeping
-206 philo 93 has taken a fork
-206 philo 94 has taken a fork
-206 philo 95 has taken a fork
-206 philo 13 is sleeping
-206 philo 96 has taken a fork
-207 philo 15 is sleeping
-207 philo 97 has taken a fork
-207 philo 98 has taken a fork
-207 philo 99 has taken a fork
-207 philo 100 has taken a fork
-207 philo 14 is sleeping
-207 philo 101 has taken a fork
-207 philo 102 has taken a fork
-207 philo 16 is sleeping
-208 philo 103 has taken a fork
-208 philo 104 has taken a fork
-208 philo 17 is sleeping
-208 philo 18 is sleeping
-208 philo 105 has taken a fork
-208 philo 106 has taken a fork
-208 philo 20 is sleeping
-208 philo 107 has taken a fork
-208 philo 108 has taken a fork
-209 philo 109 has taken a fork
-209 philo 110 has taken a fork
-209 philo 21 is sleeping
-209 philo 19 is sleeping
-209 philo 111 has taken a fork
-209 philo 112 has taken a fork
-209 philo 113 has taken a fork
-209 philo 114 has taken a fork
-209 philo 22 is sleeping
-209 philo 23 is sleeping
-209 philo 115 has taken a fork
-209 philo 116 has taken a fork
-210 philo 24 is sleeping
-210 philo 117 has taken a fork
-210 philo 118 has taken a fork
-210 philo 119 has taken a fork
-210 philo 26 is sleeping
-210 philo 27 is sleeping
-210 philo 121 has taken a fork
-210 philo 120 has taken a fork
-210 philo 122 has taken a fork
-211 philo 123 has taken a fork
-211 philo 25 is sleeping
-211 philo 124 has taken a fork
-211 philo 125 has taken a fork
-211 philo 126 has taken a fork
-211 philo 28 is sleeping
-212 philo 29 is sleeping
-212 philo 127 has taken a fork
-212 philo 128 has taken a fork
-212 philo 30 is sleeping
-212 philo 129 has taken a fork
-212 philo 130 has taken a fork
-213 philo 131 has taken a fork
-213 philo 132 has taken a fork
-213 philo 31 is sleeping
-213 philo 133 has taken a fork
-213 philo 32 is sleeping
-213 philo 134 has taken a fork
-215 philo 135 has taken a fork
-215 philo 33 is sleeping
-215 philo 136 has taken a fork
-216 philo 34 is sleeping
-216 philo 137 has taken a fork
-216 philo 138 has taken a fork
-218 philo 139 has taken a fork
-218 philo 35 is sleeping
-218 philo 140 has taken a fork
-219 philo 141 has taken a fork
-219 philo 142 has taken a fork
-219 philo 37 is sleeping
-219 philo 143 has taken a fork
-219 philo 144 has taken a fork
-219 philo 36 is sleeping
-219 philo 145 has taken a fork
-219 philo 38 is sleeping
-219 philo 146 has taken a fork
-220 philo 147 has taken a fork
-220 philo 148 has taken a fork
-220 philo 39 is sleeping
-220 philo 149 has taken a fork
-220 philo 40 is sleeping
-220 philo 150 has taken a fork
-221 philo 81 has taken a fork
-221 philo 82 has taken a fork
-221 philo 83 has taken a fork
-221 philo 41 is sleeping
-221 philo 84 has taken a fork
-221 philo 42 is sleeping
-221 philo 81 is eating
-221 philo 82 is eating
-221 philo 83 is eating
-221 philo 84 is eating
-221 philo 43 is sleeping
-221 philo 85 has taken a fork
-221 philo 86 has taken a fork
-222 philo 85 is eating
-222 philo 86 is eating
-222 philo 44 is sleeping
-222 philo 87 has taken a fork
-222 philo 88 has taken a fork
-222 philo 87 is eating
-222 philo 88 is eating
-222 philo 45 is sleeping
-222 philo 89 has taken a fork
-222 philo 90 has taken a fork
-222 philo 89 is eating
-222 philo 90 is eating
-222 philo 46 is sleeping
-223 philo 92 has taken a fork
-223 philo 91 has taken a fork
-223 philo 92 is eating
-223 philo 91 is eating
-223 philo 47 is sleeping
-223 philo 93 has taken a fork
-223 philo 94 has taken a fork
-223 philo 93 is eating
-223 philo 94 is eating
-223 philo 48 is sleeping
-223 philo 95 has taken a fork
-223 philo 96 has taken a fork
-223 philo 95 is eating
-223 philo 96 is eating
-224 philo 50 is sleeping
-224 philo 97 has taken a fork
-224 philo 98 has taken a fork
-224 philo 49 is sleeping
-224 philo 99 has taken a fork
-224 philo 100 has taken a fork
-224 philo 97 is eating
-224 philo 98 is eating
-224 philo 99 is eating
-224 philo 100 is eating
-224 philo 101 has taken a fork
-224 philo 102 has taken a fork
-224 philo 52 is sleeping
-224 philo 53 is sleeping
-224 philo 103 has taken a fork
-224 philo 104 has taken a fork
-224 philo 105 has taken a fork
-224 philo 106 has taken a fork
-224 philo 51 is sleeping
-224 philo 101 is eating
-224 philo 102 is eating
-224 philo 103 is eating
-224 philo 104 is eating
-225 philo 105 is eating
-225 philo 106 is eating
-225 philo 107 has taken a fork
-225 philo 54 is sleeping
-225 philo 108 has taken a fork
-225 philo 55 is sleeping
-225 philo 109 has taken a fork
-225 philo 110 has taken a fork
-225 philo 107 is eating
-225 philo 108 is eating
-225 philo 109 is eating
-225 philo 110 is eating
-226 philo 57 is sleeping
-226 philo 111 has taken a fork
-226 philo 112 has taken a fork
-226 philo 111 is eating
-226 philo 112 is eating
-226 philo 113 has taken a fork
-226 philo 56 is sleeping
-226 philo 114 has taken a fork
-226 philo 113 is eating
-226 philo 114 is eating
-226 philo 115 has taken a fork
-226 philo 116 has taken a fork
-227 philo 58 is sleeping
-227 philo 115 is eating
-227 philo 116 is eating
-227 philo 59 is sleeping
-227 philo 117 has taken a fork
-227 philo 118 has taken a fork
-227 philo 117 is eating
-228 philo 118 is eating
-228 philo 60 is sleeping
-228 philo 119 has taken a fork
-228 philo 121 has taken a fork
-228 philo 119 is eating
-228 philo 121 is eating
-228 philo 61 is sleeping
-228 philo 120 has taken a fork
-229 philo 122 has taken a fork
-229 philo 120 is eating
-229 philo 122 is eating
-229 philo 62 is sleeping
-229 philo 123 has taken a fork
-229 philo 124 has taken a fork
-229 philo 123 is eating
-229 philo 124 is eating
-229 philo 63 is sleeping
-229 philo 125 has taken a fork
-229 philo 126 has taken a fork
-229 philo 125 is eating
-229 philo 126 is eating
-229 philo 64 is sleeping
-229 philo 127 has taken a fork
-229 philo 128 has taken a fork
-229 philo 127 is eating
-229 philo 128 is eating
-229 philo 67 is sleeping
-230 philo 129 has taken a fork
-230 philo 130 has taken a fork
-230 philo 129 is eating
-230 philo 130 is eating
-230 philo 65 is sleeping
-230 philo 131 has taken a fork
-230 philo 132 has taken a fork
-230 philo 66 is sleeping
-230 philo 131 is eating
-230 philo 133 has taken a fork
-230 philo 134 has taken a fork
-230 philo 132 is eating
-230 philo 68 is sleeping
-230 philo 135 has taken a fork
-230 philo 136 has taken a fork
-230 philo 133 is eating
-230 philo 69 is sleeping
-230 philo 137 has taken a fork
-230 philo 138 has taken a fork
-230 philo 134 is eating
-230 philo 135 is eating
-230 philo 136 is eating
-230 philo 137 is eating
-230 philo 138 is eating
-231 philo 70 is sleeping
-231 philo 139 has taken a fork
-231 philo 140 has taken a fork
-231 philo 139 is eating
-231 philo 140 is eating
-401 philo 1 is thinking
-401 philo 2 is thinking
-402 philo 72 is sleeping
-402 philo 142 has taken a fork
-402 philo 141 has taken a fork
-402 philo 142 is eating
-402 philo 141 is eating
-402 philo 71 is sleeping
-402 philo 143 has taken a fork
-402 philo 144 has taken a fork
-402 philo 143 is eating
-402 philo 144 is eating
-402 philo 3 is thinking
-403 philo 4 is thinking
-403 philo 73 is sleeping
-403 philo 145 has taken a fork
-403 philo 146 has taken a fork
-403 philo 145 is eating
-403 philo 74 is sleeping
-403 philo 147 has taken a fork
-403 philo 148 has taken a fork
-403 philo 146 is eating
-403 philo 147 is eating
-403 philo 148 is eating
-404 philo 75 is sleeping
-404 philo 149 has taken a fork
-404 philo 150 has taken a fork
-404 philo 6 is thinking
-404 philo 149 is eating
-404 philo 150 is eating
-404 philo 5 is thinking
-405 philo 7 is thinking
-405 philo 8 is thinking
-405 philo 77 is sleeping
-405 philo 1 has taken a fork
-405 philo 2 has taken a fork
-405 philo 76 is sleeping
-405 philo 3 has taken a fork
-405 philo 4 has taken a fork
-406 philo 10 is thinking
-406 philo 78 is sleeping
-406 philo 6 has taken a fork
-406 philo 5 has taken a fork
-406 philo 80 is sleeping
-406 philo 7 has taken a fork
-406 philo 8 has taken a fork
-406 philo 9 is thinking
-406 philo 79 is sleeping
-406 philo 1 has taken a fork
-406 philo 2 has taken a fork
-406 philo 1 is eating
-406 philo 11 is thinking
-406 philo 2 is eating
-406 philo 13 is thinking
-406 philo 12 is thinking
-407 philo 14 is thinking
-407 philo 15 is thinking
-408 philo 16 is thinking
-408 philo 17 is thinking
-408 philo 18 is thinking
-409 philo 20 is thinking
-409 philo 19 is thinking
-409 philo 21 is thinking
-409 philo 22 is thinking
-409 philo 23 is thinking
-410 philo 27 is thinking
-411 philo 24 is thinking
-411 philo 26 is thinking
-411 philo 25 is thinking
-412 philo 28 is thinking
-412 philo 3 died
+0 1 is thinking
+0 2 is thinking
+0 1 has taken a fork
+0 2 has taken a fork
+0 3 is thinking
+0 1 has taken a fork
+0 2 has taken a fork
+1 1 is eating
+1 4 is thinking
+1 2 is eating
+201 1 is sleeping
+201 4 has taken a fork
+201 3 has taken a fork
+201 2 is sleeping
+201 4 has taken a fork
+201 3 has taken a fork
+201 4 is eating
+201 3 is eating
+402 4 is sleeping
+402 3 is sleeping
+402 1 is thinking
+402 2 is thinking
+402 1 has taken a fork
+402 2 has taken a fork
+402 1 has taken a fork
+402 2 has taken a fork
+402 1 is eating
+402 2 is eating
+602 4 is thinking
+602 3 is thinking
+603 1 is sleeping
+603 2 is sleeping
+603 3 has taken a fork
+603 4 has taken a fork
+603 3 has taken a fork
+603 4 has taken a fork
+603 3 is eating
+603 4 is eating
+803 1 is thinking
+803 2 is thinking
+803 4 is sleeping
+803 2 has taken a fork
+803 1 has taken a fork
+803 3 is sleeping
+804 2 has taken a fork
+804 1 has taken a fork
+804 2 is eating
+804 1 is eating
+1004 3 is thinking
+1004 4 is thinking
+1004 1 is sleeping
+1004 3 has taken a fork
+1004 4 has taken a fork
+1004 2 is sleeping
+1004 3 has taken a fork
+1004 4 has taken a fork
+1004 3 is eating
+1004 4 is eating
+1205 2 is thinking
+1205 3 is sleeping
+1205 4 is sleeping
+1205 1 is thinking
+1205 2 has taken a fork
+1205 1 has taken a fork
+1205 2 has taken a fork
+1205 1 has taken a fork
+1205 2 is eating
+1205 1 is eating
+1405 4 is thinking
+1405 3 is thinking
+1406 1 is sleeping
+1406 4 has taken a fork
+1406 3 has taken a fork
+1406 2 is sleeping
+1406 4 has taken a fork
+1406 3 has taken a fork
+1406 4 is eating
+1406 3 is eating
+1606 2 is thinking
+1606 1 is thinking
+1606 4 is sleeping
+1606 1 has taken a fork
+1606 2 has taken a fork
+1607 3 is sleeping
+1607 1 has taken a fork
+1607 2 has taken a fork
+1607 1 is eating
+1607 2 is eating
+1806 4 is thinking
+1807 1 is sleeping
+1807 4 has taken a fork
+1807 3 is thinking
+1807 4 has taken a fork
+1807 4 is eating
+1807 2 is sleeping
+1807 3 has taken a fork
+1807 3 has taken a fork
+1807 3 is eating
+2007 1 is thinking
+2008 1 has taken a fork
+2008 3 is sleeping
+2008 4 is sleeping
+2008 2 is thinking
+2008 1 has taken a fork
+2008 2 has taken a fork
+2008 1 is eating
+2008 2 has taken a fork
+2008 2 is eating
+2208 4 is thinking
+2208 3 is thinking
+2208 2 is sleeping
+2208 1 is sleeping
+2209 4 has taken a fork
+2209 3 has taken a fork
+2209 4 has taken a fork
+2209 3 has taken a fork
+2209 4 is eating
+2209 3 is eating
+2409 4 is sleeping
+2409 1 is thinking
+2409 2 is thinking
+2409 1 has taken a fork
+2409 2 has taken a fork
+2409 3 is sleeping
+2410 1 has taken a fork
+2410 2 has taken a fork
+2410 1 is eating
+2410 2 is eating
+2609 4 is thinking
+2610 1 is sleeping
+2610 4 has taken a fork
+2610 3 is thinking
+2610 2 is sleeping
+2610 4 has taken a fork
+2610 3 has taken a fork
+2610 4 is eating
+2610 3 has taken a fork
+2610 3 is eating
+2810 4 is sleeping
+2810 2 is thinking
+2811 1 is thinking
+2811 2 has taken a fork
+2811 1 has taken a fork
+2811 3 is sleeping
+2811 1 has taken a fork
+2811 2 has taken a fork
+2811 1 is eating
+2811 2 is eating

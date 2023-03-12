@@ -31,6 +31,7 @@ void	toggle_state(t_philo_ctx *ctx, t_state state)
 
 static int	routine_tick(t_philo_ctx *ctx)
 {
+	msg(ctx, THINK);
 	toggle_state(ctx, WAIT_LEFT);
 	pthread_mutex_lock(ctx->left_fork);
 	toggle_state(ctx, WAIT_RIGHT);
@@ -51,7 +52,6 @@ static int	routine_tick(t_philo_ctx *ctx)
 	msg(ctx, SLEEP);
 	if (sleep_while_check_dead(ctx, ctx->args.time_to_sleep))
 		return (1);
-	msg(ctx, THINK);
 	return (0);
 }
 
@@ -60,9 +60,8 @@ void	*philo_routine(void *data)
 	t_philo_ctx		*ctx;
 
 	ctx = data;
-	msg(ctx, THINK);
-	if (ctx->id % 2)
-		usleep(10000);
+	if (!(ctx->id % 2))
+		usleep(START_DELAY);
 	while (ctx->meals < ctx->args.number_of_meals
 		|| (ctx->args.number_of_meals < 0))
 		if (routine_tick(ctx))

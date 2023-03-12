@@ -18,7 +18,7 @@ void	philo_msg(unsigned long time, unsigned int id, char *msg)
 
 	ultoa(s, time);
 	ft_puts(s);
-	ft_puts(" philo ");
+	ft_puts(" ");
 	ultoa(s, id);
 	ft_puts(s);
 	ft_puts(" ");

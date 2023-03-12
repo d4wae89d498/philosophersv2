@@ -15,7 +15,7 @@
 char	*get_msg(t_state state)
 {
 	if (state == TAKE)
-		return ("has taked a fork");
+		return ("has taken a fork");
 	if (state == EAT)
 		return ("is eating");
 	else if (state == SLEEP)
@@ -62,7 +62,7 @@ void	philo_msg(long number_of_philos, unsigned long time, unsigned int id,
 		return ;
 	}
 	i += ultoa(buffer + i, time);
-	i += ft_sputs(buffer + i, " philo ");
+	i += ft_sputs(buffer + i, " ");
 	i += ultoa(buffer + i, id);
 	i += ft_sputs(buffer + i, " ");
 	i += ft_sputs(buffer + i, msg);
