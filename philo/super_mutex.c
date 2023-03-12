@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
 #include "super_mutex.h"
 
 int super_mutex_init(t_super_mutex *mutex)
@@ -8,6 +11,7 @@ int super_mutex_init(t_super_mutex *mutex)
     r += pthread_mutex_init(&mutex->lock, NULL);
     r += pthread_mutex_init(&mutex->is_locked_lock, NULL);
     mutex->is_locked = 0;
+    mutex->is_lock_unlocked = 0;
     return (r);
 }
 
@@ -16,13 +20,14 @@ void super_mutex_destroy(t_super_mutex *mutex)
     int is_locked;
     pthread_mutex_lock(&mutex->is_locked_lock);
     is_locked = mutex->is_locked;
-    if (is_locked)
-    {
-        mutex->is_locked = 0;
-        pthread_mutex_unlock(&mutex->lock);
-
-    }
     pthread_mutex_unlock(&mutex->is_locked_lock);
+
+    if (is_locked && !mutex->is_lock_unlocked)
+    {
+        pthread_mutex_unlock(&mutex->lock);
+        mutex->is_lock_unlocked = 1;
+    }
+
     pthread_mutex_destroy(&mutex->lock);
     pthread_mutex_destroy(&mutex->is_locked_lock);
 }
@@ -42,9 +47,10 @@ void super_mutex_unlock(t_super_mutex *mutex)
     is_locked = mutex->is_locked;
     pthread_mutex_unlock(&mutex->is_locked_lock);
 
-    if (is_locked)
+    if (is_locked && !mutex->is_lock_unlocked)
     {
         pthread_mutex_unlock(&mutex->lock);
+        mutex->is_lock_unlocked = 1;
     }
 }
 
