@@ -40,12 +40,12 @@ void super_mutex_unlock(t_super_mutex *mutex)
     int is_locked;
     pthread_mutex_lock(&mutex->is_locked_lock);
     is_locked = mutex->is_locked;
+    pthread_mutex_unlock(&mutex->is_locked_lock);
+
     if (is_locked)
     {
-        mutex->is_locked = 0;
         pthread_mutex_unlock(&mutex->lock);
     }
-    pthread_mutex_unlock(&mutex->is_locked_lock);
 }
 
 int super_mutex_is_locked(t_super_mutex *mutex)
