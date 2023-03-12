@@ -33,7 +33,7 @@ static int	watcher_tick_tick(t_watcher_args *watcher_args, int i, int *y)
 		msg(watcher_args->philos_ctx + i, DIE);
 		
         super_mutex_unlock(watcher_args->philos_ctx[i].left_fork);
-        super_mutex_unlock(watcher_args->philos_ctx[i].right_fork);
+ //       super_mutex_unlock(watcher_args->philos_ctx[i].right_fork);
 	}
 	return (0);
 }
