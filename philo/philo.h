@@ -19,7 +19,6 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <limits.h>
-# include "super_mutex.h"
 # ifndef MAX_THREADS
 #  define MAX_THREADS 420
 # endif
@@ -65,8 +64,8 @@ typedef struct s_philo_ctx
 	pthread_mutex_t			*dead_mtx;
 	int						*dead;
 	unsigned int			id;
-	t_super_mutex			*left_fork;
-	t_super_mutex			*right_fork;
+	pthread_mutex_t			*left_fork;
+	pthread_mutex_t			*right_fork;
 	pthread_mutex_t			*console;
 	t_args					args;
 	volatile t_state		state;	
@@ -97,8 +96,8 @@ long			ft_atol(char *s);
 int				ft_strlen(const char *s);
 void			*philo_routine(void *data);
 int				msg(t_philo_ctx *ctx, t_state state);
-int				init_table(t_super_mutex *table, long number_of_philos);
-int				init_philos_ctx(t_args args, t_super_mutex *table,
+int				init_table(pthread_mutex_t *table, long number_of_philos);
+int				init_philos_ctx(t_args args, pthread_mutex_t *table,
 					t_philo_ctx *philos_ctx, pthread_mutex_t *console);
 int				init_philos(long number_of_philos, t_philo_ctx *philos_ctx,
 					pthread_t *philos);

@@ -33,11 +33,11 @@ static int	routine_tick(t_philo_ctx *ctx)
 {
 	msg(ctx, THINK);
 	toggle_state(ctx, WAIT_LEFT);
-	super_mutex_lock(ctx->left_fork);
+	pthread_mutex_lock(ctx->left_fork);
 	toggle_state(ctx, WAIT_RIGHT);
 	if (msg(ctx, TAKE))
 		return (1);
-	super_mutex_lock(ctx->right_fork);
+	pthread_mutex_lock(ctx->right_fork);
 	if (msg(ctx, TAKE))
 		return (1);
 	toggle_state(ctx, NO_WAIT);
@@ -47,8 +47,8 @@ static int	routine_tick(t_philo_ctx *ctx)
 	ctx->meals += 1;
 	msg(ctx, EAT);
 	ft_sleep(ctx->args.time_to_eat);
-	super_mutex_unlock(ctx->right_fork);
-	super_mutex_unlock(ctx->left_fork);
+	pthread_mutex_unlock(ctx->right_fork);
+	pthread_mutex_unlock(ctx->left_fork);
 	msg(ctx, SLEEP);
 	if (sleep_while_check_dead(ctx, ctx->args.time_to_sleep))
 		return (1);

@@ -15,7 +15,7 @@
 static int	start(t_args args)
 {
 	static t_philo_ctx		philos_ctx[MAX_THREADS];
-	static t_super_mutex	table[MAX_THREADS];
+	static pthread_mutex_t	table[MAX_THREADS];
 	static pthread_t		philos[MAX_THREADS];
 	pthread_mutex_t			console;
 
