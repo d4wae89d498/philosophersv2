@@ -36,10 +36,17 @@ static int	routine_tick(t_philo_ctx *ctx)
 	pthread_mutex_lock(ctx->left_fork);
 	toggle_state(ctx, WAIT_RIGHT);
 	if (msg(ctx, TAKE))
+	{
+		pthread_mutex_unlock(ctx->left_fork);
 		return (1);
+	}
 	pthread_mutex_lock(ctx->right_fork);
 	if (msg(ctx, TAKE))
+	{
+		pthread_mutex_unlock(ctx->left_fork);
+		pthread_mutex_unlock(ctx->right_fork);
 		return (1);
+	}
 	toggle_state(ctx, NO_WAIT);
 	pthread_mutex_lock(&(ctx->state_mtx));
 	ctx->last_eat_time = current_time(ctx->start);

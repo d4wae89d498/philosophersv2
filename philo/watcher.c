@@ -32,8 +32,8 @@ static int	watcher_tick_tick(t_watcher_args *watcher_args, int i, int *y)
 		watcher_args->dead = 1;
 		msg(watcher_args->philos_ctx + i, DIE);
 		
-        pthread_mutex_unlock(watcher_args->philos_ctx[i].left_fork);
-        pthread_mutex_unlock(watcher_args->philos_ctx[i].right_fork);
+//    pthread_mutex_unlock(watcher_args->philos_ctx[i].left_fork);
+//   pthread_mutex_unlock(watcher_args->philos_ctx[i].right_fork);
 	}
 	return (0);
 }
