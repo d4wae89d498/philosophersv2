@@ -33,15 +33,15 @@ int	init_table(pthread_mutex_t *table, long number_of_philos)
 static void	set_fork(t_philo_ctx *ctx, pthread_mutex_t *table, t_args args,
 		long i)
 {
-	if (i + 1 == args.number_of_philos)
+	if ((i % 2))
 	{
 		ctx->left_fork = table + i;
-		ctx->right_fork = table + 0;
+		ctx->right_fork = table + (i + 1) % args.number_of_philos;
 	}
-	else
+	else 
 	{
-		ctx->left_fork = table + i;
-		ctx->right_fork = table + i + 1;
+		ctx->left_fork = table + (i + 1) % args.number_of_philos;
+		ctx->right_fork = table + i;
 	}
 }
 
