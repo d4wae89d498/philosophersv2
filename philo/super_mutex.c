@@ -26,10 +26,10 @@ void super_mutex_destroy(t_super_mutex *mutex)
 
 void super_mutex_lock(t_super_mutex *mutex)
 {
-    pthread_mutex_lock(&mutex->lock);
     pthread_mutex_lock(&mutex->is_locked_lock);
     mutex->is_locked = 1;
     pthread_mutex_unlock(&mutex->is_locked_lock);
+    pthread_mutex_lock(&mutex->lock);
 }
 
 void super_mutex_unlock(t_super_mutex *mutex)
