@@ -75,7 +75,8 @@ static void	*watch_philos(void *data)
 		.philos_ctx = philos_ctx, .dead = 0};
 	if (pthread_create(&watcher, 0, &watch_philos, &watcher_args))
 		return (!!ft_eputs("Error: pthread_create.\n"));
-	if (pthread_join(watcher, 0))
+	void	*exit_status;
+	if (pthread_join(watcher, &exit_status))
 		return (!!ft_eputs("Error: pthread_join.\n"));
 	return (0);
 }

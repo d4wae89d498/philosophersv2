@@ -23,7 +23,7 @@
 #  define MAX_THREADS 420
 # endif
 # ifndef MC
-#  define MC 210
+#  define MC 50
 # endif
 # ifndef WATCHER_SLEEP
 #  define WATCHER_SLEEP 4444

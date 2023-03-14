@@ -24,15 +24,16 @@ static int	start(t_args args)
 		return (ft_eputs("Error: pthread_mutex_init.\n"));
 	if (init_table(table, args.number_of_philos)
 		|| init_philos_ctx(args, table, philos_ctx, &console))
-		return (destroy_mutex(&console));
+		return (destroy_mutex(&console) + 1);
 	if (init_philos(args.number_of_philos, philos_ctx, philos))
 		return ((destroy_mutex(&console)
-				+ destroy_philos_ctx(philos_ctx, args.number_of_philos)));
+				+ destroy_philos_ctx(philos_ctx, args.number_of_philos) + 1));
 	if (start_watcher(args, philos, philos_ctx))
 		return ((destroy_mutex(&console)
-				+ destroy_philos_ctx(philos_ctx, args.number_of_philos)));
+				+ destroy_philos_ctx(philos_ctx, args.number_of_philos) + 1));
+	void *exit_status;
 	while ((args.number_of_philos)--)
-		pthread_join(philos[args.number_of_philos], 0);
+		pthread_join(philos[args.number_of_philos], &exit_status);
 	return ((destroy_mutex(&console))
 		+ destroy_philos_ctx(philos_ctx, args.number_of_philos));
 }
