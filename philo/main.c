@@ -18,6 +18,7 @@ static int	start(t_args args)
 	static pthread_mutex_t	table[MAX_THREADS];
 	static pthread_t		philos[MAX_THREADS];
 	pthread_mutex_t			console;
+	void					*exit_status;
 
 	args.start = current_time(0);
 	if (pthread_mutex_init(&console, 0))
@@ -31,7 +32,6 @@ static int	start(t_args args)
 	if (start_watcher(args, philos, philos_ctx))
 		return ((destroy_mutex(&console)
 				+ destroy_philos_ctx(philos_ctx, args.number_of_philos) + 1));
-	void *exit_status;
 	while ((args.number_of_philos)--)
 		pthread_join(philos[args.number_of_philos], &exit_status);
 	return ((destroy_mutex(&console))
@@ -64,8 +64,8 @@ static int	parse(t_args *args, int ac, char **av)
 
 int	main(int ac, char **av)
 {
-	t_args args;
-	int exit_code;
+	t_args	args;
+	int		exit_code;
 
 	exit_code = parse(&args, ac, av);
 	if (exit_code)

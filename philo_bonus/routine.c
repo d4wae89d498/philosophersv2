@@ -62,6 +62,18 @@ static void	routine(t_args args, pid_t id, unsigned long *last_meal,
 	}
 }
 
+void	end_routine(t_args args, t_sems sems, char *last_meal_sem_label,
+			pthread_t watcher)
+{
+	void	*exit_code;
+
+	ft_sleep(args.time_to_eat + args.time_to_sleep + args.number_of_philos);
+	sem_post(sems.dead);
+	pthread_join(watcher, &exit_code);
+	sem_close(sems.last_meal);
+	sem_unlink(last_meal_sem_label);
+}
+
 void	start_routine(t_args args, t_sems sems, unsigned long start_time,
 			long i)
 {
@@ -86,9 +98,5 @@ void	start_routine(t_args args, t_sems sems, unsigned long start_time,
 	};
 	pthread_create(&watcher, 0, &watch_famine, &watcher_args);
 	routine(args, i + 1, &last_meal, start_time);
-	ft_sleep(args.time_to_eat + args.time_to_sleep + args.number_of_philos);
-	sem_post(sems.dead);
-	pthread_join(watcher, 0);
-	sem_close(sems.last_meal);
-	sem_unlink(last_meal_sem_label);
+	end_routine(args, sems, last_meal_sem_label, watcher);
 }

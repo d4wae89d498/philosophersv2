@@ -38,15 +38,15 @@ static void	set_fork(t_philo_ctx *ctx, pthread_mutex_t *table, t_args args,
 		ctx->left_fork = table + i;
 		ctx->right_fork = table + (i + 1) % args.number_of_philos;
 	}
-	else 
+	else
 	{
 		ctx->left_fork = table + (i + 1) % args.number_of_philos;
 		ctx->right_fork = table + i;
 	}
 }
 
-int	init_philos_ctx(t_args args, pthread_mutex_t *table, t_philo_ctx *philos_ctx,
-		pthread_mutex_t *console)
+int	init_philos_ctx(t_args args, pthread_mutex_t *table,
+		t_philo_ctx *philos_ctx, pthread_mutex_t *console)
 {
 	long					i;
 	static int				dead;

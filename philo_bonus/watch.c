@@ -25,7 +25,6 @@ void	*watch_famine(void *data)
 		cond = ((long)(current_time(watcher_args->start_time)
 					- *(watcher_args->last_meal))
 				> ((long)watcher_args->args.time_to_die * 1000));
-	
 		sem_post(watcher_args->last_meal_sem);
 		if (cond)
 		{
@@ -34,7 +33,6 @@ void	*watch_famine(void *data)
 			sem_post(watcher_args->dead);
 			break ;
 		}
-
 	}
 	return (0);
 }

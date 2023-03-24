@@ -12,6 +12,18 @@
 
 #include "philo.h"
 
+int	unlink_sems(void)
+{
+	int	r;
+
+	r = 0;
+	r += sem_unlink("dead");
+	r += sem_unlink("console");
+	r += sem_unlink("forks");
+	r += sem_unlink("remaining_eat");
+	return (r);
+}
+
 int	destroy_sems(t_sems *sems)
 {
 	int	r;
@@ -37,11 +49,7 @@ int	destroy_sems(t_sems *sems)
 		r += sem_close(sems->remaining_eat);
 		sems->remaining_eat = 0;
 	}
-	r += sem_unlink("dead");
-	r += sem_unlink("console");
-	r += sem_unlink("forks");
-	r += sem_unlink("remaining_eat");
-	return (r);
+	return (r + unlink_sems());
 }
 
 int	init_sems(t_sems *sems, long number_of_philos)

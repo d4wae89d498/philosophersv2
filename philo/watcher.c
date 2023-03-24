@@ -65,17 +65,17 @@ static void	*watch_philos(void *data)
 	return (0);
 }
 
- int	start_watcher(t_args args, pthread_t *philos,
+int	start_watcher(t_args args, pthread_t *philos,
 		t_philo_ctx *philos_ctx)
 {
 	static pthread_t		watcher;
 	static t_watcher_args	watcher_args;
+	void					*exit_status;
 
 	watcher_args = (t_watcher_args){.args = args, .philos = philos,
 		.philos_ctx = philos_ctx, .dead = 0};
 	if (pthread_create(&watcher, 0, &watch_philos, &watcher_args))
 		return (!!ft_eputs("Error: pthread_create.\n"));
-	void	*exit_status;
 	if (pthread_join(watcher, &exit_status))
 		return (!!ft_eputs("Error: pthread_join.\n"));
 	return (0);

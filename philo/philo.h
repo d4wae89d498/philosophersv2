@@ -83,7 +83,7 @@ typedef struct s_watcher_args
 	int			dead;
 }	t_watcher_args;
 int				destroy_mutex(pthread_mutex_t *mtx);
-int			start_watcher(t_args args, pthread_t *philos,
+int				start_watcher(t_args args, pthread_t *philos,
 					t_philo_ctx *philos_ctx);
 int				destroy_philos_ctx(t_philo_ctx *philos_ctx,
 					long number_of_philos);

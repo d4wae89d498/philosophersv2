@@ -47,6 +47,13 @@ typedef struct s_args
 	long	number_of_meals;
 	t_sems	sems;
 }	t_args;
+typedef struct s_end_args
+{
+	long	number_of_philos;
+	sem_t	*remaining;
+	sem_t	*dead;
+	sem_t	*console;
+}	t_end_args;
 typedef enum e_state
 {
 	penser,
@@ -64,6 +71,7 @@ typedef struct s_watcher_args
 	t_args					args;
 	sem_t					*console;
 }	t_watcher_args;
+int				start(t_args args);
 long			ft_atol(char *s);
 int				ft_strlen(const char *s);
 int				ft_puts(const char *s);
@@ -78,6 +86,6 @@ int				init_sems(t_sems *sems, long number_of_philos);
 void			*watch_famine(void *data);
 int				destroy_sems(t_sems *sems);
 int				handle_one(t_args args);
-void			start_routine(t_args args, t_sems sems, unsigned long start_time,
-					long i);
+void			start_routine(t_args args, t_sems sems,
+					unsigned long start_time, long i);
 #endif
