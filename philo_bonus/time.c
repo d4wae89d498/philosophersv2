@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:10:39 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/19 13:08:08 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/03/26 18:56:24 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_usleep(unsigned long time)
 	while (current_time(0) < start + time)
 		usleep(161);
 }
-
 
 void	ft_sleep(unsigned long time)
 {

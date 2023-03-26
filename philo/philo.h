@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 06:51:40 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/25 12:07:32 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/03/26 18:56:12 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@
 # ifndef SLEEP_CHECK_TICK
 #  define SLEEP_CHECK_TICK 2000
 # endif
-
 
 typedef enum e_state
 {
