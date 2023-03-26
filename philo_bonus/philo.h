@@ -23,11 +23,11 @@
 # include <limits.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-# ifndef LOG
-#  define LOG 0
-# endif
 # ifndef MAX_PROCESS
-#  define MAX_PROCESS 8400
+#  define MAX_PROCESS 200
+# endif
+# ifndef MIN_SLEEP_DELAY
+#  define MIN_SLEEP_DELAY 100000
 # endif
 
 typedef struct s_sems
@@ -78,6 +78,7 @@ int				ft_puts(const char *s);
 int				ft_eputs(const char *s);
 void			ultoa(char *o, unsigned long n);
 unsigned long	current_time(unsigned long start);
+void			ft_usleep(unsigned long time);
 void			ft_sleep(unsigned long time);
 void			philo_msg(unsigned long time, unsigned int id, char *msg);
 void			msg(sem_t *console, unsigned long start_time, int id,

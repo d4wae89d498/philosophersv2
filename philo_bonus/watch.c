@@ -28,8 +28,8 @@ void	*watch_famine(void *data)
 		sem_post(watcher_args->last_meal_sem);
 		if (cond)
 		{
-			//sem_wait(watcher_args->console);
-			msg(watcher_args->console, watcher_args->start_time, watcher_args->id, "died");
+			msg(watcher_args->console, watcher_args->start_time,
+				watcher_args->id, "died");
 			sem_post(watcher_args->dead);
 			break ;
 		}

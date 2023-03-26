@@ -27,7 +27,7 @@ void	ft_usleep(unsigned long time)
 	start = current_time(0);
 	usleep(time * 97 / 100);
 	while (current_time(0) < start + time)
-		;
+		usleep(161);
 }
 
 void	ft_sleep(unsigned long time)
@@ -55,3 +55,22 @@ int	sleep_while_check_dead(t_philo_ctx *ctx, unsigned long time)
 	ft_sleep(time);
 	return (0);
 }
+
+/*
+int main()
+{
+	unsigned long	current;
+	int	it = 10;
+	int i = 0;
+	unsigned long 	total;
+
+	total = 0;
+while (i < it)
+{
+	current = current_time(0);
+	ft_usleep(800000);
+	total += current_time(current) - 800000;
+	i += 1;
+}
+	printf("%lu\n",  total / i );
+}*/

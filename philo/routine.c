@@ -29,7 +29,10 @@ static int	routine_tick(t_philo_ctx *ctx)
 	}
 	pthread_mutex_lock(ctx->right_fork);
 	if (msg(ctx, TAKE))
+	{
 		unlock_both_forks(ctx);
+		return (1);
+	}
 	pthread_mutex_lock(&(ctx->state_mtx));
 	ctx->last_eat_time = current_time(ctx->start);
 	pthread_mutex_unlock(&(ctx->state_mtx));
@@ -52,7 +55,7 @@ void	*philo_routine(void *data)
 	ctx = data;
 	msg(ctx, THINK);
 	if (!(ctx->id % 2))
-		usleep(START_DELAY);
+		usleep(ctx->args.number_of_philos * START_MUL + START_DELAY);
 	while (ctx->meals < ctx->args.number_of_meals
 		|| (ctx->args.number_of_meals < 0))
 		if (routine_tick(ctx))

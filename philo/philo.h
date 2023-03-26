@@ -20,16 +20,19 @@
 # include <sys/time.h>
 # include <limits.h>
 # ifndef MAX_THREADS
-#  define MAX_THREADS 210
+#  define MAX_THREADS 200
 # endif
 # ifndef MC
-#  define MC 100
+#  define MC 420
 # endif
 # ifndef WATCHER_SLEEP
 #  define WATCHER_SLEEP 4444
 # endif
 # ifndef START_DELAY
-#  define START_DELAY 2000
+#  define START_DELAY 800
+# endif
+# ifndef START_MUL
+#  define START_MUL 4
 # endif
 # ifndef MIN_SLEEP_DELAY
 #  define MIN_SLEEP_DELAY 100000
@@ -40,6 +43,7 @@
 # ifndef SLEEP_CHECK_TICK
 #  define SLEEP_CHECK_TICK 2000
 # endif
+
 
 typedef enum e_state
 {

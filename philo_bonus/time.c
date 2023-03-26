@@ -20,12 +20,21 @@ unsigned long	current_time(unsigned long start)
 	return ((time.tv_sec * 1000000 + time.tv_usec) - start);
 }
 
-void	ft_sleep(unsigned long time)
+void	ft_usleep(unsigned long time)
 {
 	unsigned long	start;
 
-	time *= 1000;
 	start = current_time(0);
+	usleep(time * 97 / 100);
 	while (current_time(0) < start + time)
-		usleep(500);
+		usleep(161);
+}
+
+
+void	ft_sleep(unsigned long time)
+{
+	if (time * 1000 < MIN_SLEEP_DELAY)
+		ft_usleep(MIN_SLEEP_DELAY);
+	else
+		ft_usleep(time * 1000);
 }
