@@ -23,7 +23,7 @@
 #  define MAX_THREADS 200
 # endif
 # ifndef MC
-#  define MC 420
+#  define MC 0
 # endif
 # ifndef WATCHER_SLEEP
 #  define WATCHER_SLEEP 4444
@@ -33,9 +33,6 @@
 # endif
 # ifndef START_MUL
 #  define START_MUL 4
-# endif
-# ifndef MIN_SLEEP_DELAY
-#  define MIN_SLEEP_DELAY 100000
 # endif
 # ifndef SLEEP_CHECK_DELAY
 #  define SLEEP_CHECK_DELAY 5000
@@ -109,4 +106,5 @@ void			ft_sleep(unsigned long time);
 void			philo_msg(long number_of_philos, unsigned long time,
 					unsigned int id, char *msg);
 int				sleep_while_check_dead(t_philo_ctx *ctx, unsigned long time);
+int				handle_one(t_args args);
 #endif

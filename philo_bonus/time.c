@@ -27,13 +27,10 @@ void	ft_usleep(unsigned long time)
 	start = current_time(0);
 	usleep(time * 97 / 100);
 	while (current_time(0) < start + time)
-		usleep(161);
+		usleep(100);
 }
 
 void	ft_sleep(unsigned long time)
 {
-	if (time * 1000 < MIN_SLEEP_DELAY)
-		ft_usleep(MIN_SLEEP_DELAY);
-	else
-		ft_usleep(time * 1000);
+	ft_usleep(time * 1000);
 }

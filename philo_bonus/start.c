@@ -89,8 +89,6 @@ int	start(t_args args)
 	unsigned long	start_time;
 	pid_t			childs[MAX_PROCESS];	
 
-	if (args.number_of_philos == 1)
-		return (handle_one(args));
 	if (init_sems(&sems, args.number_of_philos))
 		return (0);
 	start_time = current_time(0);

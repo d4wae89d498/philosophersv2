@@ -70,5 +70,7 @@ int	main(int ac, char **av)
 	exit_code = parse(&args, ac, av);
 	if (exit_code)
 		return (!!exit_code);
+	if (args.number_of_philos == 1)
+		return (handle_one(args));
 	return (!!start(args));
 }

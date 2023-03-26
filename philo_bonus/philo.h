@@ -26,9 +26,6 @@
 # ifndef MAX_PROCESS
 #  define MAX_PROCESS 200
 # endif
-# ifndef MIN_SLEEP_DELAY
-#  define MIN_SLEEP_DELAY 100000
-# endif
 
 typedef struct s_sems
 {
