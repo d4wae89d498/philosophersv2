@@ -67,6 +67,7 @@ static int	wait_til_end(t_args args, t_sems sems, pid_t childs[MAX_PROCESS])
 	pthread_create(&t2, 0, &wait_childs, &end_args);
 	pthread_create(&t, 0, &wait_end, &end_args);
 	sem_wait(sems.dead);
+	sem_wait(sems.console);
 	i = 0;
 	while (i < args.number_of_philos)
 	{

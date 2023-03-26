@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Werror -Wextra -g#-fsanitize=thread#address
+CFLAGS=-Wall -Werror -Wextra -g -O2#-fsanitize=thread#address
 SRCS=main.c start.c time.c utils.c routine.c init.c watch.c msg.c handle_one.c
 OBJS=$(SRCS:.c=.o)
 DEPS=Makefile philo.h

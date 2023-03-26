@@ -65,7 +65,9 @@ int	ft_eputs(const char *s)
 	int	i;
 
 	i = ft_strlen(s);
-	write(2, s, i);
+	if (write(2, s, i) < 0)
+	{
+	}
 	return (i);
 }
 
@@ -74,6 +76,8 @@ int	ft_puts(const char *s)
 	int	i;
 
 	i = ft_strlen(s);
-	write(1, s, i);
+	if (write(1, s, i) < 0)
+	{
+	}
 	return (i);
 }

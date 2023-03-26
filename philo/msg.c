@@ -57,7 +57,9 @@ void	philo_msg(long number_of_philos, unsigned long time, unsigned int id,
 
 	if (!msg)
 	{
-		write(1, buffer, i);
+		if (write(1, buffer, i) < 0)
+		{
+		}
 		i = 0;
 		return ;
 	}
@@ -69,7 +71,9 @@ void	philo_msg(long number_of_philos, unsigned long time, unsigned int id,
 	i += ft_sputs(buffer + i, "\n");
 	if (i > number_of_philos * MC)
 	{
-		write(1, buffer, i);
+		if (write(1, buffer, i) < 0)
+		{
+		}
 		i = 0;
 		return ;
 	}

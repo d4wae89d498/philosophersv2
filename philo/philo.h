@@ -20,16 +20,16 @@
 # include <sys/time.h>
 # include <limits.h>
 # ifndef MAX_THREADS
-#  define MAX_THREADS 420
+#  define MAX_THREADS 210
 # endif
 # ifndef MC
-#  define MC 50
+#  define MC 100
 # endif
 # ifndef WATCHER_SLEEP
 #  define WATCHER_SLEEP 4444
 # endif
 # ifndef START_DELAY
-#  define START_DELAY 1000
+#  define START_DELAY 2000
 # endif
 # ifndef MIN_SLEEP_DELAY
 #  define MIN_SLEEP_DELAY 100000

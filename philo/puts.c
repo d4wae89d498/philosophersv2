@@ -11,13 +11,16 @@
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <unistd.h>
 
 int	ft_dputs(int fd, char *str)
 {
 	int	len;
 
 	len = ft_strlen(str);
-	write(fd, str, len);
+	if (write(fd, str, len) < 0)
+	{
+	}
 	return (len);
 }
 

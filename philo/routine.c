@@ -21,7 +21,6 @@ static int	unlock_both_forks(t_philo_ctx *ctx)
 
 static int	routine_tick(t_philo_ctx *ctx)
 {
-	msg(ctx, THINK);
 	pthread_mutex_lock(ctx->left_fork);
 	if (msg(ctx, TAKE))
 	{
@@ -42,6 +41,7 @@ static int	routine_tick(t_philo_ctx *ctx)
 	msg(ctx, SLEEP);
 	if (sleep_while_check_dead(ctx, ctx->args.time_to_sleep))
 		return (1);
+	msg(ctx, THINK);
 	return (0);
 }
 
@@ -50,6 +50,7 @@ void	*philo_routine(void *data)
 	t_philo_ctx		*ctx;
 
 	ctx = data;
+	msg(ctx, THINK);
 	if (!(ctx->id % 2))
 		usleep(START_DELAY);
 	while (ctx->meals < ctx->args.number_of_meals
