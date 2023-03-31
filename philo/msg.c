@@ -6,7 +6,7 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:17:37 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/02/24 20:31:23 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/03/31 17:33:37 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,49 @@ char	*get_msg(t_state state)
 	return ("");
 }
 
+// TODO : min sleep think, no eat after die / last eat
+
 int	msg(t_philo_ctx *ctx, t_state state)
 {
-	int	r;
+	int				r;
+	static int		fulls;
 
-	pthread_mutex_lock(ctx->console);
-	r = *(ctx->dead);
-	if (!r && state == DIE)
+	r = 0;
+	pthread_mutex_lock(ctx->dead_mtx);
+	if (state == EAT)
 	{
-		*(ctx->dead) = 1;
+		pthread_mutex_lock(&(ctx->state_mtx));
+		if (ctx->meals == ctx->args.number_of_meals)
+		{
+			fulls += 1;
+			ctx->state = END;
+		}
+		pthread_mutex_unlock(&(ctx->state_mtx));
 	}
+	r = *(ctx->dead);
+	if ((!r && state == DIE))
+		*(ctx->dead) = 1;
 	if (r)
 	{
-		pthread_mutex_unlock(ctx->console);
+		pthread_mutex_unlock(ctx->dead_mtx);
 		return (1);
 	}
+	pthread_mutex_lock(ctx->console);
 	philo_msg(ctx->args.number_of_philos,
-		(unsigned long)(current_time(ctx->start) * 0.001),
-		ctx->id, get_msg(state));
+			(unsigned long)(current_time(ctx->start) * 0.001),
+			ctx->id, get_msg(state));
 	pthread_mutex_unlock(ctx->console);
-	return (0);
+	if (fulls >= ctx->args.number_of_philos && state == EAT)
+	{
+		*(ctx->dead) = 1;
+		r = 1;
+	}
+	pthread_mutex_unlock(ctx->dead_mtx);
+	return (r);
 }
 
 void	philo_msg(long number_of_philos, unsigned long time, unsigned int id,
-			char *msg)
+		char *msg)
 {
 	static char				buffer[MAX_THREADS * MC + 800];
 	static int				i;

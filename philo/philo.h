@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 06:51:40 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/03/26 18:56:12 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/03/31 15:43:36 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,22 @@
 #  define MC 0
 # endif
 # ifndef WATCHER_SLEEP
-#  define WATCHER_SLEEP 4444
+#  define WATCHER_SLEEP 5555
+# endif
+# ifndef THINK_MIN_DELAY
+#  define THINK_MIN_DELAY 222
 # endif
 # ifndef START_DELAY
-#  define START_DELAY 800
+#  define START_DELAY 0
 # endif
 # ifndef START_MUL
-#  define START_MUL 4
+#  define START_MUL 0
 # endif
 # ifndef SLEEP_CHECK_DELAY
 #  define SLEEP_CHECK_DELAY 5000
 # endif
 # ifndef SLEEP_CHECK_TICK
-#  define SLEEP_CHECK_TICK 2000
+#  define SLEEP_CHECK_TICK 4
 # endif
 
 typedef enum e_state

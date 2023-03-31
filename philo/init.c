@@ -6,7 +6,7 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:16:48 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/02/24 20:30:25 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/03/31 14:04:21 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,25 @@ int	init_philos_ctx(t_args args, pthread_mutex_t *table,
 		t_philo_ctx *philos_ctx, pthread_mutex_t *console)
 {
 	long					i;
+	static pthread_mutex_t	dead_mtx;
 	static int				dead;
 
 	dead = 0;
+	if (pthread_mutex_init(&dead_mtx, 0))
+		return (ft_eputs("Error: pthread_mutex_init.\n"));
 	i = -1;
 	while (++i < args.number_of_philos)
 	{
 		philos_ctx[i] = (t_philo_ctx){
-			.dead = &dead,
+			.dead_mtx = &dead_mtx,
 			.id = i + 1,
 			.state = THINK,
 			.start = args.start,
 			.last_eat_time = 0,
 			.console = console,
 			.args = args,
-			.meals = 0
+			.meals = 0,
+			.dead = &dead
 		};
 		if (pthread_mutex_init(&(philos_ctx[i].state_mtx), 0))
 			return (!!ft_eputs("Error: pthread_mutex_init.\n"));
@@ -75,7 +79,7 @@ int	init_philos_ctx(t_args args, pthread_mutex_t *table,
 int	init_philos(long number_of_philos, t_philo_ctx *philos_ctx,
 		pthread_t *philos)
 {
-	long		i;
+	long				i;
 
 	i = 0;
 	while (i < number_of_philos)

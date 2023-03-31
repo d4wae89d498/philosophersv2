@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 06:04:30 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/25 12:06:10 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/03/31 16:51:54 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ void	ft_usleep(unsigned long time)
 	unsigned long	start;
 
 	start = current_time(0);
-	usleep(time * 97 / 100);
-	while (current_time(0) < start + time)
+	usleep(time * 90 / 100);
+	while (current_time(0) < start + time - 420)
 		usleep(100);
+	while (current_time(0) < start + time)
+		;
 }
 
 void	ft_sleep(unsigned long time)
@@ -42,10 +44,10 @@ int	sleep_while_check_dead(t_philo_ctx *ctx, unsigned long time)
 	while (time >= SLEEP_CHECK_DELAY)
 	{
 		time -= SLEEP_CHECK_TICK;
-		ft_sleep(SLEEP_CHECK_TICK);
-		pthread_mutex_lock(ctx->console);
+		ft_sleep(time % SLEEP_CHECK_TICK);
+		pthread_mutex_lock(ctx->dead_mtx);
 		r = *(ctx->dead);
-		pthread_mutex_unlock(ctx->console);
+		pthread_mutex_unlock(ctx->dead_mtx);
 		if (r)
 			return (1);
 	}
