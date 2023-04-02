@@ -6,13 +6,13 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:17:37 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/04/02 15:24:57 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:57:37 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-char	*get_msg(t_state state)
+static inline char	*get_msg(t_state state)
 {
 	if (state == TAKE)
 		return ("has taken a fork");
@@ -27,12 +27,9 @@ char	*get_msg(t_state state)
 	return ("");
 }
 
-int	msg(t_philo_ctx *ctx, t_state state)
+static inline int	msg_is_end(t_philo_ctx *ctx, t_state state,
+	int *fulls, int *r)
 {
-	int				r;
-	static int		fulls;
-
-	r = 0;
 	pthread_mutex_lock(ctx->dead_mtx);
 	if (state == EAT)
 	{
@@ -44,18 +41,28 @@ int	msg(t_philo_ctx *ctx, t_state state)
 		}
 		pthread_mutex_unlock(ctx->state_mtx);
 	}
-	r = *(ctx->dead);
-	if ((!r && state == DIE))
+	*r = *(ctx->dead);
+	if ((!*r && state == DIE))
 		*(ctx->dead) = 1;
-	if (r)
+	if (*r)
 	{
 		pthread_mutex_unlock(ctx->dead_mtx);
 		return (1);
 	}
+	return (0);
+}
+
+int	msg(t_philo_ctx *ctx, t_state state)
+{
+	int				r;
+	static int		fulls;
+
+	if (msg_is_end(ctx, state, &fulls, &r))
+		return (1);
 	pthread_mutex_lock(ctx->console_mtx);
 	philo_msg(ctx->args.number_of_philos,
-			(unsigned long)(current_time(ctx->start) * 0.001),
-			ctx->id, get_msg(state));
+		(unsigned long)(current_time(ctx->start) * 0.001),
+		ctx->id, get_msg(state));
 	pthread_mutex_unlock(ctx->console_mtx);
 	if (fulls >= ctx->args.number_of_philos && state == EAT)
 	{

@@ -6,7 +6,7 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:16:48 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/04/02 15:32:17 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:59:53 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,13 @@ int	start_philos(t_dinning_simulation *sim)
 	while (i < sim->args.number_of_philos)
 	{
 		if (pthread_create(sim->philo_thread + i, 0,
-					&philo_routine, sim->philo_ctx + i))
+				&philo_routine, sim->philo_ctx + i))
 		{
 			pthread_mutex_lock(&(sim->dead_mtx));
 			*(sim->philo_ctx[0].dead) = 1;
 			pthread_mutex_unlock(&(sim->dead_mtx));
 			while (--i >= 0)
-				pthread_join(sim->philo_thread[i], &exit_status);	
+				pthread_join(sim->philo_thread[i], &exit_status);
 			return (1);
 		}
 		i += 1;

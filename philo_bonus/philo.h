@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:11:56 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/03/03 22:16:30 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/04/02 16:07:26 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@
 #  define MAX_PROCESS 200
 # endif
 
+typedef enum e_msg
+{
+	TAKE,
+	EAT,
+	THINK,
+	SLEEP,
+	DIE,
+}	t_msg;
 typedef struct s_sems
 {
 	sem_t	*console;
@@ -79,7 +87,7 @@ void			ft_usleep(unsigned long time);
 void			ft_sleep(unsigned long time);
 void			philo_msg(unsigned long time, unsigned int id, char *msg);
 void			msg(sem_t *console, unsigned long start_time, int id,
-					char *msg);
+					t_msg state);
 int				init_sems(t_sems *sems, long number_of_philos);
 void			*watch_famine(void *data);
 int				destroy_sems(t_sems *sems);

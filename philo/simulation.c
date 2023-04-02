@@ -6,7 +6,7 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 15:15:33 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/04/02 15:38:44 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:58:55 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static int	init_simulation(t_dinning_simulation *sim)
 	if (init_philo_ctx(sim))
 	{
 		ft_eputs("Error: init_philo_ctx.\n");
-		return ((destroy_mutex(&(sim->console_mtx)) 
-					+ destroy_mutex(&(sim->dead_mtx)) + 1));
+		return ((destroy_mutex(&(sim->console_mtx))
+				+ destroy_mutex(&(sim->dead_mtx)) + 1));
 	}
 	assign_forks(sim);
 	return (0);
@@ -60,20 +60,18 @@ static int	launch_simulation(t_dinning_simulation *sim)
 		pthread_mutex_unlock(&(sim->dead_mtx));
 		i = 0;
 		while (i < sim->args.number_of_philos)
-			pthread_join(sim->philo_thread[i++], &exit_status);	
+			pthread_join(sim->philo_thread[i++], &exit_status);
 		return (destroy_simulation(sim) + 1);
 	}
 	while ((sim->args.number_of_philos)--)
 		pthread_join(sim->philo_thread[sim->args.number_of_philos],
-				&exit_status);
+			&exit_status);
 	return (0);
 }
 
-
-
 int	start_simulation(t_args args)
 {
-	t_dinning_simulation sim;
+	t_dinning_simulation	sim;
 
 	sim.args = args;
 	if (init_simulation(&sim))

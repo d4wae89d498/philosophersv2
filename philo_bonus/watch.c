@@ -6,7 +6,7 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:17:47 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/03/03 22:18:57 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/04/02 16:07:48 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*watch_famine(void *data)
 		if (cond)
 		{
 			msg(watcher_args->console, watcher_args->start_time,
-				watcher_args->id, "died");
+				watcher_args->id, DIE);
 			sem_post(watcher_args->dead);
 			break ;
 		}

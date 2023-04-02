@@ -6,22 +6,32 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:18:10 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/03/03 22:17:40 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/04/02 16:27:08 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 static int	take_forks(t_args args, unsigned long start_time, pid_t id,
-		t_sems sems)
+		int *posted)
 {
-	(void) args;
-	msg(sems.console, start_time, id, "is thinking");
-	sem_wait(sems.forks);
-	msg(sems.console, start_time, id, "has taken a fork");
-	sem_wait(sems.forks);
-	msg(sems.console, start_time, id, "has taken a fork");
-	msg(sems.console, start_time, id, "is eating");
+	static int	meals;
+
+	msg(args.sems.console, start_time, id, THINK);
+	sem_wait(args.sems.forks);
+	msg(args.sems.console, start_time, id, TAKE);
+	sem_wait(args.sems.forks);
+	msg(args.sems.console, start_time, id, TAKE);
+	msg(args.sems.console, start_time, id, EAT);
+	meals += 1;
+	if (meals >= args.number_of_meals && args.number_of_meals > 0)
+	{
+		if (!*posted)
+		{
+			sem_post(args.sems.remaining_eat);
+			*posted = 1;
+		}
+	}
 	return (0);
 }
 
@@ -30,34 +40,23 @@ static void	drop_forks(t_args args, unsigned long start_time, pid_t id,
 {
 	sem_post(sems.forks);
 	sem_post(sems.forks);
-	msg(sems.console, start_time, id, "is sleeping");
+	msg(sems.console, start_time, id, SLEEP);
 	ft_sleep(args.time_to_sleep);
 }
 
 static void	routine(t_args args, pid_t id, unsigned long *last_meal,
 			unsigned long start_time)
 {
-	long			meals;
 	int				posted;
 
 	posted = 0;
-	meals = 0;
 	while (1)
 	{
-		take_forks(args, start_time, id, args.sems);
+		take_forks(args, start_time, id, &posted);
 		sem_wait(args.sems.last_meal);
 		*last_meal = current_time(start_time);
 		sem_post(args.sems.last_meal);
 		ft_sleep(args.time_to_eat);
-		meals += 1;
-		if (meals >= args.number_of_meals && args.number_of_meals > 0)
-		{
-			if (!posted)
-			{
-				sem_post(args.sems.remaining_eat);
-				posted = 1;
-			}
-		}
 		drop_forks(args, start_time, id, args.sems);
 	}
 }

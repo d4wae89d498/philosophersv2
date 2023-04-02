@@ -6,12 +6,11 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:18:05 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/04/02 15:16:48 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:51:13 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
 
 static int	parse(t_args *args, int ac, char **av)
 {

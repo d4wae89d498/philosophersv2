@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 05:58:08 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/04/02 15:22:45 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:52:37 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static inline int	unlock_both_forks(t_philo_ctx *ctx)
 	return (1);
 }
 
-static inline int	routine_tick(t_philo_ctx *ctx)
+static inline int	routine_tick_eat(t_philo_ctx *ctx)
 {
 	pthread_mutex_lock(ctx->left_fork);
 	if (msg(ctx, TAKE))
@@ -45,6 +45,12 @@ static inline int	routine_tick(t_philo_ctx *ctx)
 	ft_sleep(ctx->args.time_to_eat);
 	pthread_mutex_unlock(ctx->right_fork);
 	pthread_mutex_unlock(ctx->left_fork);
+	return (0);
+}
+
+static inline int	routine_tick(t_philo_ctx *ctx)
+{
+	routine_tick_eat(ctx);
 	msg(ctx, SLEEP);
 	if (sleep_while_check_dead(ctx, ctx->args.time_to_sleep))
 		return (1);
