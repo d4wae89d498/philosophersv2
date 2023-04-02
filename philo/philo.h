@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 06:51:40 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/03/31 15:43:36 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:24:03 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,53 +56,62 @@ typedef enum e_state
 
 typedef struct s_args
 {
-	long			number_of_philos;
-	long			time_to_die;
-	long			time_to_eat;
-	long			time_to_sleep;
-	long			number_of_meals;
-	unsigned long	start;
+	long					number_of_philos;
+	long					time_to_die;
+	long					time_to_eat;
+	long					time_to_sleep;
+	long					number_of_meals;
+	unsigned long			start;
 }	t_args;
 typedef struct s_philo_ctx
 {
 	pthread_mutex_t			*dead_mtx;
+	pthread_mutex_t			*state_mtx;
 	int						*dead;
 	unsigned int			id;
 	pthread_mutex_t			*left_fork;
 	pthread_mutex_t			*right_fork;
-	pthread_mutex_t			*console;
+	pthread_mutex_t			*console_mtx;
 	t_args					args;
-	volatile t_state		state;	
-	volatile unsigned long	last_eat_time;
-	volatile long			meals;
-	pthread_mutex_t			state_mtx;
+	t_state					state;	
+	unsigned long			last_eat_time;
+	long					meals;
+
 	unsigned long			start;
 }	t_philo_ctx;
 typedef struct s_watcher_args
 {
-	pthread_t	*philos;
-	t_philo_ctx	*philos_ctx;
-	t_args		args;
-	int			dead;
+	pthread_t				*philos;
+	t_philo_ctx				*philo_ctx;
+	t_args					args;
+	int						dead;
 }	t_watcher_args;
-int				destroy_mutex(pthread_mutex_t *mtx);
-int				start_watcher(t_args args, pthread_t *philos,
-					t_philo_ctx *philos_ctx);
-int				destroy_philos_ctx(t_philo_ctx *philos_ctx,
-					long number_of_philos);
+typedef struct s_dinning_simulation
+{
+	t_args					args;
+	t_philo_ctx				philo_ctx[MAX_THREADS];
+	pthread_t				philo_thread[MAX_THREADS];
+	pthread_mutex_t			fork_mtx[MAX_THREADS];
+	pthread_mutex_t			state_mtx[MAX_THREADS];
+	pthread_mutex_t			console_mtx;
+	pthread_mutex_t			dead_mtx;
+}	t_dinning_simulation;
+
 int				ft_sputs(char *dst, const char *src);
 int				ft_eputs(char *str);
 int				ft_puts(char *str);
 int				ultoa(char *o, unsigned long n);
 long			ft_atol(char *s);
 int				ft_strlen(const char *s);
+int				destroy_mutex(pthread_mutex_t *mtx);
 void			*philo_routine(void *data);
 int				msg(t_philo_ctx *ctx, t_state state);
-int				init_table(pthread_mutex_t *table, long number_of_philos);
-int				init_philos_ctx(t_args args, pthread_mutex_t *table,
-					t_philo_ctx *philos_ctx, pthread_mutex_t *console);
-int				init_philos(long number_of_philos, t_philo_ctx *philos_ctx,
-					pthread_t *philos);
+void			assign_forks(t_dinning_simulation *sim);
+int				init_philo_ctx(t_dinning_simulation *sim);
+int				destroy_philo_ctx(t_dinning_simulation *sim);
+int				start_simulation(t_args args);
+int				start_philos(t_dinning_simulation *sim);
+int				start_watcher(t_dinning_simulation *sim);
 unsigned long	current_time(unsigned long start);
 void			ft_usleep(unsigned long time);
 void			ft_sleep(unsigned long time);

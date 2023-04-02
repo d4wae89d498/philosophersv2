@@ -6,7 +6,7 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:51 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/03/31 17:33:20 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:37:08 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,23 @@ static int	watcher_tick_philo(t_watcher_args *watcher_args, int i, int *y)
 	unsigned long	last_eat;
 	int				current_state;
 
-	pthread_mutex_lock(&(watcher_args->philos_ctx[i].state_mtx));
-	last_eat = (unsigned long)(watcher_args->philos_ctx[i].last_eat_time);
-	pthread_mutex_unlock(&(watcher_args->philos_ctx[i].state_mtx));
-	pthread_mutex_lock(&(watcher_args->philos_ctx[i].state_mtx));
-	current_state = watcher_args->philos_ctx[i].state;
-	pthread_mutex_unlock(&(watcher_args->philos_ctx[i].state_mtx));
+	pthread_mutex_lock(watcher_args->philo_ctx[i].state_mtx);
+	last_eat = (unsigned long)(watcher_args->philo_ctx[i].last_eat_time);
+	pthread_mutex_unlock(watcher_args->philo_ctx[i].state_mtx);
+	pthread_mutex_lock(watcher_args->philo_ctx[i].state_mtx);
+	current_state = watcher_args->philo_ctx[i].state;
+	pthread_mutex_unlock(watcher_args->philo_ctx[i].state_mtx);
 	if (current_state == END)
 		*y += 1;
-	else if (current_time(watcher_args->philos_ctx[i].start)
+	else if (current_time(watcher_args->philo_ctx[i].start)
 		- last_eat
 		> (unsigned long)(watcher_args->args.time_to_die) * 1000)
 	{
 		watcher_args->dead = 1;
-		msg(watcher_args->philos_ctx + i, DIE);
-		pthread_mutex_lock(watcher_args->philos_ctx[i].dead_mtx);
-		*(watcher_args->philos_ctx[i].dead) = 1;
-		pthread_mutex_unlock(watcher_args->philos_ctx[i].dead_mtx);
+		msg(watcher_args->philo_ctx + i, DIE);
+		pthread_mutex_lock(watcher_args->philo_ctx[i].dead_mtx);
+		*(watcher_args->philo_ctx[i].dead) = 1;
+		pthread_mutex_unlock(watcher_args->philo_ctx[i].dead_mtx);
 	}
 	return (0);
 }
@@ -68,18 +68,20 @@ static void	*watch_philos(void *data)
 	return (0);
 }
 
-int	start_watcher(t_args args, pthread_t *philos,
-		t_philo_ctx *philos_ctx)
+int	start_watcher(t_dinning_simulation *sim)
 {
 	static pthread_t		watcher;
 	static t_watcher_args	watcher_args;
 	void					*exit_status;
 
-	watcher_args = (t_watcher_args){.args = args, .philos = philos,
-		.philos_ctx = philos_ctx, .dead = 0};
+	watcher_args = (t_watcher_args){
+		.args = sim->args,
+		.philos = sim->philo_thread,
+		.philo_ctx = sim->philo_ctx,
+		.dead = 0};
 	if (pthread_create(&watcher, 0, &watch_philos, &watcher_args))
-		return (!!ft_eputs("Error: pthread_create.\n"));
+		return (1);
 	if (pthread_join(watcher, &exit_status))
-		return (!!ft_eputs("Error: pthread_join.\n"));
+		return (1);
 	return (0);
 }

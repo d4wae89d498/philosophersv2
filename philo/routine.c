@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 05:58:08 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/03/31 17:05:59 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:22:45 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ static inline int	routine_tick(t_philo_ctx *ctx)
 		unlock_both_forks(ctx);
 		return (1);
 	}
-	pthread_mutex_lock(&(ctx->state_mtx));
+	pthread_mutex_lock(ctx->state_mtx);
 	ctx->meals += 1;
 	ctx->last_eat_time = current_time(ctx->start);
-	pthread_mutex_unlock(&(ctx->state_mtx));
+	pthread_mutex_unlock(ctx->state_mtx);
 	if (msg(ctx, EAT))
 	{
 		unlock_both_forks(ctx);
@@ -65,8 +65,8 @@ void	*philo_routine(void *data)
 		|| (ctx->args.number_of_meals < 0))
 		if (routine_tick(ctx))
 			break ;
-	pthread_mutex_lock(&(ctx->state_mtx));
+	pthread_mutex_lock(ctx->state_mtx);
 	ctx->state = END;
-	pthread_mutex_unlock(&(ctx->state_mtx));
+	pthread_mutex_unlock(ctx->state_mtx);
 	return (0);
 }
