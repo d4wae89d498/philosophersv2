@@ -6,7 +6,7 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:51 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/04/02 15:37:08 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/02 16:46:29 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int	watcher_tick_philo(t_watcher_args *watcher_args, int i, int *y)
 		pthread_mutex_lock(watcher_args->philo_ctx[i].dead_mtx);
 		*(watcher_args->philo_ctx[i].dead) = 1;
 		pthread_mutex_unlock(watcher_args->philo_ctx[i].dead_mtx);
+		return (1);
 	}
 	return (0);
 }
@@ -50,10 +51,7 @@ static int	watcher_tick(t_watcher_args *watcher_args)
 		if (watcher_tick_philo(watcher_args, i, &y))
 			return (1);
 	if (y == watcher_args->args.number_of_philos)
-	{
-		philo_msg(0, 0, 0, 0);
 		return (1);
-	}
 	return (0);
 }
 

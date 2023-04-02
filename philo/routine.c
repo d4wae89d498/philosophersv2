@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 05:58:08 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/04/02 15:52:37 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/02 17:06:08 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,12 @@ static inline int	routine_tick_eat(t_philo_ctx *ctx)
 static inline int	routine_tick(t_philo_ctx *ctx)
 {
 	routine_tick_eat(ctx);
-	msg(ctx, SLEEP);
+	if (msg(ctx, SLEEP))
+		return (1);
 	if (sleep_while_check_dead(ctx, ctx->args.time_to_sleep))
 		return (1);
-	msg(ctx, THINK);
+	if (msg(ctx, THINK))
+		return (1);
 	ft_usleep(THINK_MIN_DELAY);
 	return (0);
 }

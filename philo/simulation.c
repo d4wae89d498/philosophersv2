@@ -6,7 +6,7 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 15:15:33 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/04/02 15:58:55 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/02 17:15:17 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	init_simulation(t_dinning_simulation *sim)
 {
-	sim->args.start = current_time(0);
 	if (pthread_mutex_init(&(sim->console_mtx), 0))
 	{
 		ft_eputs("Error: pthread_mutex_init.\n");
@@ -25,6 +24,7 @@ static int	init_simulation(t_dinning_simulation *sim)
 		ft_eputs("Error: pthread_mutex_init.\n");
 		return (destroy_mutex(&(sim->console_mtx)));
 	}
+	sim->args.start = current_time(0);
 	if (init_philo_ctx(sim))
 	{
 		ft_eputs("Error: init_philo_ctx.\n");
@@ -66,6 +66,7 @@ static int	launch_simulation(t_dinning_simulation *sim)
 	while ((sim->args.number_of_philos)--)
 		pthread_join(sim->philo_thread[sim->args.number_of_philos],
 			&exit_status);
+	philo_msg(0, 0, 0, 0);
 	return (0);
 }
 

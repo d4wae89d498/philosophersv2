@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 06:51:40 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/04/02 15:24:03 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/02 16:48:46 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 #  define MC 0
 # endif
 # ifndef WATCHER_SLEEP
-#  define WATCHER_SLEEP 5555
+#  define WATCHER_SLEEP 42
 # endif
 # ifndef THINK_MIN_DELAY
-#  define THINK_MIN_DELAY 222
+#  define THINK_MIN_DELAY 42
 # endif
 # ifndef START_DELAY
 #  define START_DELAY 0
@@ -38,7 +38,7 @@
 #  define START_MUL 0
 # endif
 # ifndef SLEEP_CHECK_DELAY
-#  define SLEEP_CHECK_DELAY 5000
+#  define SLEEP_CHECK_DELAY 200
 # endif
 # ifndef SLEEP_CHECK_TICK
 #  define SLEEP_CHECK_TICK 4
@@ -76,7 +76,6 @@ typedef struct s_philo_ctx
 	t_state					state;	
 	unsigned long			last_eat_time;
 	long					meals;
-
 	unsigned long			start;
 }	t_philo_ctx;
 typedef struct s_watcher_args

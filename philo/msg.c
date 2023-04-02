@@ -6,7 +6,7 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:17:37 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/04/02 15:57:37 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/02 16:39:53 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	msg(t_philo_ctx *ctx, t_state state)
 	int				r;
 	static int		fulls;
 
+	r = 0;
 	if (msg_is_end(ctx, state, &fulls, &r))
 		return (1);
 	pthread_mutex_lock(ctx->console_mtx);
