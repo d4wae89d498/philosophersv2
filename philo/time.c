@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 06:04:30 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/03/31 16:51:54 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/05 09:56:56 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@ unsigned long	current_time(unsigned long start)
 
 	gettimeofday(&time, 0);
 	return ((time.tv_sec * 1000000 + time.tv_usec) - start);
+}
+
+void	ft_uslepp_precise(unsigned long time)
+{
+	unsigned long long	start;
+
+	start = current_time(0);
+	while (current_time(0) < start + time)
+		;
 }
 
 void	ft_usleep(unsigned long time)

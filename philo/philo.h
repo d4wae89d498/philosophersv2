@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 06:51:40 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/04/02 16:48:46 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/05 10:37:52 by mfaussur         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@
 #  define MC 0
 # endif
 # ifndef WATCHER_SLEEP
-#  define WATCHER_SLEEP 42
+#  define WATCHER_SLEEP 444
 # endif
 # ifndef THINK_MIN_DELAY
-#  define THINK_MIN_DELAY 42
+#  define THINK_MIN_DELAY 888
 # endif
 # ifndef START_DELAY
-#  define START_DELAY 0
+#  define START_DELAY 10
 # endif
-# ifndef START_MUL
-#  define START_MUL 0
+# ifndef NUMBER_OF_PHILOS_START_FACTOR
+#  define NUMBER_OF_PHILOS_START_FACTOR 2
 # endif
 # ifndef SLEEP_CHECK_DELAY
-#  define SLEEP_CHECK_DELAY 200
+#  define SLEEP_CHECK_DELAY 222
 # endif
 # ifndef SLEEP_CHECK_TICK
 #  define SLEEP_CHECK_TICK 4
@@ -113,6 +113,7 @@ int				start_philos(t_dinning_simulation *sim);
 int				start_watcher(t_dinning_simulation *sim);
 unsigned long	current_time(unsigned long start);
 void			ft_usleep(unsigned long time);
+void			ft_uslepp_precise(unsigned long time);
 void			ft_sleep(unsigned long time);
 void			philo_msg(long number_of_philos, unsigned long time,
 					unsigned int id, char *msg);
