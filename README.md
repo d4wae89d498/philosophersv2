@@ -17,25 +17,10 @@
 
 **TODO**
 
-for normal :
-- [x] finish when last eat is done (ok for bonus?)
-- [x] sometimes program dont exit after death
-- [x] clean code
-- [x] think before anything
-- [x] dont stop thread after eat 
-- [x] fix double unlock fsanitize warning on linux
-
-for bonus : 
-- [x] finish on first death
-- [x] 1 thread that watch each philosophers
-- [x] 1 semaphore per philo for dead check
-- [x] maybe 1 semaphore for console 
-- [x] clean code
-- [x] think before anything
-- [x] dont stop thread after eat 
-- [ ] handle 1 philo correctly
-- [ ] check 800
-
+- [x] start all at same time
+- [x] check contants
+- [.] 1 thread per philo for watcher or find a way to lower the death latency
+- [x] no msg after last eat
 
 **Error Handling**
 

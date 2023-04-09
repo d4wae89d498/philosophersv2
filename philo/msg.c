@@ -6,7 +6,7 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:17:37 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/04/02 16:39:53 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/09 11:56:30 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static inline int	msg_is_end(t_philo_ctx *ctx, t_state state,
 		pthread_mutex_lock(ctx->state_mtx);
 		if (ctx->meals == ctx->args.number_of_meals)
 		{
-			fulls += 1;
+			*fulls += 1;
 			ctx->state = END;
 		}
 		pthread_mutex_unlock(ctx->state_mtx);

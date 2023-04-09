@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 05:58:08 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/04/05 10:26:43 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/04/09 12:01:07 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,9 @@ void	*philo_routine(void *data)
 	t_philo_ctx		*ctx;
 
 	ctx = data;
-	//ft_sleep(0.2 * (ctx->args.number_of_philos - ctx->id));
 	msg(ctx, THINK);
 	if (ctx->id % 2 & NUMBER_OF_PHILOS_START_FACTOR & START_DELAY)
-		ft_usleep(ctx->args.number_of_philos * NUMBER_OF_PHILOS_START_FACTOR 
+		ft_usleep(ctx->args.number_of_philos * NUMBER_OF_PHILOS_START_FACTOR
 			+ START_DELAY);
 	while (ctx->meals < ctx->args.number_of_meals
 		|| (ctx->args.number_of_meals < 0))

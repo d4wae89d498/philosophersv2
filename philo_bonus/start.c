@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:14:18 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/02/25 12:15:20 by mfaussur         ###   ########lyon.fr   */
+/*   Updated: 2023/04/09 12:53:37 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	*wait_end(void *data)
 {
 	t_end_args	*watcher_args;
 	long		i;
+	char		s[255];
 
 	watcher_args = data;
 	i = 0;
@@ -35,7 +36,18 @@ static void	*wait_end(void *data)
 		sem_wait(watcher_args->remaining);
 		i += 1;
 	}
+	i = 0;
+	while (i < watcher_args->args.number_of_philos)
+	{
+		kill(watcher_args->childs[i], SIGKILL);
+		s[0] = 'd';
+		s[1] = 'd';
+		ultoa(s + 2, i);
+		sem_unlink(s);
+		i += 1;
+	}
 	sem_post(watcher_args->dead);
+	sem_post(watcher_args->console);
 	return (0);
 }
 
@@ -63,11 +75,11 @@ static int	wait_til_end(t_args args, t_sems sems, pid_t childs[MAX_PROCESS])
 	t_end_args	end_args;
 
 	end_args = (t_end_args){.dead = sems.dead, .remaining = sems.remaining_eat,
-		.number_of_philos = args.number_of_philos, .console = sems.console};
+		.number_of_philos = args.number_of_philos, .console = sems.console,
+		.args = args, .childs = childs};
 	pthread_create(&t2, 0, &wait_childs, &end_args);
 	pthread_create(&t, 0, &wait_end, &end_args);
 	sem_wait(sems.dead);
-	sem_wait(sems.console);
 	i = 0;
 	while (i < args.number_of_philos)
 	{

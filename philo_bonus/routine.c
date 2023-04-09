@@ -6,7 +6,7 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:18:10 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/04/02 16:27:08 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/09 12:54:11 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ static int	take_forks(t_args args, unsigned long start_time, pid_t id,
 	sem_wait(args.sems.forks);
 	msg(args.sems.console, start_time, id, TAKE);
 	sem_wait(args.sems.forks);
-	msg(args.sems.console, start_time, id, TAKE);
-	msg(args.sems.console, start_time, id, EAT);
+	sem_wait(args.sems.console);
+	msg(0, start_time, id, TAKE);
+	msg(0, start_time, id, EAT);
 	meals += 1;
 	if (meals >= args.number_of_meals && args.number_of_meals > 0)
 	{
@@ -30,8 +31,10 @@ static int	take_forks(t_args args, unsigned long start_time, pid_t id,
 		{
 			sem_post(args.sems.remaining_eat);
 			*posted = 1;
+			ft_sleep(5);
 		}
 	}
+	sem_post(args.sems.console);
 	return (0);
 }
 

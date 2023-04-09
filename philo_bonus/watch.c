@@ -6,7 +6,7 @@
 /*   By: mafaussu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:17:47 by mafaussu          #+#    #+#             */
-/*   Updated: 2023/04/02 16:07:48 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/09 12:54:25 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	*watch_famine(void *data)
 		sem_post(watcher_args->last_meal_sem);
 		if (cond)
 		{
-			msg(watcher_args->console, watcher_args->start_time,
+			sem_wait(watcher_args->console);
+			msg(0, watcher_args->start_time,
 				watcher_args->id, DIE);
 			sem_post(watcher_args->dead);
 			break ;

@@ -6,7 +6,7 @@
 /*   By: mfaussur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:11:56 by mfaussur          #+#    #+#             */
-/*   Updated: 2023/04/02 16:07:26 by mafaussu         ###   ########.fr       */
+/*   Updated: 2023/04/09 12:35:26 by mafaussu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ typedef struct s_args
 typedef struct s_end_args
 {
 	long	number_of_philos;
+	t_args	args;
 	sem_t	*remaining;
 	sem_t	*dead;
 	sem_t	*console;
+	pid_t	*childs;
 }	t_end_args;
 typedef enum e_state
 {
